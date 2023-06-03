@@ -1,18 +1,33 @@
 import { useEffect, useState } from "react"
-import { getMyProperties } from "../manager/PropertyProvider"
+import { getSingleArea } from "../manager/AreaProvider"
+import { getMyProperties, getPropertyByArea } from "../manager/PropertyProvider"
 
 export const Home =() => {
+    const HomePlaceUser = localStorage.getItem("homeplace_user")
+    const HomePlaceUserObject = JSON.parse(HomePlaceUser)
     const [properties, setProperties] = useState([])
+    const[area, setArea] = useState({})
 
     useEffect(() => {
-    getMyProperties().then((data) => setProperties(data))
+    getPropertyByArea(parseInt(HomePlaceUserObject.area_id)).then((data) => setProperties(data))
+    getSingleArea(parseInt(HomePlaceUserObject.area_id)).then((data) => setArea(data))
     },[])
     
     
     
     
         return (<>
-        <div className="flex row p-10 flex-wrap">
+        <div className="text-6xl">Welcome to HomePlace!</div>
+       
+        <button>How it works</button>
+        
+
+
+
+
+
+        <div>Showing properties in {area.neighborhood}</div>
+        <div className="flex row">
         {
         properties.map((property) => {
         return <>
