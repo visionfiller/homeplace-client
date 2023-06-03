@@ -21,7 +21,7 @@ export const Login = ({setToken}) => {
         loginUser(user).then(res => {
         
           if ("valid" in res && res.valid) {
-            setToken(res.token, res.swapper_id)
+            setToken(res.token, res.swapper_id, res.area_id)
             navigate("/")}
           else {
             setisUnsuccessful(true)

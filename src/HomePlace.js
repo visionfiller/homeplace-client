@@ -12,11 +12,11 @@ export const  HomePlace = () => {
   const [token, setTokenState] = useState(localStorage.getItem('homeplace_user'))
 	
   
-	const setToken = (auth_token, swapper_id, is_staff) => {
+	const setToken = (auth_token, swapper_id, area_id) => {
 	let token = {
 		"auth_token": auth_token,
 		"swapper_id": swapper_id,
-		"is_staff": is_staff
+		"area_id": area_id
 	}
 	
 	localStorage.setItem('homeplace_user', JSON.stringify(token))
