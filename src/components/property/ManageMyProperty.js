@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getMyProperties } from "../manager/PropertyProvider"
+import { NewPropertyForm } from "./NewPropertyForm"
 
 export const ManageMyProperty =() => {
     const [properties, setProperties] = useState([])
@@ -18,6 +19,7 @@ export const ManageMyProperty =() => {
         return <>
                 <div key={property.id}>{property.address}</div>
                 <img className="w-1/4 h-auto"src={property.image}/>
+                <NewPropertyForm property={property}/>
                 </>
         })}
             
