@@ -14,7 +14,7 @@ export const FormFilter = ({ HandleFilterSubmit,square_footage, pool, yard, Hand
                 </fieldset>
                 <fieldset>
                     <label>Home Size</label>
-                    <input className="w-3/4" type="range" min="1000" max="10000" id="tempB" onChange={HandleFilter} name="square_footage"  />
+                    <input className="w-3/4 range-primary" type="range" min="1000" max="10000" id="tempB" onChange={HandleFilter} name="square_footage"  />
                     <div>{square_footage}</div><label>Square Feet</label>
                 </fieldset>
                 <button onClick={(event)=> HandleFilterSubmit(event, pool, yard, square_footage)} className="btn">See Results</button>
