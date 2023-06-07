@@ -4,10 +4,12 @@ import { getAllAreas, getSingleArea } from "../manager/AreaProvider"
 import { getAllPropertiesByFilter, getMyProperties, getPropertyByArea } from "../manager/PropertyProvider"
 import { FormFilter } from "../property/FormFilter"
 import { PropertyContext } from "../manager/ContextProvider"
+import { getSwapperById } from "../manager/SwapperProvider"
 
 export const Home =() => {
     const HomePlaceUser = localStorage.getItem("homeplace_user")
     const HomePlaceUserObject = JSON.parse(HomePlaceUser)
+    const [swapper,setSwapper] = useState({})
     const [homeProperties, setHomeProperties] = useState([])
     const {properties, setProperties} = useContext(PropertyContext)
     const[area, setArea] = useState({})
@@ -18,12 +20,22 @@ export const Home =() => {
     const [square_footage, setSquareFootage] = useState(false)
     
     const navigate = useNavigate()
-
-    useEffect(() => {
-    getPropertyByArea(parseInt(HomePlaceUserObject.area_id)).then((data) => setHomeProperties(data))
-    getSingleArea(parseInt(HomePlaceUserObject.area_id)).then((data) => setArea(data))
-    getAllAreas().then((data)=> setAreas(data))
+    useEffect(()=>{
+        getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data)=> setSwapper(data))
+        getAllAreas().then((data)=> setAreas(data))
     },[])
+    useEffect(() => {
+        if (swapper.properties > 0){
+    getPropertyByArea(swapper.properties[0].area.id).then((data) => setHomeProperties(data))
+    getSingleArea(swapper.properties[0].area.id).then((data) => setArea(data))}
+    else{
+        getPropertyByArea(1).then((data) => setHomeProperties(data))
+        getSingleArea(1).then((data) => setArea(data))
+    }
+    
+
+   
+    },[swapper])
     const HandleFilterSubmit = (event, pool, yard, searchArea, square_footage) => {
         event.preventDefault()
         let url=""
@@ -105,7 +117,7 @@ export const Home =() => {
                 </fieldset>
                 <button onClick={(event)=> HandleFilterSubmit(event, pool, yard, searchArea, square_footage)} className="btn">See Results</button>
             </form>
-            <button> Search homes</button>
+         
         </div>
         </div>
         
@@ -113,7 +125,7 @@ export const Home =() => {
 
 
 
-
+        {swapper !== "" ? <>
         <div>Showing properties in {area.neighborhood}</div>
         <div className="flex row p-8">
         {
@@ -125,6 +137,8 @@ export const Home =() => {
         })}
             
         </div>
+        </>
+        : ""}
         </>
         )
     }

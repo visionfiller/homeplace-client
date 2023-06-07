@@ -4,6 +4,7 @@ import { getAllSingleArea, getSingleArea } from "../manager/AreaProvider"
 import { PropertyContext } from "../manager/ContextProvider"
 import { getAllProperties, getAllPropertiesByFilter, getPropertyByAddress} from "../manager/PropertyProvider"
 import { FormFilter } from "./FormFilter"
+import { MapView } from "./MapView"
 import { PropertySearch } from "./PropertySearch"
 
 export const PropertyList = ({searchTermState}) => {
@@ -17,6 +18,7 @@ export const PropertyList = ({searchTermState}) => {
     const [loading, setLoading] = useState(true)
     const [form, setForm] = useState(false)
     const [searchTerms, setSearchTerms] = useState("")
+    const [mapView, setMapView] = useState(false)
 
     useEffect(() => {
        if (properties.length) {
@@ -43,31 +45,7 @@ export const PropertyList = ({searchTermState}) => {
         };
 
         fetchData()}
-    
- 
-
-    // useEffect(
-    //     () => {
-    //             if (searchTerms) {
-    //                 const fetchData = async () => {
-    //                     try {
-    //                         const data = await getPropertyByAddress(searchTerms);
-    //                         const newData = data.filter(
-    //                             (property) => property.owner.id !== HomePlaceUserObject.swapper_id
-    //                         );
-    //                         setProperties(newData);
-    //                         setLoading(false); // Set loading to false once data is fetched
-    //                     } catch (error) {
-    //                         // Handle the error gracefully, e.g., display an error message
-    //                         console.error("Error fetching properties:", error);
-    //                         setLoading(false); // Set loading to false in case of error
-    //                     }
-    //                 };
-            
-    //                 fetchData()}
-    //     },
-    //     [searchTerms]
-    // )
+   
     const HandleSearch =()=> {
         if (searchTerms) {
             const fetchData = async () => {
@@ -140,6 +118,10 @@ export const PropertyList = ({searchTermState}) => {
         setSearchTerms("")
         showAllProperties()
     }
+    const HandleMap =(event)=>{
+    event.preventDefault()
+    setMapView(!mapView)}
+
 
 
     return (<>
@@ -157,8 +139,13 @@ export const PropertyList = ({searchTermState}) => {
                 <button>{square_footage?   `Minimum Square Feet ${square_footage}`: ""}</button>
                 {form ? <FormFilter HandleFilterSubmit={HandleFilterSubmit} square_footage={square_footage} pool={pool} yard={yard} HandleFilter={HandleFilter} HandleFilterFormClose={HandleFilterFormClose} />
                     : ""}
-                <button onClick={HandleClearAll}>Back to list</button>
+                <button className="btn"onClick={HandleClearAll}>Back to list</button>
+                {mapView ? <button className="btn" onClick={(event)=> HandleMap(event)} >List View</button>
+                : <button className="btn" onClick={(event)=> HandleMap(event)} >Map View</button>}
+                {mapView ? <MapView properties={properties} />
+                :
                 <div className="p-10 flex flex-col">
+                    
                     {
                         properties?.map((property) => {
                             return <Link key={property.id} to={`/property_details/${property.id}`}>
@@ -169,7 +156,7 @@ export const PropertyList = ({searchTermState}) => {
 
                         })}
 
-                </div>
+                </div>}
             </>
         }
     </>

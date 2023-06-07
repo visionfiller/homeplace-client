@@ -5,6 +5,7 @@ import { createUser } from "../manager/UserProvider"
 
 export const Register = ({setToken}) => {
     const [user, setUser] = useState({})
+    
     let navigate = useNavigate()
 
     const registerNewUser = () => {
@@ -18,7 +19,7 @@ export const Register = ({setToken}) => {
         }).then(res => {
             if ("valid" in res && res.valid) {
               setToken(res.auth_token, res.swapper_id)
-              
+              navigate("/")
             }
           })
            
@@ -42,52 +43,50 @@ export const Register = ({setToken}) => {
 
     return (<>
        
-        <div className="h-screen w-screen ">
-            <div className="pt-48 md:grid grid-cols-3 sm:flex flex-col s">
+       
              
-                <div className="w-1/2"></div>
                 <div className="p-10 w-full">
-                    <span className="text-4xl text-white lowercase opacity-80 w-full" >register for the white rabbit</span>
+                    <span className="" >register for homeplace</span>
                     <section className="w-full h-full relative">
                         <form className="m-auto form-control text-right " onSubmit={handleRegister}>
                             <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="text-white text-lg" >username</label>
+                                <label className="" >username</label>
                                 <input onChange={updateUser}
                                     type="text" id="username"
-                                    className="block py-2.5 px-0 w-1/2 text-sm text-white bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                    className=""
                                     placeholder="" required autoFocus />
 
                             </fieldset>
                             <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="text-white text-lg" >first name</label>
+                                <label className="" >first name</label>
                                 <input onChange={updateUser}
                                     type="text" id="first_name"
-                                    className="block py-2.5 px-0 w-1/2 text-sm text-white bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                    className=""
                                     placeholder="" required autoFocus />
 
                             </fieldset>
                             <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="text-white text-lg" >last name</label>
+                                <label className="" >last name</label>
                                 <input onChange={updateUser}
                                     type="text" id="last_name"
-                                    className="block py-2.5 px-0 w-1/2 text-sm text-white bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                    className=""
                                     placeholder="" required autoFocus />
 
                             </fieldset>
                             <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="text-white text-lg" >email</label>
+                                <label className="" >email</label>
                                 <input onChange={updateUser}
                                     type="email" id="email"
-                                    className="block py-2.5 px-0 w-1/2 text-sm text-white bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                    className=""
                                     placeholder="" required />
 
 
                             </fieldset>
                             <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="text-white text-lg" >password</label>
+                                <label className="" >password</label>
                                 <input onChange={updateUser}
                                     type="password" id="password"
-                                    className="block py-2.5 px-0 w-1/2 text-sm text-white bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                    className=""
                                     placeholder="" required />
 
                             </fieldset>
@@ -101,8 +100,7 @@ export const Register = ({setToken}) => {
                         </form>
                     </section>
                 </div>
-            </div>
-        </div>
+           
     </>
     )
 }

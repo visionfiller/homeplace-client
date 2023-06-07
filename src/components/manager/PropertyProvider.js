@@ -10,6 +10,7 @@ export const getAllProperties =() => {
     })
         .then(response => response.json())
 }
+
 export const getPropertyByArea =(id) => {
     let token = getToken()
     return fetch(`http://localhost:8000/properties?area=${id}`, {
@@ -114,4 +115,18 @@ export const updateProperty = (property) =>{
         body: JSON.stringify(property)
     })
        
+}
+export const deleteProperty = (id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/properties/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
+}
+export const getLatAndLong = (address) => {
+    return fetch (`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`)
+    .then(response => response.json())
 }
