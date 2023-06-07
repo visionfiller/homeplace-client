@@ -21,6 +21,16 @@ export const getMySwaps =() => {
     })
         .then(response => response.json())
 }
+export const getSwapsBySwapper =(id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/reservations?swapper=${id}`, {
+        headers:{
+            "Authorization": `Token ${token}`,
+             "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json())
+}
 export const getMySwapsByStatus =(status) => {
     let token = getToken()
     return fetch(`http://localhost:8000/reservations/my_swaps?status=${status}`, {
@@ -31,3 +41,14 @@ export const getMySwapsByStatus =(status) => {
     })
         .then(response => response.json())
 }
+
+export const approveSwap =(id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/reservations/${id}/approve`, {
+        method: "PUT",
+        headers:{
+            "Authorization": `Token ${token}`,
+             "Content-Type": "application/json"
+        }
+    })
+        }

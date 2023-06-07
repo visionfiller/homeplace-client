@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getSingleProperty } from "../manager/PropertyProvider"
+import { getSwapperById } from "../manager/SwapperProvider"
 
 export const PropertyDetails = ({homeProperty}) => {
+    const HomePlaceUser = localStorage.getItem("homeplace_user")
+    const HomePlaceUserObject = JSON.parse(HomePlaceUser)
     const [property, setProperty] = useState({})
+    const [swapper, setSwapper] = useState({})
     const {propertyId} = useParams()
     const navigate = useNavigate()
+    useEffect(()=> {
+        getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
+    },[])
     useEffect(()=> {
         if(propertyId){
         getSingleProperty(parseInt(propertyId)).then((data) => setProperty(data))}
@@ -40,6 +47,8 @@ return<>
 </>)
 }
 </div>
-            <button className="btn" onClick={()=> navigate(`/swap_form/${property.id}`)}> Request a Swap!</button>
+      {swapper.has_listing ?      <button className="btn" onClick={()=> navigate(`/swap_form/${property.id}`)}> Request a Swap!</button>
+      :<button className="btn" onClick={()=> navigate(`/newproperty_form`)}> Add your home to swap!</button>
+}
 </>
 }
