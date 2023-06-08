@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getSingleProperty } from "../manager/PropertyProvider"
+import { favoriteProperty, getSingleProperty } from "../manager/PropertyProvider"
 import { getSwapperById } from "../manager/SwapperProvider"
 
 export const PropertyDetails = ({homeProperty}) => {
@@ -15,12 +15,15 @@ export const PropertyDetails = ({homeProperty}) => {
     },[])
     useEffect(()=> {
         if(propertyId){
-        getSingleProperty(parseInt(propertyId)).then((data) => setProperty(data))}
+       getPropertyDetail(propertyId)}
         else{
             setProperty(homeProperty)
         }
     },[propertyId])
 
+    const getPropertyDetail = (propertyId) => {
+        getSingleProperty(parseInt(propertyId)).then((data) => setProperty(data))}
+    
     const renderStars = (score) => {
         const stars = [];
         for (let i = 0; i < score; i++) {
@@ -28,9 +31,13 @@ export const PropertyDetails = ({homeProperty}) => {
         }
         return stars;
       };
+    const addFavorite = () => {
+        favoriteProperty().then(()=> getPropertyDetail())
+        
+    }
 return<>
 {property.user_favorited? <img className="w-10 "src="https://th.bing.com/th/id/OIP.F9B0fBLVndj9JE6Q2RlWuQHaHa?pid=ImgDet&rs=1"/>
-:""}
+:<button onClick={()=> addFavorite()}>Add to Favorites</button>}
 <div className="text-2xl">{property.address}</div>
             <img className="w-1/4 h-1/4 object-cover"src={property.image}/>
             {property.pool? <img className="w-10 m-4" src="https://static.vecteezy.com/system/resources/previews/000/423/067/original/swimming-pool-icon-vector-illustration.jpg"/>

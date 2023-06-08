@@ -21,6 +21,16 @@ export const getMySwaps =() => {
     })
         .then(response => response.json())
 }
+export const getSwapByProperty = (id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/reservations?property=${id}`, {
+        headers:{
+            "Authorization": `Token ${token}`,
+             "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json())
+}
 export const getSwapsBySwapper =(id) => {
     let token = getToken()
     return fetch(`http://localhost:8000/reservations?swapper=${id}`, {

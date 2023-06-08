@@ -1,34 +1,49 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { getAllSingleArea, getSingleArea } from "../manager/AreaProvider"
 import { PropertyContext } from "../manager/ContextProvider"
-import { getAllProperties, getAllPropertiesByFilter, getPropertyByAddress} from "../manager/PropertyProvider"
+import { getAllProperties, getAllPropertiesByFilter, getPropertyByAddress } from "../manager/PropertyProvider"
 import { FormFilter } from "./FormFilter"
 import { MapView } from "./MapView"
 import { PropertySearch } from "./PropertySearch"
+import { IconButton, Container, Flex, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup, Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    useDisclosure,
+    SimpleGrid,
+Input} from '@chakra-ui/react'
+import { StarIcon, SearchIcon } from '@chakra-ui/icons'
+import { PropertyBox } from "./PropertyBox"
 
-export const PropertyList = ({searchTermState}) => {
-   
-    const {properties, setProperties} = useContext(PropertyContext)
+
+export const PropertyList = ({ searchTermState }) => {
+
+    const { properties, setProperties } = useContext(PropertyContext)
     const HomePlaceUser = localStorage.getItem("homeplace_user")
     const HomePlaceUserObject = JSON.parse(HomePlaceUser)
     const [pool, setPool] = useState(false)
     const [yard, setYard] = useState(false)
     const [square_footage, setSquareFootage] = useState("")
     const [loading, setLoading] = useState(true)
-    const [form, setForm] = useState(false)
     const [searchTerms, setSearchTerms] = useState("")
     const [mapView, setMapView] = useState(false)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = useRef()
 
     useEffect(() => {
-       if (properties.length) {
+        if (properties.length) {
             setLoading(false)
             return
-       }
-       else {
-       showAllProperties()}
+        }
+        else {
+            showAllProperties()
+        }
     }, [])
-    const showAllProperties=()=>{
+    const showAllProperties = () => {
         const fetchData = async () => {
             try {
                 const data = await getAllProperties();
@@ -44,9 +59,10 @@ export const PropertyList = ({searchTermState}) => {
             }
         };
 
-        fetchData()}
-   
-    const HandleSearch =()=> {
+        fetchData()
+    }
+
+    const HandleSearch = () => {
         if (searchTerms) {
             const fetchData = async () => {
                 try {
@@ -62,35 +78,37 @@ export const PropertyList = ({searchTermState}) => {
                     setLoading(false); // Set loading to false in case of error
                 }
             };
-    
-            fetchData()}
+
+            fetchData()
+        }
     }
 
     const HandleFilterSubmit = (event, pool, yard, square_footage) => {
         event.preventDefault()
-        let url=""
+        let url = ""
         if (pool) {
             url += `has_pool&`
-            
+
         }
-         if (yard) {
+        if (yard) {
             url += `has_yard&`
-           
+
         }
-         if (square_footage) {
+        if (square_footage) {
             url += `min_sq_feet=${square_footage}&`
-            
+
         }
         else {
-         url += ""
-            
+            url += ""
+
         }
-        getAllPropertiesByFilter(url).then((data)=> {
-        let newData = data.filter((property) => property.owner.id !== HomePlaceUserObject.swapper_id)
-        setProperties(newData)})
-        .then(()=> setForm(false))
+        getAllPropertiesByFilter(url).then((data) => {
+            let newData = data.filter((property) => property.owner.id !== HomePlaceUserObject.swapper_id)
+            setProperties(newData)
+        })
+            .then(() => onClose())
     }
-  
+
     const HandleFilter = (event) => {
         switch (event.target.name) {
             case "pool":
@@ -103,14 +121,7 @@ export const PropertyList = ({searchTermState}) => {
                 setSquareFootage(parseInt(event.target.value))
         }
     }
-    const HandleFilterForm = (event) => {
-        event.preventDefault()
-        setForm(true)
-    }
-    const HandleFilterFormClose = (event) => {
-        event.preventDefault()
-        setForm(false)
-    }
+   
     const HandleClearAll = () => {
         setPool(false)
         setYard(false)
@@ -118,45 +129,72 @@ export const PropertyList = ({searchTermState}) => {
         setSearchTerms("")
         showAllProperties()
     }
-    const HandleMap =(event)=>{
-    event.preventDefault()
-    setMapView(!mapView)}
+    const HandleMap = (event) => {
+        event.preventDefault()
+        setMapView(!mapView)
+    }
 
 
 
     return (<>
-        {loading ? <div className="text-4xl text-center h-full my-auto"> Loading Future Homes...</div>
+        {loading ? <Heading >Loading Future Homes...</Heading>
             : <>
-                <div className="flex row items-center">
-                <button className="btn btn-small"onClick={HandleSearch}>Search</button>
-               <PropertySearch setterFunction={setSearchTerms}/>
-            </div>
-                <button onClick={(event) => HandleFilterForm(event)} className="btn">
-                    Filter Results
-                </button>
-                <button className="badge badge-lg">{pool? "Pool": ""}</button>
-                <button>{yard? "Yard": ""}</button>
-                <button>{square_footage?   `Minimum Square Feet ${square_footage}`: ""}</button>
-                {form ? <FormFilter HandleFilterSubmit={HandleFilterSubmit} square_footage={square_footage} pool={pool} yard={yard} HandleFilter={HandleFilter} HandleFilterFormClose={HandleFilterFormClose} />
-                    : ""}
-                <button className="btn"onClick={HandleClearAll}>Back to list</button>
-                {mapView ? <button className="btn" onClick={(event)=> HandleMap(event)} >List View</button>
-                : <button className="btn" onClick={(event)=> HandleMap(event)} >Map View</button>}
-                {mapView ? <MapView properties={properties} />
-                :
-                <div className="p-10 flex flex-col">
+       
+        <Drawer
+        isOpen={isOpen}
+        placement='left'
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Filter Results</DrawerHeader>
+
+          <DrawerBody>
+          <FormFilter HandleFilterSubmit={HandleFilterSubmit} square_footage={square_footage} pool={pool} yard={yard} HandleFilter={HandleFilter}  />
                     
-                    {
-                        properties?.map((property) => {
-                            return <Link key={property.id} to={`/property_details/${property.id}`}>
-                                <div key={property.id}>{property.address}</div>
-                                <div>Neighborhood:{property.area.neighborhood}</div>
-                                <img className="w-1/4 h-1/4 object-cover" src={property.image} />
-                            </Link>
+          </DrawerBody>
 
-                        })}
+          <DrawerFooter>
+            <Button variant='outline' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+           <Button colorScheme='blue' onClick={(event)=> HandleFilterSubmit(event, pool, yard, square_footage)} >Apply</Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+                <Flex p="8" direction="row" justify="space-between">
+                <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+        Filter Results
+      </Button>
+      <Box display="flex" direction="row">
+                <IconButton onClick={HandleSearch} aria-label='Search database' icon={<SearchIcon />} />
+                    {/* <Button colorScheme='teal' onClick={HandleSearch}>Search</Button> */}
+                    <PropertySearch setterFunction={setSearchTerms} />
+                    </Box>
+                </Flex>
+               
+                {pool? <Badge>Pool</Badge>
+                : ""}
+                {yard? <Badge>Yard</Badge>
+                : ""}
+                <Button className="btn" onClick={HandleClearAll}>Back to list</Button>
+                {mapView ? <Button className="btn" onClick={(event) => HandleMap(event)} >List View</Button>
+                    : <Button className="btn" onClick={(event) => HandleMap(event)} >Map View</Button>}
+                {mapView ? <MapView properties={properties} />
+                    :
+                    <SimpleGrid p="5" columns={3} spacing={10}>
 
-                </div>}
+                        {
+                            properties?.map((property) => {
+                                return <>
+                                   <PropertyBox property={property}/>
+                                </>
+
+                            })}
+
+                    </SimpleGrid>}
             </>
         }
     </>

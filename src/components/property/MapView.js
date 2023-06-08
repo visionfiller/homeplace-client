@@ -4,6 +4,8 @@ import L from 'leaflet';
 import { getLatAndLong, getMyProperties } from '../manager/PropertyProvider';
 import { Link } from 'react-router-dom';
 import { getSwapperById } from '../manager/SwapperProvider';
+import { PropertyBox } from './PropertyBox';
+import { IconButton, Container, Flex, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
 
 const customIcon = L.icon({
     iconUrl: '../pin.svg',
@@ -48,8 +50,13 @@ export const MapView = ({ properties }) => {
     }, []);
 
     useEffect(() => {
-        if (myProperties.address) {
+        if (myProperties && myProperties.address) {
             getLatAndLong(`${myProperties.address}+ Nashville, TN`).then((data) =>
+                setMap({ latitude: data[0].boundingbox[1], longitude: data[0].boundingbox[2] })
+            );
+        }
+        else{
+            getLatAndLong(`116 Rep John Lewis Way, Nashville, TN`).then((data) =>
                 setMap({ latitude: data[0].boundingbox[1], longitude: data[0].boundingbox[2] })
             );
         }
@@ -58,7 +65,7 @@ export const MapView = ({ properties }) => {
     return (
         <>
         
-            <div className="flex row">
+           <Flex direction="row">
                 {map.latitude ? (
                     <div className="w-full h-full ">
                         <MapContainer center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
@@ -69,22 +76,21 @@ export const MapView = ({ properties }) => {
                     ''
                 )}
                 <div className="w-1/2">
+                    {/* {myProperties && myProperties.address && (
                     <div>
                         <div>My Home</div>
-                        <div>{myProperties.address}</div>
+                        <div>{myProperties?.address}</div>
                     </div>
+                    )} */}
                     <div>
                         <div> Available Swaps</div>
                         {properties ? (
                             <>
                                 {properties.map((property) => {
-                                    return (
-                                        <div key={property.id} to={`/property_details/${property.id}`}>
-                                            <div key={property.id}>{property.address}</div>
-                                            <div>Neighborhood: {property.area.neighborhood}</div>
-                                            <img className="w-1/4 h-1/4 object-cover" src={property.image} />
-                                            <button onClick={() => setMyProperties(property)}>Find</button>
-                                        </div>
+                                    return (<Container>
+                                       <PropertyBox property={property}/>
+                                            <Button onClick={() => setMyProperties(property)}>Find</Button>
+                                        </Container>
                                     );
                                 })}
                             </>
@@ -93,7 +99,7 @@ export const MapView = ({ properties }) => {
                         )}
                     </div>
                 </div>
-            </div>
+            </Flex>
         </>
     );
 };
