@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
+import { UploadWidget } from "../cloudinary/UploadWidget"
 import { getAllAreas } from "../manager/AreaProvider"
 import { addNewProperty, updateProperty } from "../manager/PropertyProvider"
 
 export const NewPropertyForm = ({property}) => {
     const navigate = useNavigate()
     const [areas, setAreas] = useState([])
+    const [url, setURL] = useState("")
+    const [error, updateError] = useState("");
     const [newProperty, setNewProperty] = useState({
         address: "",
         area: 0,
@@ -63,6 +66,33 @@ export const NewPropertyForm = ({property}) => {
         addNewProperty(data).then(()=> {
             navigate("/property_list")})}
     }
+
+    function handleOnUpload(error, result, widget) {
+        if ( error ) {
+          updateError(error);
+          widget.close({
+            quiet: true
+          });
+          return;
+        }
+        setURL(result?.info?.secure_url)
+       
+      }
+      const HandleControlledInputChangeCustomer = (url) => {
+        const copy = {...newProperty}
+        copy.image = url
+        setNewProperty(copy)
+    }
+    
+      useEffect(
+        () => {
+            if(url !== ""){
+                HandleControlledInputChangeCustomer(url)
+                
+                }
+    
+    
+        },[url])
     return <>
     <form>
         {property ?  <h2 className="text-3xl">Manage Your Home</h2>
@@ -90,10 +120,22 @@ export const NewPropertyForm = ({property}) => {
             <label>Yard?</label>
             <input checked={newProperty.yard} name="yard" onChange={(event)=> HandleControlledInputChecked(event)} type ="checkbox"/>
             </fieldset>
-        <fieldset>
-            <label>Upload an image of your home</label>
-            <input value={newProperty.image}  name="image" onChange={(event)=> HandleControlledInput(event)}type="text"/>
-        </fieldset>
+            <fieldset className="p-4 mx-auto flex row justify-evenly items-center">
+                {url === "" ? ""
+                :  <img className="h-1/3 w-1/3" src={url}/>}
+                
+                <UploadWidget onUpload={handleOnUpload}/>
+               
+
+       
+                    {/* <input 
+                onChange={HandleControlledInputChange}
+                      defaultValue={user.profilePicture}
+                        type="text"id="profilePicture" className="input input-bordered input-md"
+                        placeholder="URL" name="profilePicture"required />
+                        */}
+
+                </fieldset>
     <button onClick={(event)=> HandleSubmit(event)}>Submit</button>
     </form>
     </>

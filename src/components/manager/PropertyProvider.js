@@ -104,6 +104,17 @@ export const addNewProperty= (newProperty) => {
     })
         .then(response => response.json())
 }
+export const favoriteProperty= (id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/properties/${id}/favorite`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json())
+}
 export const updateProperty = (property) =>{
     let token = getToken()
     return fetch(`http://localhost:8000/properties/${property.id}`, {

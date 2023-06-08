@@ -6,6 +6,7 @@ import { Register } from "./components/auth/Register"
 
 import { NavBar } from "./components/nav/NavBar"
 import { ApplicationViews } from "./components/views/ApplicationViews"
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 
 export const  HomePlace = () => {
@@ -22,8 +23,24 @@ export const  HomePlace = () => {
 	localStorage.setItem('homeplace_user', JSON.stringify(token))
 	setTokenState(token)
 	}
+
+	const theme = extendTheme({
+		fonts: {
+			body: "Dosis, sans-serif",
+			// ...
+		  },
+		
+		styles: {
+		  global: {
+			body: {
+			  bg: "gray.100", // Set your desired background color here
+			},
+		  },
+		},
+	  });
   
 	return <>
+	 <ChakraProvider theme={theme}>
 	<Routes>
     <Route path="/login" element={<Login setToken={setToken} />} />
     <Route path="/register" element={<Register setToken={setToken} />} />
@@ -34,6 +51,7 @@ export const  HomePlace = () => {
   <ApplicationViews token={token} setToken={setToken}/>
 </Authorized>}/>
 </Routes>
+</ChakraProvider>
   </>
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getPropertyByOwner, getSingleProperty } from "../manager/PropertyProvider"
 import { getMySwaps, getMySwapsByStatus } from "../manager/ReservationProvider"
+import { PropertyBox } from "../property/PropertyBox"
 
 export const MyUpcomingSwaps = ({approvedSwaps,mySwaps})=> {
     
@@ -37,8 +38,7 @@ export const MyUpcomingSwaps = ({approvedSwaps,mySwaps})=> {
           <div className="btn-success">Status: {swap.status}</div>
           {swap.swapper.properties.map((property) => {
             return <>
-              <div>{property.address}</div>
-              <img className="w-1/2" src={property.image} />
+              <PropertyBox property={property}/>
             </>
           })}
         </div>

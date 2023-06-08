@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { deleteProperty, getMyProperties } from "../manager/PropertyProvider"
 import { NewPropertyForm } from "./NewPropertyForm"
+import { PropertyBox } from "./PropertyBox"
 
 export const ManageMyProperty =() => {
     const [properties, setProperties] = useState([])
@@ -20,8 +21,7 @@ export const ManageMyProperty =() => {
         properties.map((property) => {
         return <>
             
-                <div key={property.id}>{property.address}</div>
-                <img className="w-1/4 h-auto"src={property.image}/>
+                <PropertyBox property={property}/>
                 <NewPropertyForm property={property}/>
                 <button className="btn btn-warning" onClick={()=>deleteMyProperty(property.id)}>Delete my property</button>
                 </>

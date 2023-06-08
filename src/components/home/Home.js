@@ -5,6 +5,24 @@ import { getAllPropertiesByFilter, getMyProperties, getPropertyByArea } from "..
 import { FormFilter } from "../property/FormFilter"
 import { PropertyContext } from "../manager/ContextProvider"
 import { getSwapperById } from "../manager/SwapperProvider"
+import { PropertyBox } from "../property/PropertyBox"
+import {
+    FormControl,
+    Box,
+    FormLabel,
+    Flex,
+    Form,
+    FormErrorMessage,
+    FormHelperText,
+    Input,
+    Heading,
+    Button,
+    Select, 
+    Checkbox,
+    CheckboxGroup,
+    Stack,
+    Container
+  } from '@chakra-ui/react'
 
 export const Home =() => {
     const HomePlaceUser = localStorage.getItem("homeplace_user")
@@ -83,60 +101,57 @@ export const Home =() => {
     
     
         return (<>
-        <div className="text-6xl">Welcome to HomePlace!</div>
-       <div className="flex row p-8">
-        <div className="w-1/2">
-        <button>How it works</button>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nam libero justo laoreet sit amet cursus. Fermentum leo vel orci porta non pulvinar. Sollicitudin ac orci phasellus egestas tellus. Eget sit amet tellus cras adipiscing enim. Pellentesque dignissim enim sit amet. Viverra nibh cras pulvinar mattis. Lacus luctus accumsan tortor posuere ac ut consequat. Risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc. Et leo duis ut diam quam nulla. Ut etiam sit amet nisl purus in mollis nunc sed. Euismod elementum nisi quis eleifend. Massa tincidunt nunc pulvinar sapien et ligula. Sed felis eget velit aliquet sagittis id consectetur purus ut. At tellus at urna condimentum. Tincidunt id aliquet risus feugiat in ante metus dictum at. Tellus in hac habitasse platea.</p>
-        </div>
-        <div className="w-1/2">
-            <div className="text-center">Find your next staycation</div>
-            <form className="bg-white w-4/5 h-full md:w-1/2 md:h-full mx-auto my-10 rounded-lg border-secondary border-2 p-2">
-                
-                <fieldset>
-                    <label>Has Pool</label>
-                    <input name="pool" type="checkbox" checked={pool} onChange={HandleFilter}></input>
-                </fieldset>
-                <fieldset>
-                    <label>Has Yard</label>
-                    <input name="yard" type="checkbox" checked={yard} onChange={HandleFilter}></input>
-                </fieldset>
-                <fieldset>
-                    <label>Area</label>
-                    <select name="area" onChange={HandleFilter}>
+       
+     
+        <Flex bg="url('https://static.trip101.com/main_pics/171385/medium.jpg') center center / cover no-repeat"
+        direction="row" gap="8"p="8">
+            {/* <Box color="white"p="10"w="50%">Escape the ordinary with our cutting-edge home swapping platform. Swap homes with fellow explorers in your area and unlock a world of adventure without leaving town. Discover hidden gems, immerse yourself in new neighborhoods, and indulge in local experiences. Join our community today and ignite your sense of wanderlust. Welcome to the ultimate home swapping experience!</Box> */}
+       <Box w="50%"> <Heading fontFamily="body" pt="24"color="white" size="2xl">Welcome to HomePlace!</Heading></Box>
+        <Box bg="white" rounded="md" p="4"border="1px"w="50%">
+                <Heading size="lg" fontFamily="body">Find your next stay</Heading>
+                <FormControl p="3" w='50%'>                
+              
+                    <CheckboxGroup>
+                    <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                    <Checkbox name="pool" type="checkbox" checked={pool} onChange={HandleFilter}>Has Pool?</Checkbox>
+                    <Checkbox name="yard" type="checkbox" checked={yard} onChange={HandleFilter}>Has Yard?</Checkbox>
+                    </Stack>
+                    </CheckboxGroup>
+               
+               
+                    <FormLabel>Area</FormLabel>
+                    <Select name="area" onChange={HandleFilter}>
                         <option>Select an area</option>
                         {areas.map((area) => {
                             return <option key= {area.id} value={area.id}>{area.neighborhood}</option>
                         })}
-                    </select>
-                </fieldset>
+                    </Select>
+              
                 <fieldset>
-                    <label>Home Size</label>
+                    <FormLabel>Home Size</FormLabel>
                     <input className="w-3/4" type="range" min="1000" max="10000" id="tempB" onChange={HandleFilter} name="square_footage"  />
-                    <div>{square_footage}</div><label>Square Feet</label>
+                    <div>{square_footage}</div><FormLabel>Square Feet</FormLabel>
                 </fieldset>
-                <button onClick={(event)=> HandleFilterSubmit(event, pool, yard, searchArea, square_footage)} className="btn">See Results</button>
-            </form>
+                <Button onClick={(event)=> HandleFilterSubmit(event, pool, yard, searchArea, square_footage)} className="btn">See Results</Button>
+            </FormControl>
          
-        </div>
-        </div>
+        </Box>
+        </Flex>
+        
         
 
 
 
 
         {swapper !== "" ? <>
-        <div>Showing properties in {area.neighborhood}</div>
-        <div className="flex row p-8">
+        <Heading bg="teal" color="white"fontFamily="body" p="4" size="md" w="100%">Showing properties in {area.neighborhood}</Heading>
+        <Flex direction = "row" p="10">
         {
         homeProperties.map((property) => {
-        return <Link className="w-full" key={property.id} to={`/property_details/${property.id}`}>
-                <div key={property.id}>{property.address}</div>
-                <img className="w-1/4 h-auto"src={property.image}/>
-                </Link>
+        return <PropertyBox property={property} />
         })}
             
-        </div>
+        </Flex>
         </>
         : ""}
         </>
