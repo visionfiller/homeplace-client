@@ -179,7 +179,7 @@ export const PropertyList = ({ searchTermState }) => {
                 : ""}
                 {yard? <Badge>Yard</Badge>
                 : ""}
-                <Button className="btn" onClick={HandleClearAll}>Back to list</Button>
+                <Button onClick={HandleClearAll}>Clear Filters</Button>
                 {mapView ? <Button className="btn" onClick={(event) => HandleMap(event)} >List View</Button>
                     : <Button className="btn" onClick={(event) => HandleMap(event)} >Map View</Button>}
                 {mapView ? <MapView properties={properties} />

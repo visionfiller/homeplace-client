@@ -81,9 +81,9 @@ export const getSingleProperty =(id) => {
     })
         .then(response => response.json())
 }
-export const getMyProperties =() => {
+export const getMyProperty =() => {
     let token = getToken()
-    return fetch("http://localhost:8000/properties/my_properties", {
+    return fetch("http://localhost:8000/properties/my_property", {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -114,6 +114,17 @@ export const favoriteProperty= (id) => {
         }
     })
         .then(response => response.json())
+}
+export const unfavoriteProperty= (id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/properties/${id}/unfavorite`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
+        
 }
 export const updateProperty = (property) =>{
     let token = getToken()

@@ -31,7 +31,8 @@ export const  HomePlace = () => {
 		  },
 		
 		styles: {
-		  global: {
+		  global: 
+		  {
 			body: {
 			  bg: "gray.100", // Set your desired background color here
 			},

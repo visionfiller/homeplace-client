@@ -34,6 +34,10 @@ export const NavBar = ({token}) => {
   useEffect(()=> {
       getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
   },[])
+  const handleLogout = ()=>{
+    localStorage.removeItem("homeplace_user").then(navigate('/login'))
+
+  }
     return <>
      {/* <Flex direction="row">
           <li> <Link to="/">Home</Link></li>
@@ -67,6 +71,10 @@ export const NavBar = ({token}) => {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
+          { HomePlaceUserObject ? <>
+          <Link  onClick={handleLogout}>Logout</Link>
+          </> 
+          : <>
           <Button
             as={'a'}
             fontSize={'sm'}
@@ -88,6 +96,7 @@ export const NavBar = ({token}) => {
             }}>
             Sign Up
           </Button>
+          </> }
         </Stack>
         </Flex>
       </Flex>

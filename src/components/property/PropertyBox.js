@@ -35,7 +35,7 @@ export const PropertyBox= ({property}) => {
 
    
 
-      <Box display='flex' mt='2' alignItems='center'>
+      {/* <Box display='flex' mt='2' alignItems='center'>
         {Array(10)
           .fill('')
           .map((_, i) => (
@@ -47,7 +47,7 @@ export const PropertyBox= ({property}) => {
         <Box as='span' ml='2' color='gray.600' fontSize='sm'>
           {property.ratings?.map((rating) => rating.review)}
         </Box>
-      </Box>
+      </Box> */}
       <Link to={`/property_details/${property.id}`}>See Details</Link>
     </Box>
 
