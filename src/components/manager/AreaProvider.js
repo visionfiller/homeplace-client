@@ -20,3 +20,15 @@ export const getSingleArea =(id) => {
     })
         .then(response => response.json())
 }
+export const addNewArea= (newArea) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/areas`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newArea)
+    })
+        .then(response => response.json())
+}

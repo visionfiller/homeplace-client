@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { getLatAndLong, getMyProperties } from '../manager/PropertyProvider';
+import { getLatAndLong, getMyProperties, getMyProperty } from '../manager/PropertyProvider';
 import { Link } from 'react-router-dom';
 import { getSwapperById } from '../manager/SwapperProvider';
 import { PropertyBox } from './PropertyBox';
@@ -45,7 +45,7 @@ export const MapView = ({ properties }) => {
     const [map, setMap] = useState({ latitude: '', longitude: '' });
 
     useEffect(() => {
-        getMyProperties().then((data) => setMyProperties(data[0]))
+        getMyProperty().then((data) => setMyProperties(data))
         getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data)=> setSwapper(data));
     }, []);
 
