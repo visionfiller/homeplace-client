@@ -2,7 +2,7 @@ import { Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Headi
 import { StarIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
 
-export const PropertyBox= ({property}) => {
+export const PropertyBox= ({property,mapView}) => {
     return <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
     <Image src={property.image} alt={property.imageAlt} />
 

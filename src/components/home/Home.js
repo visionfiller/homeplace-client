@@ -1,32 +1,17 @@
 import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { getAllAreas, getSingleArea } from "../manager/AreaProvider"
-import { getAllPropertiesByFilter, getMyProperties, getPropertyByArea } from "../manager/PropertyProvider"
+import { getAllProperties, getAllPropertiesByFilter, getMyProperties, getPropertyByArea } from "../manager/PropertyProvider"
 import { FormFilter } from "../property/FormFilter"
 import { PropertyContext } from "../manager/ContextProvider"
 import { getSwapperById } from "../manager/SwapperProvider"
 import { PropertyBox } from "../property/PropertyBox"
 import {
-    FormControl,
     Box,
-    FormLabel,
     Flex,
-    Form,
-    FormErrorMessage,
-    FormHelperText,
-    Input,
     Heading,
     Button,
-    Select,
-    Checkbox,
-    CheckboxGroup,
-    Stack,
-    Container,
-    NumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
+    SimpleGrid
 } from '@chakra-ui/react'
 import { getAllPropertyTypes } from "../manager/PropertyTypeProvider"
 
@@ -35,6 +20,7 @@ export const Home = () => {
     const HomePlaceUserObject = JSON.parse(HomePlaceUser)
     const [swapper, setSwapper] = useState({})
     const [homeProperties, setHomeProperties] = useState([])
+    const [explore, setExplore]= useState([])
     const { properties, setProperties } = useContext(PropertyContext)
     const [area, setArea] = useState({})
     const [areas, setAreas] = useState([])
@@ -54,9 +40,14 @@ export const Home = () => {
         getAllPropertyTypes().then((data) => setPropertyTypes(data))
     }, [])
     useEffect(() => {
-        if (swapper.properties > 0) {
+        if (swapper.properties) {
             getPropertyByArea(swapper.properties[0].area.id).then((data) => setHomeProperties(data))
             getSingleArea(swapper.properties[0].area.id).then((data) => setArea(data))
+            getAllProperties().then((data)=> {
+                let explorerProperties = data.filter((fil) => fil.area.id !== swapper.properties[0].area.id)
+                
+                setExplore(explorerProperties)
+            })
         }
         else {
             getPropertyByArea(1).then((data) => setHomeProperties(data))
@@ -117,87 +108,42 @@ export const Home = () => {
         }
       };
 
-
-
-
     return (<>
 
 
-        <Flex bg="url('https://static.trip101.com/main_pics/171385/medium.jpg') center center / cover no-repeat"
+        <Box height="400px" w="100%"position="relative" display="flex" bg="url('https://static.trip101.com/main_pics/171385/medium.jpg') center center / cover no-repeat"
             direction="row" gap="8" p="8">
             {/* <Box color="white"p="10"w="50%">Escape the ordinary with our cutting-edge home swapping platform. Swap homes with fellow explorers in your area and unlock a world of adventure without leaving town. Discover hidden gems, immerse yourself in new neighborhoods, and indulge in local experiences. Join our community today and ignite your sense of wanderlust. Welcome to the ultimate home swapping experience!</Box> */}
-            <Box w="50%"> <Heading fontFamily="body" pt="24" color="white" size="2xl">Welcome to HomePlace!</Heading></Box>
-            <Box bg="white" rounded="md" p="4" border="1px" w="50%">
-                <Heading size="lg" fontFamily="body">Find your next stay</Heading>
-                <FormControl p="3" w='50%'>
-
-
-
-
-                    <FormLabel>Area</FormLabel>
-                    <Select name="area" onChange={(event) => HandleFilter(event)}>
-                        <option>Select an area</option>
-                        {areas.map((area) => {
-                            return <option key={area.id} value={area.id}>{area.neighborhood}</option>
-                        })}
-                    </Select>
-                    <FormLabel>Property Type</FormLabel>
-                    <Select name="property_type" onChange={(event) => HandleFilter(event)}>
-                        <option>Select a property type</option>
-                        {property_types.map((propertyType) => {
-                            return <option key={propertyType.id} value={propertyType.id}>{propertyType.name}</option>
-                        })}
-                    </Select>
-
-                    <fieldset>
-                        <FormLabel>Home Size</FormLabel>
-                        <input className="w-3/4" type="range" min="1000" max="10000" id="tempB" onChange={(event) => HandleFilter(event)} name="square_footage" />
-                        <div>{square_footage}</div><FormLabel>Square Feet</FormLabel>
-                    </fieldset>
-                    <fieldset>
-                        <FormLabel>Minimum Bathrooms</FormLabel>
-                        <input type="number" min="1" max="10" onChange={HandleFilter} name="bathrooms" />
-                        <div>{bathrooms}</div>
-                    </fieldset>
-                    {/* <NumberInput name="bathrooms" onChange={(event) => HandleFilter(event)} value={bathrooms} min={1} max={10}>
-                        <NumberInputField />
-                        <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                        </NumberInputStepper>
-                    </NumberInput> */}
-
-                    <fieldset>
-                        <FormLabel>Minimum Bedrooms</FormLabel>
-                        <input type="number" min="1" max="10" id="tempB" onChange={(event) => HandleFilter(event)} name="bedrooms" />
-                        <div>{bedrooms}</div>
-                    </fieldset>
-                    <CheckboxGroup>
-                        <Stack spacing={[1, 5]} direction={['column', 'row']}>
-                            <Checkbox name="pool" type="checkbox" checked={pool} onChange={(event) => HandleFilter(event)}>Has Pool?</Checkbox>
-                            <Checkbox name="yard" type="checkbox" checked={yard} onChange={(event) => HandleFilter(event)}>Has Yard?</Checkbox>
-                        </Stack>
-                    </CheckboxGroup>
-                    <Button onClick={(event) => HandleFilterSubmit(event, pool, yard, searchArea, square_footage, propertyType, bedrooms, bathrooms)} className="btn">See Results</Button>
-                </FormControl>
-
+            <Box w="60%"> 
+            <Heading fontFamily="body" pt="24" color="white" size="2xl">Welcome to HomePlace!</Heading>
+            <Flex direction="row" justify="start" gap="4" p="4">
+            <Button colorScheme="telegram">Signup</Button>
+            <Button colorScheme="facebook">Login</Button>
+            </Flex>
             </Box>
-        </Flex>
-
-
-
-
-
-
+            <Box w="40%" align="center" position="relative" bottom="30px">
+            <Heading size="lg" color="white"  fontFamily="body">Find your next stay</Heading>
+            <FormFilter  HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType = {propertyType} areas={areas} property_types={property_types} />
+            </Box>
+       
+        </Box>
         {swapper !== "" ? <>
             <Heading bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Showing properties in {area.neighborhood}</Heading>
-            <Flex direction="row" p="10">
+            <SimpleGrid p="5" columns={3} spacing={10}>
                 {
                     homeProperties.map((property) => {
                         return <PropertyBox property={property} />
                     })}
 
-            </Flex>
+            </SimpleGrid>
+            <Heading bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Explore Other Neighborhoods</Heading>
+            <SimpleGrid p="5" columns={3} spacing={10}>
+                {
+                    explore.sort(() => 0.5 - Math.random()).slice(0, 3).map((property) => {
+                        return <PropertyBox property={property} />
+                    })}
+
+            </SimpleGrid>
         </>
             : ""}
     </>
