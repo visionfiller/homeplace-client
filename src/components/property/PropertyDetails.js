@@ -14,7 +14,8 @@ export const PropertyDetails = ({homeProperty}) => {
     const {propertyId} = useParams()
     const navigate = useNavigate()
     useEffect(()=> {
-        getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
+      if(HomePlaceUserObject){
+        getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))}
     },[])
 
     useEffect(()=> {
@@ -42,8 +43,11 @@ export const PropertyDetails = ({homeProperty}) => {
         unfavoriteProperty(id).then(()=> getPropertyDetail(id))
     }
 return<>
+{HomePlaceUserObject ? <>
 {property.user_favorited? <Button onClick={()=> removeFavorite(property.id)}>Remove From Favorites</Button>
 :<Button onClick={()=> addFavorite(property.id)}>Add to Favorites</Button>}
+</>
+: ""}
  <Box maxW='lg' borderWidth='1px' borderRadius='lg' overflow='hidden'>
     <Image src={property.image} alt={property.imageAlt} />
 

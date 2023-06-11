@@ -36,7 +36,8 @@ export const Home = () => {
 
     const navigate = useNavigate()
     useEffect(() => {
-        getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
+        if (HomePlaceUserObject){
+        getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))}
         getAllAreas().then((data) => setAreas(data))
         getAllPropertyTypes().then((data) => setPropertyTypes(data))
     }, [])
@@ -53,6 +54,7 @@ export const Home = () => {
         else {
             getPropertyByArea(1).then((data) => setHomeProperties(data))
             getSingleArea(1).then((data) => setArea(data))
+            getAllProperties().then((data)=> setExplore(data))
         }
 
 
@@ -129,11 +131,14 @@ export const Home = () => {
             <Box w="60%"> 
             <Heading fontFamily="body" pt="12" color="blue.300" size="3xl">Welcome to HomePlace!</Heading>
             <Text color="white" as ='b'w="100%">Escape the ordinary with our cutting-edge home swapping platform. Swap homes with fellow explorers in your area and unlock a world of adventure without leaving town. Discover hidden gems, immerse yourself in new neighborhoods, and indulge in local experiences. Join our community today and ignite your sense of wanderlust. Welcome to the ultimate home swapping experience!</Text>
-
+            {HomePlaceUserObject? ""
+            : <>
             <Flex direction="row" justify="start" gap="4" p="4">
-            <Button colorScheme="telegram">Signup</Button>
-            <Button colorScheme="facebook">Login</Button>
+           
+            <Button onClick={()=> navigate("/register")} colorScheme="telegram">Signup</Button>
+            <Button onClick={()=> navigate("/login")} colorScheme="facebook">Login</Button>
             </Flex>
+            </>}
             </Box>
             <Box w="30%" align="center" >
             <Heading size="lg" color="white"  fontFamily="body">Find your next stay</Heading>
