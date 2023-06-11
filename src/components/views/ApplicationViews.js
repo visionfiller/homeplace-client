@@ -12,21 +12,14 @@ import { SwapContainer } from "../swaps/SwapContainer"
 export const ApplicationViews = () => {
 
     return <>
-    <PropertyProvider>
+    
         <Routes>
-            <Route path="/" element={<Home />} />
+         
             <Route path="/myproperty" element={<ManageMyProperty />} />
-            <Route path="/property_list" element={<PropertyList />} />
-            <Route path="/property_details/:propertyId" element={<PropertyDetails />} />
             <Route path="/swap_form/:propertyId" element={<SwapForm />} />
             <Route path="/newproperty_form" element={<NewPropertyForm />} />
             <Route path="/myswaps" element={<SwapContainer />} />
-
-
-
-
-
         </Routes>
-        </PropertyProvider>
+      
     </>
 }

@@ -1,10 +1,10 @@
 import { getToken } from "./TokenProvider"
 
 export const getAllProperties =() => {
-    let token = getToken()
+    // let token = getToken()
     return fetch("http://localhost:8000/properties", {
         headers:{
-            "Authorization": `Token ${token}`,
+            // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
         }
     })
@@ -12,10 +12,10 @@ export const getAllProperties =() => {
 }
 
 export const getPropertyByArea =(id) => {
-    let token = getToken()
+    // let token = getToken()
     return fetch(`http://localhost:8000/properties?area=${id}`, {
         headers:{
-            "Authorization": `Token ${token}`,
+            // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
         }
     })
@@ -62,20 +62,20 @@ export const getPropertyByAddress =(address) => {
 //         .then(response => response.json())
 // }
 export const getAllPropertiesByFilter =(filter) => {
-    let token = getToken()
+    // let token = getToken()
     return fetch(`http://localhost:8000/properties?${filter}` , {
         headers:{
-            "Authorization": `Token ${token}`,
+            // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
         }
     })
         .then(response => response.json())
 }
 export const getSingleProperty =(id) => {
-    let token = getToken()
+    // let token = getToken()
     return fetch(`http://localhost:8000/properties/${id}`, {
         headers:{
-            "Authorization": `Token ${token}`,
+            // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
         }
     })

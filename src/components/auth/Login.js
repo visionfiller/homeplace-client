@@ -1,6 +1,17 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { loginUser } from "../manager/UserProvider"
+import {
+  Button,
+  Checkbox,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  Image,
+} from '@chakra-ui/react';
 
 
 
@@ -37,7 +48,7 @@ export const Login = ({setToken}) => {
           
           
            
-            <div className="p-10 w-full">
+            {/* <div className="p-10 w-full">
             <span className="text-8xl" >Welcome to HomePlace</span>
                 <form className="" onSubmit={handleLogin}>
                     <fieldset className=" ">
@@ -66,7 +77,44 @@ export const Login = ({setToken}) => {
                     </fieldset>
                 </form>
       
-            </div>
+            </div> */}
+            <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+      <Flex p={8} flex={1} align={'center'} justify={'center'}>
+        <Stack spacing={4} w={'full'} maxW={'md'}>
+          <Heading fontSize={'2xl'}>Sign in to your account</Heading>
+          <FormControl id="email" >
+            <FormLabel>Username</FormLabel>
+            <Input type="text" ref={username}/>
+          </FormControl>
+          <FormControl id="password">
+            <FormLabel>Password</FormLabel>
+            <Input  ref={password} type="password" />
+          </FormControl>
+          <Stack spacing={6}>
+            {/* <Stack
+              direction={{ base: 'column', sm: 'row' }}
+              align={'start'}
+              justify={'space-between'}>
+              <Checkbox>Remember me</Checkbox>
+              <Link color={'blue.500'}>Forgot password?</Link>
+            </Stack> */}
+            <Button onClick={handleLogin} type="submit" colorScheme={'blue'} variant={'solid'}>
+              Sign in
+            </Button>
+          </Stack>
+        </Stack>
+      </Flex>
+      <Flex flex={1}>
+        <Image
+        opacity="25%"
+          alt={'Login Image'}
+          objectFit={'cover'}
+          src={
+            'https://static.neighborhoods.com/blog/media/shutterstock_1089144251_hero-2b8cf27c75232a4071c87993ce545f42.jpg'
+          }
+        />
+      </Flex>
+    </Stack>
             
           
                 

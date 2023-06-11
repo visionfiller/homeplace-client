@@ -25,14 +25,15 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons'
 
-export const NavBar = ({token}) => {
+export const NavBar = () => {
   const navigate = useNavigate()
   const HomePlaceUser = localStorage.getItem("homeplace_user")
   const HomePlaceUserObject = JSON.parse(HomePlaceUser)
   const [swapper, setSwapper] = useState({})
 
   useEffect(()=> {
-      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
+    if (HomePlaceUserObject){
+      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))}
   },[])
   const handleLogout = ()=>{
     localStorage.removeItem("homeplace_user").then(navigate('/login'))
@@ -75,7 +76,8 @@ export const NavBar = ({token}) => {
           <Link  onClick={handleLogout}>Logout</Link>
           </> 
           : <>
-          <Button
+          <Button 
+          onClick={()=> navigate("/login")}
             as={'a'}
             fontSize={'sm'}
             fontWeight={400}
@@ -84,6 +86,7 @@ export const NavBar = ({token}) => {
             Sign In
           </Button>
           <Button
+          onClick={()=> navigate("/register")}
             as={'a'}
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}

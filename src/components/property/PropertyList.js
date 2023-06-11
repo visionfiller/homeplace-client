@@ -61,10 +61,14 @@ export const PropertyList = ({ searchTermState }) => {
         const fetchData = async () => {
             try {
                 const data = await getAllProperties();
+                if(HomePlaceUserObject){
                 const newData = data.filter(
                     (property) => property.owner.id !== HomePlaceUserObject.swapper_id
                 );
-                setProperties(newData);
+                setProperties(newData)}
+                else{
+                    setProperties(data)
+                }
                 setLoading(false); // Set loading to false once data is fetched
             } catch (error) {
                 // Handle the error gracefully, e.g., display an error message

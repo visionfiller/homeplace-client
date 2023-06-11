@@ -1,3 +1,20 @@
+import {
+    Flex,
+    Box,
+    FormControl,
+    FormLabel,
+    Input,
+    InputGroup,
+    HStack,
+    InputRightElement,
+    Stack,
+    Button,
+    Heading,
+    Text,
+    useColorModeValue,
+    Link,
+  } from '@chakra-ui/react';
+  import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createUser } from "../manager/UserProvider"
@@ -5,7 +22,7 @@ import { createUser } from "../manager/UserProvider"
 
 export const Register = ({setToken}) => {
     const [user, setUser] = useState({})
-    
+    const [showPassword, setShowPassword] = useState(false);
     let navigate = useNavigate()
 
     const registerNewUser = () => {
@@ -18,7 +35,7 @@ export const Register = ({setToken}) => {
             password: user.password
         }).then(res => {
             if ("valid" in res && res.valid) {
-              setToken(res.auth_token, res.swapper_id)
+              setToken(res.auth_token, res.swapper_id, res.area_id)
               navigate("/")
             }
           })
@@ -45,7 +62,7 @@ export const Register = ({setToken}) => {
        
        
              
-                <div className="p-10 w-full">
+                {/* <div className="p-10 w-full">
                     <span className="" >register for homeplace</span>
                     <section className="w-full h-full relative">
                         <form className="m-auto form-control text-right " onSubmit={handleRegister}>
@@ -99,7 +116,97 @@ export const Register = ({setToken}) => {
                             </div>
                         </form>
                     </section>
-                </div>
+                </div> */}
+                <Flex
+    
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}
+      bg="url('https://static.neighborhoods.com/blog/media/shutterstock_1089144251_hero-2b8cf27c75232a4071c87993ce545f42.jpg') center center / cover no-repeat">
+          <Box
+    
+    position="relative"
+    zIndex={1}
+    bg={useColorModeValue('rgba(255, 255, 255, 0.8)', 'rgba(0, 0, 0, 0.8)')}
+    p={8}
+    rounded={'lg'}
+    boxShadow={'lg'}
+  >
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack  align={'center'}>
+          <Heading fontFamily="body"fontSize={'4xl'} textAlign={'center'}>
+            Sign up
+          </Heading>
+          <Text fontFamily="body" fontSize={'lg'} color={'gray.600'}>
+            to enjoy all of our cool features ✌️
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg={useColorModeValue('white', 'gray.700')}
+          boxShadow={'lg'}
+          p={8}>
+          <Stack spacing={4}>
+            <HStack>
+                
+              <Box fontFamily="body">
+                <FormControl id="first_name" isRequired>
+                  <FormLabel>First Name</FormLabel>
+                  <Input onChange={updateUser} type="text" />
+                </FormControl>
+              </Box>
+              <Box>
+                <FormControl id="last_name">
+                  <FormLabel>Last Name</FormLabel>
+                  <Input onChange={updateUser}type="text" />
+                </FormControl>
+              </Box>
+            </HStack>
+            <FormControl id="username" isRequired>
+              <FormLabel>Choose a username</FormLabel>
+              <Input onChange={updateUser} type="text" />
+            </FormControl>
+            <FormControl id="email" isRequired>
+              <FormLabel>Email address</FormLabel>
+              <Input onChange={updateUser} type="email" />
+            </FormControl>
+            <FormControl id="password" isRequired>
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input onChange={updateUser} type={showPassword ? 'text' : 'password'} />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() =>
+                      setShowPassword((showPassword) => !showPassword)
+                    }>
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+            <Stack spacing={10} pt={2}>
+              <Button
+                loadingText="Submitting"
+                size="lg"
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}>
+                Sign up
+              </Button>
+            </Stack>
+            <Stack pt={6}>
+              <Text align={'center'}>
+                Already a user? <Link color={'blue.400'}>Login</Link>
+              </Text>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+      </Box>
+    </Flex>
            
     </>
     )
