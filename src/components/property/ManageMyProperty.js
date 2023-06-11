@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { deleteProperty, getMyProperties, getMyProperty } from "../manager/PropertyProvider"
 import { NewPropertyForm } from "./NewPropertyForm"
 import { PropertyBox } from "./PropertyBox"
+import {Flex, Button} from '@chakra-ui/react'
 
 export const ManageMyProperty =() => {
     const [property, setProperties] = useState({})
@@ -21,9 +22,11 @@ export const ManageMyProperty =() => {
        
        
             {property.address ?<>
+                <Flex direction = "row" justify="space-evenly" p="10">
                 <PropertyBox property={property}/>
                 <NewPropertyForm property={property}/>
-                <button className="btn btn-warning" onClick={()=>deleteMyProperty(property.id)}>Delete my property</button>
+                </Flex>
+                <Button onClick={()=>deleteMyProperty(property.id)}>Delete my property</Button>
                </>
                : ""}
     
