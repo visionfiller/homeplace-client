@@ -44,13 +44,15 @@ export const PropertyList = ({ searchTermState }) => {
     const btnRef = useRef()
 
     useEffect(() => {
+        getAllAreas().then((data) => setAreas(data))
+        getAllPropertyTypes().then((data) => setPropertyTypes(data))
         if (properties.length) {
             setLoading(false)
-            getAllAreas().then((data) => setAreas(data))
-            getAllPropertyTypes().then((data) => setPropertyTypes(data))
+           
             return
         }
         else {
+     
             showAllProperties()
             
         }
@@ -168,9 +170,9 @@ export const PropertyList = ({ searchTermState }) => {
        <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Filter Results</ModalHeader>
+          <ModalHeader align="center">Filter Results</ModalHeader>
           <ModalCloseButton />
-          <ModalBody w="100%">
+          <ModalBody w="100%" p="2">
           <FormFilter HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType = {propertyType} areas={areas} property_types={property_types} />
           </ModalBody>
 
@@ -178,7 +180,7 @@ export const PropertyList = ({ searchTermState }) => {
             <Button colorScheme='blue' mr={3} onClick={onClose}>
               Close
             </Button>
-            {/* <Button onClick={handleSubmit} variant='ghost'>Add</Button> */}
+             <Button onClick={handleSubmit} variant='ghost'>Add</Button>
             {/* <Button variant='outline' mr={3} onClick={onClose}>
               Cancel
             </Button> *

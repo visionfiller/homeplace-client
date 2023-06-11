@@ -11,7 +11,8 @@ import {
     Flex,
     Heading,
     Button,
-    SimpleGrid
+    SimpleGrid,
+    Text
 } from '@chakra-ui/react'
 import { getAllPropertyTypes } from "../manager/PropertyTypeProvider"
 
@@ -76,7 +77,18 @@ export const Home = () => {
         getAllPropertiesByFilter(url).then((data) => {
             setProperties(data)
         })
-            .then(() => navigate('/property_list', { searchedproperties: { properties } }))
+            .then(() => 
+            {
+                if (properties.length){
+                    navigate('/property_list', { searchedproperties: { properties } })
+                    return 
+                }
+                else {
+                   
+                    
+                }
+            })
+            
     }
     const HandleFilter = (event) => {
         const { name, value, type, checked } = event.target;
@@ -110,32 +122,34 @@ export const Home = () => {
 
     return (<>
 
-
-        <Box height="400px" w="100%"position="relative" display="flex" bg="url('https://static.trip101.com/main_pics/171385/medium.jpg') center center / cover no-repeat"
+        <Box height="50px"></Box>
+        <Flex w="100%" display="flex" bg=" url('https://static.neighborhoods.com/blog/media/shutterstock_1089144251_hero-2b8cf27c75232a4071c87993ce545f42.jpg') center center / cover no-repeat"
             direction="row" gap="8" p="8">
-            {/* <Box color="white"p="10"w="50%">Escape the ordinary with our cutting-edge home swapping platform. Swap homes with fellow explorers in your area and unlock a world of adventure without leaving town. Discover hidden gems, immerse yourself in new neighborhoods, and indulge in local experiences. Join our community today and ignite your sense of wanderlust. Welcome to the ultimate home swapping experience!</Box> */}
+            
             <Box w="60%"> 
-            <Heading fontFamily="body" pt="24" color="white" size="2xl">Welcome to HomePlace!</Heading>
+            <Heading fontFamily="body" pt="12" color="blue.300" size="3xl">Welcome to HomePlace!</Heading>
+            <Text color="white" as ='b'w="100%">Escape the ordinary with our cutting-edge home swapping platform. Swap homes with fellow explorers in your area and unlock a world of adventure without leaving town. Discover hidden gems, immerse yourself in new neighborhoods, and indulge in local experiences. Join our community today and ignite your sense of wanderlust. Welcome to the ultimate home swapping experience!</Text>
+
             <Flex direction="row" justify="start" gap="4" p="4">
             <Button colorScheme="telegram">Signup</Button>
             <Button colorScheme="facebook">Login</Button>
             </Flex>
             </Box>
-            <Box w="40%" align="center" position="relative" bottom="30px">
+            <Box w="30%" align="center" >
             <Heading size="lg" color="white"  fontFamily="body">Find your next stay</Heading>
             <FormFilter  HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType = {propertyType} areas={areas} property_types={property_types} />
             </Box>
        
-        </Box>
+        </Flex>
         {swapper !== "" ? <>
-            <Heading bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Showing properties in {area.neighborhood}</Heading>
+            {/* <Heading bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Showing properties in {area.neighborhood}</Heading>
             <SimpleGrid p="5" columns={3} spacing={10}>
                 {
                     homeProperties.map((property) => {
                         return <PropertyBox property={property} />
                     })}
 
-            </SimpleGrid>
+            </SimpleGrid> */}
             <Heading bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Explore Other Neighborhoods</Heading>
             <SimpleGrid p="5" columns={3} spacing={10}>
                 {

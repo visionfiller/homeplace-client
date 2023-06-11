@@ -36,7 +36,7 @@ export const FormFilter = ({ event, areas, property_types, pool, yard, searchAre
     return <>
         <Box bg="white" rounded="md" p="4" border="1px" w="100%">
 
-            <FormControl p="3" w='50%'>
+            <FormControl p="3" w='100%'>
 
 
 
@@ -116,7 +116,9 @@ export const FormFilter = ({ event, areas, property_types, pool, yard, searchAre
                         <Checkbox name="yard" type="checkbox" checked={yard} onChange={(event) => HandleFilter(event)}>Has Yard?</Checkbox>
                     </Stack>
                 </CheckboxGroup>
+                <Box align="center" p ="4">
                 <Button onClick={(event) => HandleFilterSubmit(event, pool, yard, searchArea, square_footage, propertyType, bedrooms, bathrooms)} className="btn">See Results</Button>
+                </Box>
             </FormControl>
 
         </Box>
