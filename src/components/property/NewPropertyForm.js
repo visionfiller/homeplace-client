@@ -4,8 +4,9 @@ import { UploadWidget } from "../cloudinary/UploadWidget"
 import { getAllAreas } from "../manager/AreaProvider"
 import { addNewProperty, updateProperty } from "../manager/PropertyProvider"
 import { getAllPropertyTypes } from "../manager/PropertyTypeProvider"
-import { useDisclosure, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
+import { FormControl, Checkbox,Input, FormLabel,Select,useDisclosure, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
 import { AreaForm } from "../forms/AreaForm"
+
 
 export const NewPropertyForm = ({property}) => {
     const navigate = useNavigate()
@@ -117,7 +118,7 @@ export const NewPropertyForm = ({property}) => {
     
         },[url])
     return <>
-    <form>
+    {/* <form>
         {property ?  <h2 className="text-3xl">Manage Your Home</h2>
         : <h2 className="text-3xl">Submit Your Home</h2>}
         <fieldset>
@@ -166,15 +167,137 @@ export const NewPropertyForm = ({property}) => {
                
 
        
-                    {/* <input 
-                onChange={HandleControlledInputChange}
-                      defaultValue={user.profilePicture}
-                        type="text"id="profilePicture" className="input input-bordered input-md"
-                        placeholder="URL" name="profilePicture"required />
-                        */}
-
+    
                 </fieldset>
     <button onClick={(event)=> HandleSubmit(event)}>Submit</button>
     </form>
+    </> */}
+    <Box>
+      {property ? (
+        <Heading fontFamily="body"as="h2" size="xl">
+          Manage Your Home
+        </Heading>
+      ) : (
+        <Heading as="h2" size="xl">
+          Submit Your Home
+        </Heading>
+      )}
+
+      <form onSubmit={HandleSubmit}>
+        <FormControl mt={4}>
+          <FormLabel>Address</FormLabel>
+          <Input
+            value={newProperty.address}
+            name="address"
+            onChange={HandleControlledInput}
+            border="1px"
+            borderColor="gray.700"
+            type="text"
+          />
+        </FormControl>
+
+        <FormControl mt={4}>
+          <FormLabel>Area</FormLabel>
+          <Select
+            value={newProperty.area.id}
+            name="area"
+            onChange={HandleControlledInput}
+            border="1px"
+            borderColor="gray.700"
+          >
+            <option>Select an Area</option>
+            {areas.map((area) => (
+              <option key={area.id} value={area.id}>
+                {area.neighborhood}
+              </option>
+            ))}
+          </Select>
+          <Button onClick={onOpen}>Add a new area</Button>
+        <AreaForm isOpen={isOpen} onClose={onClose} getAreas={getAreas} />
+        </FormControl>
+
+        <FormControl mt={4}>
+          <FormLabel>Property Type</FormLabel>
+          <Select
+            value={newProperty.property_type.id}
+            name="property_type"
+            onChange={HandleControlledInput}
+            border="1px"
+            borderColor="gray.700"
+          >
+            <option>Select a property type</option>
+            {propertyTypes.map((propertyType) => (
+              <option key={propertyType.id} value={propertyType.id}>
+                {propertyType.name}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl mt={4}>
+          <FormLabel>How many bedrooms?</FormLabel>
+          <Input
+            value={newProperty.bedrooms}
+            name="bedrooms"
+            onChange={HandleControlledInput}
+            type="number"
+          />
+        </FormControl>
+
+        <FormControl mt={4}>
+          <FormLabel>How many bathrooms?</FormLabel>
+          <Input
+            value={newProperty.bathrooms}
+            name="bathrooms"
+            onChange={HandleControlledInput}
+            type="number"
+          />
+        </FormControl>
+
+        <FormControl mt={4}>
+          <FormLabel>How large is your home?</FormLabel>
+          <Input
+            value={newProperty.square_footage}
+            name="square_footage"
+            onChange={HandleControlledInput}
+            type="number"
+          />
+        </FormControl>
+
+        <FormControl mt={4}>
+          <FormLabel>Pool?</FormLabel>
+          <Checkbox
+            checked={newProperty.pool}
+            name="pool"
+            onChange={HandleControlledInputChecked}
+          />
+        </FormControl>
+
+        <FormControl mt={4}>
+          <FormLabel>Yard?</FormLabel>
+          <Checkbox
+            checked={newProperty.yard}
+            name="yard"
+            onChange={HandleControlledInputChecked}
+          />
+        </FormControl>
+        <FormControl mt="4">
+            <FormLabel>Image</FormLabel>
+       
+                {url === "" ? ""
+                :  <Image h="50%" w="full"src={url} alt={property.imageAlt} />}
+                
+                <UploadWidget onUpload={handleOnUpload}/>
+               
+
+       
+    
+                
+        </FormControl>
+        <Button mt={4} colorScheme="teal" type="submit">
+          Submit
+        </Button>
+      </form>
+    </Box>
     </>
 }

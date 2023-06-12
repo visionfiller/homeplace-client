@@ -34,13 +34,13 @@ export const FormFilter = ({ event, areas, property_types, pool, yard, searchAre
         ml: '-2.5',
         fontSize: 'sm',}
     return <>
-        <Box bg="white" rounded="md" p="4" border="1px" w="100%">
+        <Box bg="white" rounded="md" pt="4" border="1px" w="75%">
 
             <FormControl p="3" w='100%'>
 
 
 
-
+                
                 <FormLabel>Area</FormLabel>
                 <Select name="area" onChange={(event) => HandleFilter(event)}>
                     <option>Select an area</option>

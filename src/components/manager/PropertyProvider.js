@@ -32,10 +32,10 @@ export const getPropertyByOwner =(id) => {
         .then(response => response.json())
 }
 export const getPropertyByAddress =(address) => {
-    let token = getToken()
+    // let token = getToken()
     return fetch(`http://localhost:8000/properties?address=${address}`, {
         headers:{
-            "Authorization": `Token ${token}`,
+            // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
         }
     })
@@ -125,6 +125,18 @@ export const unfavoriteProperty= (id) => {
         }
     })
         
+}
+export const rateProperty= (id, rating) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/properties/${id}/rate_property`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(rating)
+    })
+        .then(response => response.json())
 }
 export const updateProperty = (property) =>{
     let token = getToken()
