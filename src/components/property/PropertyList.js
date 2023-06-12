@@ -85,10 +85,14 @@ export const PropertyList = ({ searchTermState }) => {
             const fetchData = async () => {
                 try {
                     const data = await getPropertyByAddress(searchTerms);
-                    const newData = data.filter(
-                        (property) => property.owner.id !== HomePlaceUserObject.swapper_id
-                    );
-                    setProperties(newData);
+                    if(HomePlaceUserObject){
+                        const newData = data.filter(
+                            (property) => property.owner.id !== HomePlaceUserObject.swapper_id
+                        );
+                        setProperties(newData)}
+                        else{
+                            setProperties(data)
+                        }
                     setLoading(false); // Set loading to false once data is fetched
                 } catch (error) {
                     // Handle the error gracefully, e.g., display an error message
@@ -120,7 +124,7 @@ export const PropertyList = ({ searchTermState }) => {
         getAllPropertiesByFilter(url).then((data) => {
             setProperties(data)
         })
-            .then(() => navigate('/property_list', { searchedproperties: { properties } }))
+            .then(() => onClose())
     }
     const HandleFilter = (event) => {
         const { name, value, type, checked } = event.target;
@@ -196,11 +200,11 @@ export const PropertyList = ({ searchTermState }) => {
          
             
       
-                <Flex p="8" direction="row" justify="space-between">
+                <Flex bg="teal" p="2" direction="row" justify="space-between">
                 <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
         Filter Results
       </Button>
-      <Box display="flex" direction="row">
+      <Box bg="white" rounded="md" display="flex" direction="row">
                 <IconButton onClick={HandleSearch} aria-label='Search database' icon={<SearchIcon />} />
                     {/* <Button colorScheme='teal' onClick={HandleSearch}>Search</Button> */}
                     <PropertySearch setterFunction={setSearchTerms} />

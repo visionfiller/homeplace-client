@@ -33,7 +33,7 @@ export const NavBar = () => {
 
   useEffect(()=> {
     if (HomePlaceUserObject){
-      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))}
+      Promise.resolve(getSwapperById(parseInt(HomePlaceUserObject.swapper_id))).then((data) => setSwapper(data))}
   },[])
   const handleLogout = ()=>{
     localStorage.removeItem("homeplace_user").then(navigate('/login'))
@@ -60,7 +60,7 @@ export const NavBar = () => {
           HomePlace
         </Text>
         </Link>
-        <Flex gap="8">
+        <Flex gap="16">
         {swapper.has_listing?<Link to="/myproperty">Manage My Property</Link>
            :  <Link to="/newproperty_form">Submit my Home</Link>  }
           <Link mr={4} to="/property_list">List of Properties</Link>   
@@ -73,13 +73,13 @@ export const NavBar = () => {
           direction={'row'}
           spacing={6}>
           { HomePlaceUserObject ? <>
-          <Link  onClick={handleLogout}>Logout</Link>
+          <Link  onClick={()=> handleLogout()}>Logout</Link>
           </> 
           : <>
           <Button 
           onClick={()=> navigate("/login")}
             as={'a'}
-            fontSize={'sm'}
+            fontSize={'md'}
             fontWeight={400}
             variant={'link'}
             href={'#'}>

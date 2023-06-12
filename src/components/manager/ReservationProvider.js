@@ -11,6 +11,17 @@ export const requestSwap =(id, object) => {
         body: JSON.stringify(object)
     })
         .then(response => response.json())}
+export const cancelSwap =(id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/properties/${id}/cancel_reservation`, {
+        method: "DELETE",
+        headers:{
+            "Authorization": `Token ${token}`,
+             "Content-Type": "application/json"
+        }
+    })
+        }
+
 export const getMySwaps =() => {
     let token = getToken()
     return fetch("http://localhost:8000/reservations/my_swaps", {
@@ -24,6 +35,16 @@ export const getMySwaps =() => {
 export const getSwapByProperty = (id) => {
     let token = getToken()
     return fetch(`http://localhost:8000/reservations?property=${id}`, {
+        headers:{
+            "Authorization": `Token ${token}`,
+             "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json())
+}
+export const getSwapBySwapperProperty = (id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/reservations?swapper_property=${id}`, {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -62,3 +83,13 @@ export const approveSwap =(id) => {
         }
     })
         }
+export const denySwap =(id) => {
+    let token = getToken()
+    return fetch(`http://localhost:8000/reservations/${id}/deny`, {
+        method: "PUT",
+        headers:{
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json"
+                }
+            })
+                }

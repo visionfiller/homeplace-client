@@ -3,13 +3,17 @@ import { StarIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
 
 export const PropertyBox= ({property,mapView}) => {
-    return <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-    <Image src={property.image} alt={property.imageAlt} />
+  const HomePlaceUser = localStorage.getItem("homeplace_user")
+  const HomePlaceUserObject = JSON.parse(HomePlaceUser)
+
+    return <Box maxH="md" maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+     
+    <Image h="50%" w="full"src={property.image} alt={property.imageAlt} />
 
     <Box p='6'>
       <Box display='flex' alignItems='baseline'>
         <Badge borderRadius='full' px='2' colorScheme='teal'>
-          New
+         New
         </Badge>
         <Box
           color='gray.500'
@@ -35,20 +39,18 @@ export const PropertyBox= ({property,mapView}) => {
 
    
 
-      {/* <Box display='flex' mt='2' alignItems='center'>
-        {Array(10)
+      <Box display='flex' mt='2' alignItems='center'>
+        {Array(5)
           .fill('')
           .map((_, i) => (
             <StarIcon
               key={i}
-              color={i < property?.ratings?.map((rating) => rating.score) ? 'teal.500' : 'gray.300'}
+              color={i < Math.round(property?.average_rating/2) ? 'teal.500' : 'gray.300'}
             />
           ))}
-        <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-          {property.ratings?.map((rating) => rating.review)}
-        </Box>
-      </Box> */}
-      <Link to={`/property_details/${property.id}`}>See Details</Link>
+       
+      </Box>
+      <Button><Link to={`/property_details/${property.id}`}>See Details</Link></Button>
     </Box>
 
   </Box>

@@ -45,8 +45,8 @@ export const MapView = ({ properties }) => {
     const [map, setMap] = useState({ latitude: '', longitude: '' });
 
     useEffect(() => {
-        getMyProperty().then((data) => setMyProperties(data))
-        getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data)=> setSwapper(data));
+        // getMyProperty().then((data) => setMyProperties(data))
+        // getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data)=> setSwapper(data));
     }, []);
 
     useEffect(() => {
@@ -65,40 +65,40 @@ export const MapView = ({ properties }) => {
     return (
         <>
         
-           <Flex direction="row">
+           <Flex direction="row" height="full" w="full" justify="between">
                 {map.latitude ? (
-                    <div className="w-full h-full ">
+                    
                         <MapContainer center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
                             <MyMapComponent latitude={map.latitude} longitude={map.longitude} />
                         </MapContainer>
-                    </div>
+                    
                 ) : (
                     ''
                 )}
-                <div className="w-1/2">
+               
                     {/* {myProperties && myProperties.address && (
                     <div>
                         <div>My Home</div>
                         <div>{myProperties?.address}</div>
                     </div>
                     )} */}
-                    <div>
-                        <div> Available Swaps</div>
+                    <Box flex="1" height="600px" overflow="auto" pt="10">
                         {properties ? (
                             <>
                                 {properties.map((property) => {
-                                    return (<Container>
+                                    return (<Flex direction="row">
+                                        <Button onClick={() => setMyProperties(property)}>Find</Button>
                                        <PropertyBox property={property}/>
-                                            <Button onClick={() => setMyProperties(property)}>Find</Button>
-                                        </Container>
+                                            
+                                        </Flex>
                                     );
                                 })}
                             </>
                         ) : (
                             ''
                         )}
-                    </div>
-                </div>
+                    </Box>
+               
             </Flex>
         </>
     );

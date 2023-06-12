@@ -103,7 +103,7 @@ export const SwapForm = () => {
       start_date: startsOn,
       end_date: endsOn,
     };
-    requestSwap(parseInt(propertyId), data).then(() => navigate('/property_list'))
+    requestSwap(parseInt(propertyId), data).then(() => navigate('/myswaps'))
   }
 
   return <>
