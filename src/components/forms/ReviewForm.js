@@ -25,6 +25,7 @@ export const RatingForm = ({setReviewForm,propertyId, getPropertyDetail}) => {
   
     return <>
     <Box>
+       
         <FormControl>
             <Input onChange={(event)=> handleReview(event)} type="text" placeholder="Tell us what you think"/>
             <div>
@@ -40,6 +41,7 @@ export const RatingForm = ({setReviewForm,propertyId, getPropertyDetail}) => {
     </div>
         </FormControl>
         <Button onClick={handleSubmitRating}>Submit</Button>
+        <Button onClick={()=> setReviewForm(false)}>Cancel</Button>
     </Box>
     </>
 }

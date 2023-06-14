@@ -6,9 +6,9 @@ export const PropertyBox= ({property,mapView}) => {
   const HomePlaceUser = localStorage.getItem("homeplace_user")
   const HomePlaceUserObject = JSON.parse(HomePlaceUser)
 
-    return <Box maxH="md" maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+    return <Box  borderWidth='1px' borderRadius='lg' overflow='hidden'>
      
-    <Image h="50%" w="full"src={property.image} alt={property.imageAlt} />
+    <Image maxH="sm" maxW="sm" h="50%" w="full" src={property.image} alt={property.imageAlt} />
 
     <Box p='6'>
       <Box display='flex' alignItems='baseline'>

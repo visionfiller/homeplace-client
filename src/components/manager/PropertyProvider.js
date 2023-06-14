@@ -21,6 +21,16 @@ export const getPropertyByArea =(id) => {
     })
         .then(response => response.json())
 }
+export const getPropertyChefs =() => {
+    // let token = getToken()
+    return fetch(`http://localhost:8000/properties?description=${"chef's"}`, {
+        headers:{
+            // "Authorization": `Token ${token}`,
+             "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json())
+}
 export const getPropertyByOwner =(id) => {
     let token = getToken()
     return fetch(`http://localhost:8000/properties?owner=${id}`, {

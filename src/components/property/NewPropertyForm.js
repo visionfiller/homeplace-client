@@ -4,7 +4,7 @@ import { UploadWidget } from "../cloudinary/UploadWidget"
 import { getAllAreas } from "../manager/AreaProvider"
 import { addNewProperty, updateProperty } from "../manager/PropertyProvider"
 import { getAllPropertyTypes } from "../manager/PropertyTypeProvider"
-import { FormControl, Checkbox,Input, FormLabel,Select,useDisclosure, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
+import { Flex, FormControl, Checkbox,Input, Textarea,FormLabel,Select,useDisclosure, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
 import { AreaForm } from "../forms/AreaForm"
 
 
@@ -22,6 +22,7 @@ export const NewPropertyForm = ({property}) => {
         property_type: 0,
         bathrooms: 0,
         bedrooms: 0,
+        description: "",
         pool: false,
         yard: false,
         image: ""
@@ -76,6 +77,7 @@ export const NewPropertyForm = ({property}) => {
             property_type: parseInt(newProperty.property_type.id),
             bathrooms: parseInt(newProperty.bathrooms),
             bedrooms: parseInt(newProperty.bedrooms),
+            description: newProperty.description,
             square_footage: parseInt(newProperty.square_footage),
             pool: newProperty.pool,
             yard: newProperty.yard,
@@ -173,15 +175,7 @@ export const NewPropertyForm = ({property}) => {
     </form>
     </> */}
     <Box>
-      {property ? (
-        <Heading fontFamily="body"as="h2" size="xl">
-          Manage Your Home
-        </Heading>
-      ) : (
-        <Heading as="h2" size="xl">
-          Submit Your Home
-        </Heading>
-      )}
+     
 
       <form onSubmit={HandleSubmit}>
         <FormControl mt={4}>
@@ -263,29 +257,39 @@ export const NewPropertyForm = ({property}) => {
             type="number"
           />
         </FormControl>
-
+        <FormControl mt={4}>
+          <FormLabel>Talk about what makes your home great!</FormLabel>
+          <Textarea
+            value={newProperty.description}
+            name="description"
+            onChange={HandleControlledInput}
+            type="text"
+          />
+        </FormControl>
+        <Flex>
         <FormControl mt={4}>
           <FormLabel>Pool?</FormLabel>
           <Checkbox
-            checked={newProperty.pool}
+            isChecked={newProperty.pool}
             name="pool"
             onChange={HandleControlledInputChecked}
           />
         </FormControl>
 
-        <FormControl mt={4}>
+        <FormControl mt={4} >
           <FormLabel>Yard?</FormLabel>
           <Checkbox
-            checked={newProperty.yard}
+            isChecked={newProperty.yard}
             name="yard"
             onChange={HandleControlledInputChecked}
           />
         </FormControl>
+        </Flex>
         <FormControl mt="4">
             <FormLabel>Image</FormLabel>
        
                 {url === "" ? ""
-                :  <Image h="50%" w="full"src={url} alt={property.imageAlt} />}
+                :  <Image h="50%" w="full"src={url}  />}
                 
                 <UploadWidget onUpload={handleOnUpload}/>
                
