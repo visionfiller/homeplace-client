@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { getSwapperById } from "../manager/SwapperProvider"
 import {
@@ -24,23 +24,34 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons'
+import { PropertyContext } from "../manager/ContextProvider"
 
 export const NavBar = () => {
   const navigate = useNavigate()
-  const HomePlaceUser = localStorage.getItem("homeplace_user")
-  const HomePlaceUserObject = JSON.parse(HomePlaceUser)
-  const [swapper, setSwapper] = useState({})
+  // const HomePlaceUser = localStorage.getItem("homeplace_user")
+  // const HomePlaceUserObject = JSON.parse(HomePlaceUser)
+ 
+  const { swapper,setSwapper, HomePlaceUserObject } = useContext(PropertyContext)
+  const[login, setLogin] = useState(false)
+ 
 
-  useEffect(()=> {
-    if (HomePlaceUserObject){
-      Promise.resolve(getSwapperById(parseInt(HomePlaceUserObject.swapper_id))).then((data) => setSwapper(data))}
+ 
+  useEffect(()=>{
+    if (HomePlaceUserObject) {
+      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
+      setLogin(true)}
+    
+    
+   
+
   },[])
-  const handleLogout = ()=>{
+
+  const handleLogout = () => {
     localStorage.removeItem("homeplace_user").then(navigate('/login'))
 
   }
-    return <>
-     {/* <Flex direction="row">
+  return <>
+    {/* <Flex direction="row">
           <li> <Link to="/">Home</Link></li>
            {swapper.has_listing? <li> <Link to="/myproperty">Manage My Property</Link></li>
            : <li> <Link to="/newproperty_form">Submit my Home</Link></li>  }
@@ -51,58 +62,61 @@ export const NavBar = () => {
             <li> <Link  onClick={() =>  {localStorage.removeItem("homeplace_user").then(()=>{navigate("/login") }) }}>Logout</Link></li>
 
           </Flex> */}
-         <Box bg="white" px={4} py={2} color="black" borderBottom={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}>
-      <Flex alignItems="center" justifyContent="space-between">
+    <Box bg="white" px={4} py={2} color="black" borderBottom={1}
+      borderStyle={'solid'}
+      borderColor={useColorModeValue('gray.200', 'gray.900')}>
+      <Flex justifyContent="space-between">
         <Link to="/">
-        <Text fontSize="xl" fontWeight="bold">
-          HomePlace
-        </Text>
+          <Text fontSize="xl" fontWeight="bold">
+            HomePlace
+          </Text>
         </Link>
-        <Flex gap="16">
-        {swapper.has_listing?<Link to="/myproperty">Manage My Property</Link>
-           :  <Link to="/newproperty_form">Submit my Home</Link>  }
-          <Link mr={4} to="/property_list">List of Properties</Link>   
+        <Flex gap="16" alignItems="baseline">
+          {login && swapper.has_listing ? <Link to="/myproperty">Manage My Property</Link> 
+            : <Link to="/newproperty_form">Submit my Home</Link>}
+            
+      
+
+          <Link mr={4} to="/property_list">List of Properties</Link>
           <Link to="/myswaps">My Swaps</Link>
-         
-          
+
+
           <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={'flex-end'}
-          direction={'row'}
-          spacing={6}>
-          { HomePlaceUserObject ? <>
-          <Link  onClick={()=> handleLogout()}>Logout</Link>
-          </> 
-          : <>
-          <Button 
-          onClick={()=> navigate("/login")}
-            as={'a'}
-            fontSize={'md'}
-            fontWeight={400}
-            variant={'link'}
-            href={'#'}>
-            Sign In
-          </Button>
-          <Button
-          onClick={()=> navigate("/register")}
-            as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'#'}
-            _hover={{
-              bg: 'pink.300',
-            }}>
-            Sign Up
-          </Button>
-          </> }
-        </Stack>
+            flex={{ base: 1, md: 0 }}
+            justify={'flex-end'}
+            direction={'row'}
+            spacing={6}>
+            {HomePlaceUserObject ? <>
+              <Link onClick={() => handleLogout()}>Logout</Link>
+            </>
+              : <>
+                <Button
+                  onClick={() => navigate("/login")}
+                  as={'a'}
+                  fontSize={'md'}
+                  fontWeight={400}
+                  variant={'link'}
+                  href={'#'}>
+                  Sign In
+                </Button>
+                <Button
+                  onClick={() => navigate("/register")}
+                  as={'a'}
+                  display={{ base: 'none', md: 'inline-flex' }}
+                  fontSize={'sm'}
+                  fontWeight={600}
+                  color={'white'}
+                  bg={'pink.400'}
+                  href={'#'}
+                  _hover={{
+                    bg: 'pink.300',
+                  }}>
+                  Sign Up
+                </Button>
+              </>}
+          </Stack>
         </Flex>
       </Flex>
     </Box>
-    </>
+  </>
 }

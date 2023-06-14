@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { favoriteProperty, getSingleProperty, unfavoriteProperty } from "../manager/PropertyProvider"
 import { getSwapperById } from "../manager/SwapperProvider"
 import { Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup, Flex } from '@chakra-ui/react'
-import { StarIcon, CheckIcon, HeartIcon } from '@chakra-ui/icons'
+import { StarIcon, CheckIcon, HeartIcon, CloseIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
 import { RatingForm } from "../forms/ReviewForm"
 import { getMySwaps, getSwapByProperty } from "../manager/ReservationProvider"
@@ -61,19 +61,28 @@ export const PropertyDetails = ({ homeProperty }) => {
     }
 
   }
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return<>
-
-
+  <Box w="full" align="center">
+    <Button colorScheme="green"onClick={handleGoBack}>Back to List</Button>
+    </Box>
     <Box p="10" >
       <Heading fontFamily="body">{property.address}</Heading>
 
-      <Flex direction="row">
-        <Box maxW='lg' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-          <Image src={property.image} alt={property.imageAlt} />
-
-
-        </Box>
-        <Flex direction="column" alignItems='baseline'>
+      <Flex direction="row" p="10">
+        <Flex direction="column" w="50%">
+        <Box  overflow='hidden'>
+          <Image src={property.image}  />
+          </Box>
+          <Box p="10"fontSize="lg" lineHeight="tall">
+            <Text>{property.description}</Text>
+          </Box>
+          </Flex>
+  
+        
+        <Flex direction="column" alignItems='baseline' p="8">
           <Flex direction="row" gap="10">
             <Box
               color="teal"
@@ -150,7 +159,7 @@ export const PropertyDetails = ({ homeProperty }) => {
             textTransform='uppercase'
             ml='2'
           >
-            Yard: {property.yard ? <CheckIcon boxSize={5}></CheckIcon> : ""}
+            Yard: {property.yard ? <CheckIcon boxSize={5}></CheckIcon> : <CloseIcon boxSize={4}></CloseIcon>}
           </Box>
           <Box
             display="flex"
@@ -163,13 +172,26 @@ export const PropertyDetails = ({ homeProperty }) => {
             textTransform='uppercase'
             ml='2'
           >
-            Pool: {property.pool ? <CheckIcon boxSize={5}></CheckIcon> : ""}
+            Pool: {property.pool ? <CheckIcon boxSize={5}></CheckIcon> : <CloseIcon boxSize={4}></CloseIcon>}
           </Box>
+         
           {/* {HomePlaceUserObject ? <> */}
           {/* {property.user_favorited ? <Button onClick={()=> removeFavorite(property.id)}>Remove From Favorites</Button>
 :<Button onClick={()=> addFavorite(property.id)}>Add to Favorites</Button>}
 </>
 : ""} */}
+ <Box p="8">
+        {swapStatusButton() ? <Button onClick={()=> navigate("/myswaps")}>Request Sent</Button>
+        : <>
+          {swapper.has_listing ? <>
+            {swapReceivedButton(property) ? <Button onClick={()=> navigate("/myswaps")}>Request Received</Button>
+              : <Button colorScheme="teal" size="lg" onClick={() => navigate(`/swap_form/${property.id}`)}> Request a Swap!</Button>}
+              </>
+            :<Button colorScheme="teal" size="lg" onClick={() => navigate(`/newproperty_form`)}> Add your home to swap!</Button>
+}
+          </>}</Box>
+
+
           <Box m="8" p="4" border="1px" borderColor="teal">
             <Heading fontFamily="body" size="lg" as="u">Reviews</Heading>
             {property?.ratings?.length ? property.ratings.map((rating) => {
@@ -191,25 +213,20 @@ export const PropertyDetails = ({ homeProperty }) => {
               </Box>
             })
               : <Text p="4">There are no reviews for this property</Text>}
-            <Button onClick={() => setReviewForm(true)}>Leave a review</Button>
+           {HomePlaceUserObject ?
+           <>
             {reviewForm ? <RatingForm setReviewForm={setReviewForm} propertyId={propertyId} getPropertyDetail={getPropertyDetail} />
-              : ""}
-
+              :  <Button onClick={() => setReviewForm(true)}>Leave a review</Button>}
+        </>
+        : ""}
           </Box>
         </Flex>
       </Flex>
-      {swapStatusButton() ? <Button onClick={()=> navigate("/myswaps")}>Request Sent</Button>
-        : <>
-          {swapper.has_listing ? <>
-            {swapReceivedButton(property) ? <Button onClick={()=> navigate("/myswaps")}>Request Received</Button>
-              : <Button colorScheme="teal" size="lg" onClick={() => navigate(`/swap_form/${property.id}`)}> Request a Swap!</Button>}
-              </>
-            :<Button colorScheme="teal" size="lg" onClick={() => navigate(`/newproperty_form`)}> Add your home to swap!</Button>
-}
-          </>}
+     
 
 
 
         </Box>
+       
 </>
 }

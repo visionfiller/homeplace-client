@@ -42,11 +42,13 @@ export const MapView = ({ properties }) => {
     const HomePlaceUserObject = JSON.parse(HomePlaceUser)
     const [myProperties, setMyProperties] = useState({});
     const [swapper, setSwapper] = useState({})
+    const [loading, setLoading] = useState(true)
     const [map, setMap] = useState({ latitude: '', longitude: '' });
 
     useEffect(() => {
         // getMyProperty().then((data) => setMyProperties(data))
         // getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data)=> setSwapper(data));
+        
     }, []);
 
     useEffect(() => {
@@ -54,17 +56,20 @@ export const MapView = ({ properties }) => {
             getLatAndLong(`${myProperties.address}+ Nashville, TN`).then((data) =>
                 setMap({ latitude: data[0].boundingbox[1], longitude: data[0].boundingbox[2] })
             );
+            setLoading(false)
         }
         else{
             getLatAndLong(`116 Rep John Lewis Way, Nashville, TN`).then((data) =>
                 setMap({ latitude: data[0].boundingbox[1], longitude: data[0].boundingbox[2] })
             );
+            setLoading(false)
         }
     }, [myProperties]);
 
     return (
         <>
-        
+        {loading ? <Heading >Loading Map...</Heading>
+            : <>
            <Flex direction="row" height="full" w="full" justify="between">
                 {map.latitude ? (
                     
@@ -100,6 +105,7 @@ export const MapView = ({ properties }) => {
                     </Box>
                
             </Flex>
+            </>}
         </>
     );
 };
