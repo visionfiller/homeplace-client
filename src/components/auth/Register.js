@@ -125,7 +125,7 @@ export const Register = ({ setToken }) => {
                     </section>
                 </div> */}
         <Flex
-
+            p="8"
             minH={'100vh'}
             align={'center'}
             justify={'center'}
@@ -208,11 +208,14 @@ export const Register = ({ setToken }) => {
                                     onClick={(event) => handleRegister(event)}
                                     loadingText="Submitting"
                                     size="lg"
-                                    bg={'blue.400'}
-                                    color={'white'}
-                                    _hover={{
-                                        bg: 'blue.500',
-                                    }}>
+                                    display={{ base: 'none', md: 'inline-flex' }}
+                                    colorScheme={'green'}
+                                bg={'green.400'}
+                                rounded={'full'}
+                                px={6}
+                                _hover={{
+                                  bg: 'teal.400',
+                                }}>
                                     Sign up
                                 </Button>
                             </Stack>

@@ -8,7 +8,7 @@ export const PropertyBox= ({property,mapView}) => {
 
     return <Box  borderWidth='1px' borderRadius='lg' overflow='hidden'>
      
-    <Image maxH="sm" maxW="sm" h="50%" w="full" src={property.image} alt={property.imageAlt} />
+    <Image  h="50%" w="full" src={property.image} alt={property.imageAlt} />
 
     <Box p='6'>
       <Box display='flex' alignItems='baseline'>

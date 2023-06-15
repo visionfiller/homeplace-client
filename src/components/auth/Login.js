@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import React, { useContext, useEffect, useRef, useState } from "react"
+import { useNavigate} from "react-router-dom"
 import { loginUser } from "../manager/UserProvider"
 import {
   Button,
@@ -11,44 +11,51 @@ import {
   Input,
   Stack,
   Image,
+  Text,Link,
 } from '@chakra-ui/react';
+import { PropertyContext } from "../manager/ContextProvider";
+import { getSwapperById } from "../manager/SwapperProvider";
 
 
 
-export const Login = ({setToken}) => {
-    const username = useRef()
-    const password = useRef()
-    const navigate = useNavigate()
-    const [isUnsuccessful, setisUnsuccessful] = useState(false)
+export const Login = ({ setToken }) => {
+  const username = useRef()
+  const password = useRef()
+  const navigate = useNavigate()
+  const { setSwapper } = useContext(PropertyContext)
+  const [isUnsuccessful, setisUnsuccessful] = useState(false)
+  const storedUrl = localStorage.getItem('redirectUrl');
 
-    const handleLogin = (e) => {
-        e.preventDefault()
-    
-        const user = {
-          username: username.current.value,
-          password: password.current.value
-        }
-    
-        loginUser(user).then(res => {
-        
-          if ("valid" in res && res.valid) {
-            setToken(res.token, res.swapper_id, res.area_id)
-            navigate("/")}
-          else {
-            setisUnsuccessful(true)
-          }
-        })
+  const handleLogin = (e) => {
+    e.preventDefault()
+
+    const user = {
+      username: username.current.value,
+      password: password.current.value
+    }
+
+    loginUser(user).then(res => {
+
+      if ("valid" in res && res.valid) {
+        getSwapperById(parseInt(res.swapper_id)).then((data) => {setSwapper(data)})
+        setToken(res.token, res.swapper_id, res.area_id)
+        navigate("/")
       }
-   
+      else {
+        setisUnsuccessful(true)
+      }
+    })
+  }
 
 
-    return (<>
-        
-     
-          
-          
-           
-            {/* <div className="p-10 w-full">
+
+  return (<>
+
+
+
+
+
+    {/* <div className="p-10 w-full">
             <span className="text-8xl" >Welcome to HomePlace</span>
                 <form className="" onSubmit={handleLogin}>
                     <fieldset className=" ">
@@ -78,17 +85,17 @@ export const Login = ({setToken}) => {
                 </form>
       
             </div> */}
-            <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
-      <Flex p={8} w="40%"flex={1} align={'center'} justify={'center'}>
-        <Stack w="full" spacing={4}  maxW={'md'}>
-          <Heading fontSize={'2xl'}>Sign in to your account</Heading>
+    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row-reverse' }}>
+      <Flex p={8} w="40%" flex={1} align={'center'} justify={'center'}>
+        <Stack w="full" spacing={4} maxW={'md'}>
+          <Heading fontFamily="body"fontSize={'2xl'}>Sign in to your account</Heading>
           <FormControl id="email" >
             <FormLabel>Username</FormLabel>
-            <Input type="text" ref={username}/>
+            <Input type="text" ref={username} />
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input  ref={password} type="password" />
+            <Input ref={password} type="password" />
           </FormControl>
           <Stack spacing={6}>
             {/* <Stack
@@ -98,15 +105,27 @@ export const Login = ({setToken}) => {
               <Checkbox>Remember me</Checkbox>
               <Link color={'blue.500'}>Forgot password?</Link>
             </Stack> */}
-            <Button onClick={handleLogin} type="submit" colorScheme={'blue'} variant={'solid'}>
+            <Button onClick={handleLogin} type="submit"  display={{ base: 'none', md: 'inline-flex' }}
+                  colorScheme={'green'}
+              bg={'green.400'}
+              rounded={'full'}
+              px={6}
+              _hover={{
+                bg: 'teal.400',
+              }}>
               Sign in
             </Button>
           </Stack>
+          <Stack pt={6}>
+                                <Text align={'center'}>
+                                    Haven't signed up ? <Link onClick={()=> navigate("/register")} color={'blue.400'}>Register</Link>
+                                </Text>
+                            </Stack>
         </Stack>
       </Flex>
       <Flex w="60%">
         <Image
-        opacity="25%"
+          opacity="25%"
           alt={'Login Image'}
           objectFit={'cover'}
           src={
@@ -115,11 +134,11 @@ export const Login = ({setToken}) => {
         />
       </Flex>
     </Stack>
-            
-          
-                
-        
-        </>
-    )
+
+
+
+
+  </>
+  )
 }
 
