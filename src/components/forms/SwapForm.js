@@ -184,7 +184,7 @@ export const SwapForm = () => {
         
         </Flex>
         <Box >
-        <Button size="lg "p="12"onClick={handleSwap}><Text fontSize="lg">Send Request</Text></Button>
+        <Button _hover={{backgroundColor:"teal.300"}}m="10"fontSize="xl" bg="teal" color="white" size="lg"onClick={handleSwap}>Send Request</Button>
         </Box>
       </Flex>
     </>

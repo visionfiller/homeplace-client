@@ -1,10 +1,10 @@
 import { getToken } from "./TokenProvider"
 
 export const getSwapperById =(id) => {
-    let token = getToken()
+    // let token = getToken()
     return fetch(`http://localhost:8000/swappers/${id}`, {
         headers:{
-            "Authorization": `Token ${token}`,
+            // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
         }
     })

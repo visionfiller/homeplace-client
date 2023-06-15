@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import {Button} from "@chakra-ui/react"
 
 
 export const UploadWidget =({onUpload}) => {
@@ -22,6 +23,11 @@ export const UploadWidget =({onUpload}) => {
         },[]
     )
     return (
-        <button className="widget-btn btn bg-secondary" onClick={(event) => {event.preventDefault(); widgetRef.current.open()}} > Upload Picture</button>
+        <Button size="sm"color='gray.500'
+        fontWeight='semibold'
+        letterSpacing='wide'
+        fontSize='m'
+        textTransform='uppercase'
+        ml='2'onClick={(event) => {event.preventDefault(); widgetRef.current.open()}} > Upload Picture</Button>
     )
 }

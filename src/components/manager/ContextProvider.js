@@ -47,9 +47,9 @@ export const PropertyProvider = (props) => {
         getAllPropertiesByFilter(url).then((data) => {
           setProperties(data);
         }).then(() => {
-          
+            if (properties.length >= 1){
             navigate('/property_list', { searchedproperties: { properties } });
-            return;
+            return;}
           
         });
       };

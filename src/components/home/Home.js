@@ -145,7 +145,7 @@ export const Home = () => {
         : <>
       <Box bg="teal" height="10px"></Box>
       <Flex w="100%" position="relative" zIndex="1" display="flex" bg="url('https://blog.dentalplans.com/wp-content/uploads/2016/05/343829-neighborhood.jpg') center center / cover no-repeat"
-        direction="row" gap="8">
+        direction="row" gap="8" p="8">
         <Box w="50%">
           <Box
             position="absolute"
@@ -156,18 +156,7 @@ export const Home = () => {
             bg="rgba(0, 0, 0, 0.25)"
             zIndex="-1"
           />
-          {/* <Heading textShadow="2px 2px 4px rgba(0, 0, 0, 0.5)" align="center" fontFamily="body" pt="24" color="white" size="4xl">Welcome to<Spacer></Spacer>HomePlace</Heading>
-          <Flex textShadow="2px 2px 4px rgba(0, 0, 0, 0.5)" p="8" direction="column">
-            <Text align="right" fontSize="2xl" color="white" as='b' w="100%">Escape the ordinary, swap homes, unlock adventure.</Text>
-            <Text align="right" fontSize="2xl" color="white" as='b' w="100%">Begin your ultimate home swapping experience!</Text>
-          </Flex>
-          {!HomePlaceUserObject && (
-            <Flex direction="row" justify="end" gap="4" p="4">
-              <Button size="lg" onClick={() => navigate("/register")} colorScheme="telegram">Signup</Button>
-              <Button size="lg" onClick={() => navigate("/login")} colorScheme="facebook">Login</Button>
-            </Flex>
-          )} */}
-     
+         
         <Stack p="8"
           as={Box}
           textAlign={'center'}>
@@ -178,9 +167,6 @@ export const Home = () => {
             fontSize={{ base: 'xl', sm: '2xl', md: '6xl' }}
             lineHeight={'110%'}>
             Welcome to <br />
-            {/* <Text as={'span'} color={'green.200'}>
-              HomePlace
-            </Text> */}
             <Text
              letterSpacing="wider"
               as={'span'}
@@ -209,13 +195,16 @@ export const Home = () => {
   
         </Box>
         {!HomePlaceUserObject && (
-          <Flex w="25%">
+          <Flex pt="36"w="10%">
           <Stack
+            
             direction={'column'}
             align={'center'}
             alignSelf={'center'}
             position={'relative'}>
             <Button
+            onClick={()=> navigate('/login')}
+                size="lg"
               colorScheme={'green'}
               bg={'green.400'}
               rounded={'full'}

@@ -1,12 +1,21 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { favoriteProperty, getSingleProperty, unfavoriteProperty } from "../manager/PropertyProvider"
 import { getSwapperById } from "../manager/SwapperProvider"
-import { Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup, Flex } from '@chakra-ui/react'
-import { StarIcon, CheckIcon, HeartIcon, CloseIcon } from '@chakra-ui/icons'
+import { Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup, Flex,  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  IconButton,
+  ModalCloseButton, useDisclosure } from '@chakra-ui/react'
+import { StarIcon, CheckIcon, HeartIcon,ArrowBackIcon, CloseIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
 import { RatingForm } from "../forms/ReviewForm"
 import { getMySwaps, getSwapByProperty } from "../manager/ReservationProvider"
+import { NewPropertyForm } from "./NewPropertyForm"
+import { NewHomeModal } from "./NewHomeModal"
 
 export const PropertyDetails = ({ homeProperty }) => {
   const HomePlaceUser = localStorage.getItem("homeplace_user")
@@ -17,6 +26,8 @@ export const PropertyDetails = ({ homeProperty }) => {
   const navigate = useNavigate()
   const [reviewForm, setReviewForm] = useState(false)
   const [swaps, setSwaps] = useState([])
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef()
   useEffect(() => {
     if (HomePlaceUserObject) {
       getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
@@ -65,8 +76,8 @@ export const PropertyDetails = ({ homeProperty }) => {
     navigate(-1);
   };
   return<>
-  <Box w="full" align="center">
-    <Button colorScheme="green"onClick={handleGoBack}>Back to List</Button>
+  <Box p="4"w="full" align="left">
+    <IconButton _hover={{ backgroundColor: "transparent" }} bg="teal" color="white" size="lg" icon={<ArrowBackIcon/>}onClick={handleGoBack}></IconButton>
     </Box>
     <Box p="10" >
       <Heading fontFamily="body">{property.address}</Heading>
@@ -92,7 +103,7 @@ export const PropertyDetails = ({ homeProperty }) => {
               textTransform='uppercase'
               ml='2'
             >
-              Neighborhood: {property?.area?.neighborhood}
+              Neighborhood:<br/> {property?.area?.neighborhood}
             </Box>
             <Box
               color="teal"
@@ -102,7 +113,7 @@ export const PropertyDetails = ({ homeProperty }) => {
               textTransform='uppercase'
               ml='2'
             >
-              Square Footage: {property?.square_footage}
+              Square Footage:<br/>  {property?.square_footage}
             </Box>
             <Box
               color='teal'
@@ -112,7 +123,7 @@ export const PropertyDetails = ({ homeProperty }) => {
               textTransform='uppercase'
               ml='2'
             >
-              homeowner: {property?.owner?.full_name}
+              Homeowner:<br/>  {property?.owner?.full_name}
             </Box>
           </Flex>
           <Box
@@ -187,7 +198,11 @@ export const PropertyDetails = ({ homeProperty }) => {
             {swapReceivedButton(property) ? <Button onClick={()=> navigate("/myswaps")}>Request Received</Button>
               : <Button colorScheme="teal" size="lg" onClick={() => navigate(`/swap_form/${property.id}`)}> Request a Swap!</Button>}
               </>
-            :<Button colorScheme="teal" size="lg" onClick={() => navigate(`/newproperty_form`)}> Add your home to swap!</Button>
+            : <>
+              <Button  colorScheme='teal' onClick={()=> navigate('/myproperty')}> Add your home to swap!</Button>
+              {/* <NewHomeModal isOpen={isOpen} onClose={onClose}/> */}
+          
+      </>
 }
           </>}</Box>
 

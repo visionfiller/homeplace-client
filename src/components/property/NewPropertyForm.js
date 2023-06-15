@@ -4,8 +4,9 @@ import { UploadWidget } from "../cloudinary/UploadWidget"
 import { getAllAreas } from "../manager/AreaProvider"
 import { addNewProperty, updateProperty } from "../manager/PropertyProvider"
 import { getAllPropertyTypes } from "../manager/PropertyTypeProvider"
-import { Flex, FormControl, Checkbox,Input, Textarea,FormLabel,Select,useDisclosure, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
+import { Flex, FormControl,IconButton, Checkbox,Input, Textarea,FormLabel,Select,useDisclosure, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
 import { AreaForm } from "../forms/AreaForm"
+import { AddIcon } from '@chakra-ui/icons'
 
 
 export const NewPropertyForm = ({property}) => {
@@ -85,12 +86,12 @@ export const NewPropertyForm = ({property}) => {
         }
         if (property) {
             updateProperty(data).then(()=> {
-                navigate("/property_list")})
+                navigate("/myproperty")})
         }
         else{
         
         addNewProperty(data).then(()=> {
-            navigate("/property_list")})}
+            navigate("/myproperty")})}
     }
 
     function handleOnUpload(error, result, widget) {
@@ -120,61 +121,8 @@ export const NewPropertyForm = ({property}) => {
     
         },[url])
     return <>
-    {/* <form>
-        {property ?  <h2 className="text-3xl">Manage Your Home</h2>
-        : <h2 className="text-3xl">Submit Your Home</h2>}
-        <fieldset>
-        <label>Address</label>
-        <input value = {newProperty.address} name="address" onChange={(event)=> HandleControlledInput(event)} className=" border border-gray-700" type="text" />
-        </fieldset>
-        <fieldset>
-        <select value = {newProperty.area.id} name="area" onChange={(event)=> HandleControlledInput(event)}>
-            <option>Select an Area</option>
-            {areas.map((area)=> <option key={area.id}value={area.id}>{area.neighborhood}</option>)}
-        </select>
-        <Button onClick={onOpen}>Add a new area</Button>
-        <AreaForm isOpen={isOpen} onClose={onClose} getAreas={getAreas} />
-        </fieldset>
-        <fieldset>
-        <select value = {newProperty.property_type?.id} name="property_type" onChange={(event)=> HandleControlledInput(event)}>
-            <option>Select a property type</option>
-            {propertyTypes.map((property_type)=> <option key={property_type.id}value={property_type.id}>{property_type.name}</option>)}
-        </select>
-        </fieldset>
-        <fieldset>
-        <label>How many bedrooms?</label>
-        <input value = {newProperty.bedrooms} name="bedrooms" onChange={(event)=> HandleControlledInput(event)} type="number"></input> 
-        </fieldset>
-        <fieldset>
-        <label>How many bathrooms??</label>
-        <input value = {newProperty.bathrooms} name="bathrooms" onChange={(event)=> HandleControlledInput(event)} type="number"></input> 
-        </fieldset>
-        <fieldset>
-        <label>How large is your home?</label>
-        <input value = {newProperty.square_footage} name="square_footage" onChange={(event)=> HandleControlledInput(event)} type="number"></input> <label>Square Feet</label>
-        </fieldset>
-        <fieldset>
-            <label>Pool?</label>
-            <input checked={newProperty.pool} name="pool" onChange={(event)=> HandleControlledInputChecked(event)}type="checkbox"/>
-        </fieldset>
-        <fieldset>
-            <label>Yard?</label>
-            <input checked={newProperty.yard} name="yard" onChange={(event)=> HandleControlledInputChecked(event)} type ="checkbox"/>
-            </fieldset>
-            <fieldset className="p-4 mx-auto flex row justify-evenly items-center">
-                {url === "" ? ""
-                :  <img className="h-1/3 w-1/3" src={url}/>}
-                
-                <UploadWidget onUpload={handleOnUpload}/>
-               
-
-       
-    
-                </fieldset>
-    <button onClick={(event)=> HandleSubmit(event)}>Submit</button>
-    </form>
-    </> */}
-    <Box>
+   
+    <Box bg="white" mx="auto" w="50%" p="8" rounded="lg" border="2px" borderColor="teal">
      
 
       <form onSubmit={HandleSubmit}>
@@ -192,6 +140,7 @@ export const NewPropertyForm = ({property}) => {
 
         <FormControl mt={4}>
           <FormLabel>Area</FormLabel>
+          <Flex>
           <Select
             value={newProperty.area.id}
             name="area"
@@ -205,8 +154,10 @@ export const NewPropertyForm = ({property}) => {
                 {area.neighborhood}
               </option>
             ))}
+           
           </Select>
-          <Button onClick={onOpen}>Add a new area</Button>
+          <IconButton icon={<AddIcon />}bg="transparent" onClick={onOpen} _hover={{ backgroundColor: "transparent" }}></IconButton>
+          </Flex>
         <AreaForm isOpen={isOpen} onClose={onClose} getAreas={getAreas} />
         </FormControl>
 
@@ -286,21 +237,23 @@ export const NewPropertyForm = ({property}) => {
         </FormControl>
         </Flex>
         <FormControl mt="4">
-            <FormLabel>Image</FormLabel>
+            
        
                 {url === "" ? ""
                 :  <Image h="50%" w="full"src={url}  />}
                 
-                <UploadWidget onUpload={handleOnUpload}/>
+               <UploadWidget onUpload={handleOnUpload}/>
                
 
        
     
                 
         </FormControl>
-        <Button mt={4} colorScheme="teal" type="submit">
+        <Box align="center">
+        <Button size="lg"align="center" mt={4} colorScheme="teal" type="submit">
           Submit
         </Button>
+        </Box>
       </form>
     </Box>
     </>

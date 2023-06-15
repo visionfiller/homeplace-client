@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
 import { approveSwap, cancelSwap, denySwap, getMySwapsByStatus, getSwapsBySwapper } from "../manager/ReservationProvider"
-import { MyUpcomingSwaps } from "./ApprovedSwaps"
-import { MySwaps } from "./MySubmittedSwaps"
 import {
     Stat,
     StatLabel,
