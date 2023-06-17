@@ -1,71 +1,152 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# HomePlace
 
-## Available Scripts
+My app solves the problem of those who want a change of scenery and are bored with the day-to-day of their house. With HomePlace, users can view and swap homes in the area for a mini vacation while still being home to go to work, eat at their favorite restaurants, and more. It offers the opportunity to visit parks or restaurants that were previously too far away because they were not in the neighborhood. Customers can swap homes that have pools, big yards, or better locations. It is a community-type system, and to participate in a swap, the customer must have their home listed.
 
-In the project directory, you can run:
+## Key Features
 
-### `npm start`
+1. **Home Swapping:** Users can list their homes and browse through available listings in their area. They can then initiate a swap with another user, allowing them to temporarily live in each other's homes.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Expanded Experiences:** With HomePlace, users can explore new neighborhoods, visit parks, and dine at restaurants that were previously too far away to conveniently access on a regular basis. This enhances their day-to-day experiences and adds a sense of adventure to their lives.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Home Criteria:** Users can specify their preferences and requirements for the homes they are looking to swap with. This may include features like pools, big yards, or better locations. The app matches users based on their criteria to ensure a mutually beneficial swap.
 
-### `npm test`
+4. **Listing Requirement:** To participate in a swap, customers must have their homes listed on the app. This helps maintain an active community and ensures that there are enough options available for users to choose from.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Live Demo
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Screenshots
+### Homepage
+<img width="60%" alt="Screen Shot 2023-06-17 at 12 17 56 PM" src="https://github.com/visionfiller/homeplace-client/assets/119541686/1e8b768b-68a2-4bdf-83d6-6337a036c930">
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### List of Properties
+<img width="60%" alt="Screen Shot 2023-06-17 at 12 18 41 PM" src="https://github.com/visionfiller/homeplace-client/assets/119541686/be202a3d-e09d-4fa1-a87a-a1718bdfffa1">
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Initialize Swap
+<img width="60%" alt="Screen Shot 2023-06-17 at 12 26 48 PM" src="https://github.com/visionfiller/homeplace-client/assets/119541686/11e7c1c3-1744-47ec-b29c-abf7583d09c8">
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Client
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To install and run the HomePlace client application, follow these steps:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Clone the repository:
 
-## Learn More
+   ```bash
+   git clone https://github.com/visionfiller/homeplace-client.git
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Navigate to the project directory:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   cd homeplace-client
+   ```
 
-### Code Splitting
+3. Install the dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```bash
+   npm install
+   ```
 
-### Analyzing the Bundle Size
+   This will install the following dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   - @chakra-ui/icons@2.0.19
+   - @chakra-ui/react@2.7.0
+   - @cloudinary/react@1.11.2
+   - @cloudinary/url-gen@1.10.1
+   - @emotion/react@11.11.1
+   - @emotion/styled@11.11.0
+   - @testing-library/jest-dom@5.16.5
+   - @testing-library/react@13.4.0
+   - @testing-library/user-event@13.5.0
+   - framer-motion@10.12.16
+   - leaflet@1.9.4
+   - react@18.2.0
+   - react-calendar@4.2.1
+   - react-dom@18.2.0
+   - react-leaflet@4.2.1
+   - react-router-dom@6.11.2
+   - react-scripts@5.0.1
+   - web-vitals@2.1.4
 
-### Making a Progressive Web App
+4. Start the application:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+   ```bash
+   npm start
+   ```
 
-### Advanced Configuration
+   The application should
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+ now be running on [http://localhost:3000](http://localhost:3000).
 
-### Deployment
+### Server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To install and run the HomePlace server application, follow these steps:
 
-### `npm run build` fails to minify
+1. Clone the repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# homeplace-client
+   ```bash
+   git clone https://github.com/visionfiller/homeplace-server.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd homeplace-server
+   ```
+
+3. Create a virtual environment (optional but recommended):
+
+   ```bash
+   python -m venv venv
+   ```
+
+4. Activate the virtual environment:
+
+   - For Windows:
+
+     ```bash
+     venv\Scripts\activate
+     ```
+
+   - For macOS/Linux:
+
+     ```bash
+     source venv/bin/activate
+     ```
+
+5. Install the dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   This will install the necessary dependencies for the server.
+
+6. Run the server:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+   The server should now be running on [http://localhost:8000](http://localhost:8000).
+
+## Technologies Used
+
+- ReactJS (Frontend)
+- Django (Backend)
+- ChakraUI (Styling)
+
+## Acknowledgements
+
+I would like to express my gratitude to Nashville Software School for their support and guidance throughout the development of this project. Their resources and expertise have been invaluable in bringing HomePlace to life.
+
+## Contact
+
+For any questions or inquiries, please contact me at [visionfiller@gmail.com].
+
+---
+
