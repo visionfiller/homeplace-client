@@ -2,7 +2,7 @@ import { getToken } from "./TokenProvider"
 
 export const requestSwap =(id, object) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/properties/${id}/make_reservation`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/${id}/make_reservation`, {
         method: "POST",
         headers:{
             "Authorization": `Token ${token}`,
@@ -13,7 +13,7 @@ export const requestSwap =(id, object) => {
         .then(response => response.json())}
 export const cancelSwap =(id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/properties/${id}/cancel_reservation`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/${id}/cancel_reservation`, {
         method: "DELETE",
         headers:{
             "Authorization": `Token ${token}`,
@@ -24,7 +24,7 @@ export const cancelSwap =(id) => {
 
 export const getMySwaps =() => {
     let token = getToken()
-    return fetch("http://localhost:8000/reservations/my_swaps", {
+    return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations/my_swaps", {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -34,7 +34,7 @@ export const getMySwaps =() => {
 }
 export const getSwapByProperty = (id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/reservations?property=${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations?property=${id}`, {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -44,7 +44,7 @@ export const getSwapByProperty = (id) => {
 }
 export const getSwapBySwapperProperty = (id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/reservations?swapper_property=${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations?swapper_property=${id}`, {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -54,7 +54,7 @@ export const getSwapBySwapperProperty = (id) => {
 }
 export const getSwapsBySwapper =(id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/reservations?swapper=${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations?swapper=${id}`, {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -64,7 +64,7 @@ export const getSwapsBySwapper =(id) => {
 }
 export const getMySwapsByStatus =(status) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/reservations/my_swaps?status=${status}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations/my_swaps?status=${status}`, {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -75,7 +75,7 @@ export const getMySwapsByStatus =(status) => {
 
 export const approveSwap =(id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/reservations/${id}/approve`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations/${id}/approve`, {
         method: "PUT",
         headers:{
             "Authorization": `Token ${token}`,
@@ -85,7 +85,7 @@ export const approveSwap =(id) => {
         }
 export const denySwap =(id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/reservations/${id}/deny`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations/${id}/deny`, {
         method: "PUT",
         headers:{
             "Authorization": `Token ${token}`,

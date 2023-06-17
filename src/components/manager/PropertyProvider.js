@@ -2,7 +2,7 @@ import { getToken } from "./TokenProvider"
 
 export const getAllProperties =() => {
     // let token = getToken()
-    return fetch("http://localhost:8000/properties", {
+    return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/properties", {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -13,7 +13,7 @@ export const getAllProperties =() => {
 
 export const getPropertyByArea =(id) => {
     // let token = getToken()
-    return fetch(`http://localhost:8000/properties?area=${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?area=${id}`, {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -23,7 +23,7 @@ export const getPropertyByArea =(id) => {
 }
 export const getPropertyChefs =() => {
     // let token = getToken()
-    return fetch(`http://localhost:8000/properties?description=${"chef's"}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?description=${"chef's"}`, {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -33,7 +33,7 @@ export const getPropertyChefs =() => {
 }
 export const getPropertyByOwner =(id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/properties?owner=${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?owner=${id}`, {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -43,7 +43,7 @@ export const getPropertyByOwner =(id) => {
 }
 export const getPropertyByAddress =(address) => {
     // let token = getToken()
-    return fetch(`http://localhost:8000/properties?address=${address}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?address=${address}`, {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -53,7 +53,7 @@ export const getPropertyByAddress =(address) => {
 }
 // export const getAllPropertiesWithPool =() => {
 //     let token = getToken()
-//     return fetch("http://localhost:8000/properties?has_pool", {
+//     return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?has_pool", {
 //         headers:{
 //             "Authorization": `Token ${token}`,
 //              "Content-Type": "application/json"
@@ -63,7 +63,7 @@ export const getPropertyByAddress =(address) => {
 // }
 // export const getAllPropertiesWithYard =() => {
 //     let token = getToken()
-//     return fetch("http://localhost:8000/properties?has_yard", {
+//     return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?has_yard", {
 //         headers:{
 //             "Authorization": `Token ${token}`,
 //              "Content-Type": "application/json"
@@ -73,7 +73,7 @@ export const getPropertyByAddress =(address) => {
 // }
 export const getAllPropertiesByFilter =(filter) => {
     // let token = getToken()
-    return fetch(`http://localhost:8000/properties?${filter}` , {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?${filter}` , {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -83,7 +83,7 @@ export const getAllPropertiesByFilter =(filter) => {
 }
 export const getSingleProperty =(id) => {
     // let token = getToken()
-    return fetch(`http://localhost:8000/properties/${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/${id}`, {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -93,7 +93,7 @@ export const getSingleProperty =(id) => {
 }
 export const getMyProperty =() => {
     let token = getToken()
-    return fetch("http://localhost:8000/properties/my_property", {
+    return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/my_property", {
         headers:{
             "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -104,7 +104,7 @@ export const getMyProperty =() => {
 
 export const addNewProperty= (newProperty) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/properties`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${token}`,
@@ -116,7 +116,7 @@ export const addNewProperty= (newProperty) => {
 }
 export const favoriteProperty= (id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/properties/${id}/favorite`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/${id}/favorite`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${token}`,
@@ -127,7 +127,7 @@ export const favoriteProperty= (id) => {
 }
 export const unfavoriteProperty= (id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/properties/${id}/unfavorite`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/${id}/unfavorite`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${token}`,
@@ -138,7 +138,7 @@ export const unfavoriteProperty= (id) => {
 }
 export const rateProperty= (id, rating) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/properties/${id}/rate_property`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/${id}/rate_property`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${token}`,
@@ -150,7 +150,7 @@ export const rateProperty= (id, rating) => {
 }
 export const updateProperty = (property) =>{
     let token = getToken()
-    return fetch(`http://localhost:8000/properties/${property.id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/${property.id}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${token}`,
@@ -162,7 +162,7 @@ export const updateProperty = (property) =>{
 }
 export const deleteProperty = (id) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/properties/${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties/${id}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${token}`,

@@ -2,7 +2,7 @@ import { getToken } from "./TokenProvider"
 
 export const getAllPropertyTypes =() => {
     // let token = getToken()
-    return fetch("http://localhost:8000/propertytypes", {
+    return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/propertytypes", {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -13,7 +13,7 @@ export const getAllPropertyTypes =() => {
 
 export const getSinglePropertyType =(id) => {
     // let token = getToken()
-    return fetch(`http://localhost:8000/propertytypes/${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/propertytypes/${id}`, {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
