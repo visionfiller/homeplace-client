@@ -62,7 +62,8 @@ export const NavBar = () => {
   },[])
 
   const handleLogout = () => {
-    localStorage.removeItem("homeplace_user").then(navigate('/login'))
+    localStorage.removeItem("homeplace_user");
+    window.location.href = "/login";
 
   }
   return <>
