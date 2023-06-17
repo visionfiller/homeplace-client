@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { getSwapperById } from '../manager/SwapperProvider';
 import { PropertyBox } from './PropertyBox';
 import { IconButton, Container, Flex, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
+import {Search2Icon} from '@chakra-ui/icons'
 
 const customIcon = L.icon({
     iconUrl: '../pin.svg',
@@ -48,7 +49,7 @@ export const MapView = ({ properties }) => {
     useEffect(() => {
         // getMyProperty().then((data) => setMyProperties(data))
         // getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data)=> setSwapper(data));
-        
+
     }, []);
 
     useEffect(() => {
@@ -87,12 +88,12 @@ export const MapView = ({ properties }) => {
                         <div>{myProperties?.address}</div>
                     </div>
                     )} */}
-                    <Box flex="1" height="600px" overflow="auto" pt="10">
+                    <Box flex="1" height="600px" overflow="auto" pt="10" p="8">
                         {properties ? (
                             <>
                                 {properties.map((property) => {
-                                    return (<Flex direction="row">
-                                        <Button onClick={() => setMyProperties(property)}>Find</Button>
+                                    return (<Flex direction="row" alignItems="center">
+                                        <IconButton   color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
                                        <PropertyBox property={property}/>
                                             
                                         </Flex>
