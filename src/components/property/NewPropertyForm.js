@@ -9,7 +9,7 @@ import { AreaForm } from "../forms/AreaForm"
 import { AddIcon } from '@chakra-ui/icons'
 
 
-export const NewPropertyForm = ({property}) => {
+export const NewPropertyForm = ({refreshProperty, property}) => {
     const navigate = useNavigate()
     const [areas, setAreas] = useState([])
     const [propertyTypes, setPropertyTypes] = useState([])
@@ -86,12 +86,12 @@ export const NewPropertyForm = ({property}) => {
         }
         if (property) {
             updateProperty(data).then(()=> {
-                navigate("/myproperty")})
+                refreshProperty()})
         }
         else{
         
         addNewProperty(data).then(()=> {
-            navigate("/myproperty")})}
+            refreshProperty()})}
     }
 
     function handleOnUpload(error, result, widget) {

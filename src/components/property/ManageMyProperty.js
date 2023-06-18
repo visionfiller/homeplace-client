@@ -10,9 +10,12 @@ export const ManageMyProperty =() => {
     const [property, setProperties] = useState({})
 
     useEffect(() => {
-    getMyProperty().then((data) => setProperties(data))
+    refreshProperty()
     
     },[])
+    const refreshProperty =() => {
+        getMyProperty().then((data) => setProperties(data))
+    }
     
     const deleteMyProperty = (id) => {
         deleteProperty(id).then(()=> getMyProperty().then((data) => setProperties(data)))
@@ -67,7 +70,7 @@ export const ManageMyProperty =() => {
            
           </Box>
                 </Flex>
-                <NewPropertyForm property={property}/>
+                <NewPropertyForm refreshProperty={refreshProperty}property={property}/>
                 
                 </Flex>
               
