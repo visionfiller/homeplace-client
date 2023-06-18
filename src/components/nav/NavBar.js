@@ -5,23 +5,8 @@ import {
   Box,
   Flex,
   Text,
-  IconButton,
   Button,
-  Stack,
-  Collapse,
-  Icon,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   ButtonGroup,
   useDisclosure,
   Divider
@@ -34,8 +19,7 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons'
 import { PropertyContext } from "../manager/ContextProvider"
-import { NewPropertyForm } from "../property/NewPropertyForm"
-import { NewHomeModal } from "../property/NewHomeModal"
+
 
 export const NavBar = () => {
   const navigate = useNavigate()
@@ -111,12 +95,6 @@ export const NavBar = () => {
               color="teal"
               textTransform='uppercase'>my swaps</Text></Link>
 
-
-          {/* <Stack
-            flex={{ base: 1, md: 0 }}
-            justify={'flex-end'}
-            direction={'row'}
-            spacing={6}> */}
             {HomePlaceUserObject ? <>
               <Link onClick={() => handleLogout()}><Text 
               

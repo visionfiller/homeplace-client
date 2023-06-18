@@ -28,7 +28,7 @@ import {
 
 
 
-export const FormFilter = ({event, areas, property_types, pool, yard, searchArea, square_footage, propertyType, bedrooms, bathrooms, HandleFilter, HandleFilterSubmit }) => {
+export const FormFilter = ({event,onClose, areas, property_types, pool, yard, searchArea, square_footage, propertyType, bedrooms, bathrooms, HandleFilter, HandleFilterSubmit }) => {
     const labelStyles = {
         mt: '2',
         ml: '-2.5',
@@ -119,7 +119,7 @@ export const FormFilter = ({event, areas, property_types, pool, yard, searchArea
                     </Stack>
                 </CheckboxGroup>
                 <Box align="center" p ="4">
-                <Button onClick={(event) => HandleFilterSubmit(event, pool, yard, searchArea, square_footage, propertyType, bedrooms, bathrooms)} className="btn">See Results</Button>
+                <Button onClick={(event) => HandleFilterSubmit(event, pool, yard, searchArea, square_footage, propertyType, bedrooms, bathrooms) & onClose()} className="btn">See Results</Button>
                 </Box>
             </FormControl>
 

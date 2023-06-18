@@ -67,63 +67,6 @@ export const Register = ({ setToken }) => {
 
     return (<>
 
-
-
-        {/* <div className="p-10 w-full">
-                    <span className="" >register for homeplace</span>
-                    <section className="w-full h-full relative">
-                        <form className="m-auto form-control text-right " onSubmit={handleRegister}>
-                            <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="" >username</label>
-                                <input onChange={updateUser}
-                                    type="text" id="username"
-                                    className=""
-                                    placeholder="" required autoFocus />
-
-                            </fieldset>
-                            <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="" >first name</label>
-                                <input onChange={updateUser}
-                                    type="text" id="first_name"
-                                    className=""
-                                    placeholder="" required autoFocus />
-
-                            </fieldset>
-                            <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="" >last name</label>
-                                <input onChange={updateUser}
-                                    type="text" id="last_name"
-                                    className=""
-                                    placeholder="" required autoFocus />
-
-                            </fieldset>
-                            <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="" >email</label>
-                                <input onChange={updateUser}
-                                    type="email" id="email"
-                                    className=""
-                                    placeholder="" required />
-
-
-                            </fieldset>
-                            <fieldset className=" pt-4 flex row justify-evenly items-center">
-                                <label className="" >password</label>
-                                <input onChange={updateUser}
-                                    type="password" id="password"
-                                    className=""
-                                    placeholder="" required />
-
-                            </fieldset>
-                            
-                            <div className="flex row justify-start gap-10 pt-4 p-5">
-                              
-                                <fieldset className=" flex row">
-                                    <button className="btn bg-secondary mr-auto ml-auto" type="submit"> Register </button>
-                                </fieldset>
-                            </div>
-                        </form>
-                    </section>
-                </div> */}
         <Flex
             p="8"
             minH={'100vh'}
@@ -133,7 +76,7 @@ export const Register = ({ setToken }) => {
             <Box
 
                 position="relative"
-               p="4"
+               p="2"
                 zIndex={1}
                 bg={useColorModeValue('rgba(255, 255, 255, 0.8)', 'rgba(0, 0, 0, 0.8)')}
                
@@ -142,7 +85,7 @@ export const Register = ({ setToken }) => {
             >
                 <Stack spacing={8} mx={'auto'} maxW={'lg'} py={4} px={6}>
                     <Stack align={'center'}>
-                        <Heading fontFamily="body" fontSize={'4xl'} textAlign={'center'}>
+                        <Heading color="teal"fontFamily="body" fontSize={'4xl'} textAlign={'center'}>
                             Sign up
                         </Heading>
                         <Text fontFamily="body" fontSize={'lg'} color={'gray.600'}>
@@ -208,7 +151,7 @@ export const Register = ({ setToken }) => {
                                     onClick={(event) => handleRegister(event)}
                                     loadingText="Submitting"
                                     size="lg"
-                                    display={{ base: 'none', md: 'inline-flex' }}
+                                  
                                     colorScheme={'green'}
                                 bg={'green.400'}
                                 rounded={'full'}

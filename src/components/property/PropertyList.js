@@ -24,6 +24,7 @@ import { StarIcon, SearchIcon, RepeatIcon } from '@chakra-ui/icons'
 import { PropertyBox } from "./PropertyBox"
 import { getAllPropertyTypes, getSinglePropertyType } from "../manager/PropertyTypeProvider"
 import { LoadingScreen } from "../home/LoadingScreen"
+import { useMediaQuery } from "@chakra-ui/react"
 
 
 export const PropertyList = ({ searchTermState }) => {
@@ -44,6 +45,7 @@ export const PropertyList = ({ searchTermState }) => {
     const [mapView, setMapView] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
+    const [isMobile] = useMediaQuery("(max-width: 768px)") 
 
     useEffect(() => {
        
@@ -210,7 +212,20 @@ export const PropertyList = ({ searchTermState }) => {
 
 
                 {mapView ? <MapView properties={properties} />
-                    :
+                    : <>
+                    { isMobile ? <Flex direction ="column" p="4">
+                        {properties.length ? <>
+                            {
+                                properties?.map((property) => {
+                                    return <>
+                                        <PropertyBox mapView={mapView} property={property} />
+                                    </>
+
+                                })}
+                        </>
+                            : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}
+                    </Flex>
+                    : 
                     <SimpleGrid p="5" columns={3} spacing={10}>
                         {properties.length ? <>
                             {
@@ -223,7 +238,9 @@ export const PropertyList = ({ searchTermState }) => {
                         </>
                             : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}
 
-                    </SimpleGrid>}
+                    </SimpleGrid>
+}
+                    </>}
             </>
         }
     </>
