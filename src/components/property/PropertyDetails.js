@@ -76,25 +76,25 @@ export const PropertyDetails = ({ homeProperty }) => {
     navigate(-1);
   };
   return<>
-  <Box p="4"w="full" align="left">
+  <Box p="4"w="full" align={{base:"center", md:"left"}}>
     <IconButton _hover={{ backgroundColor: "transparent" }} bg="teal" color="white" size="lg" icon={<ArrowBackIcon/>}onClick={handleGoBack}></IconButton>
     </Box>
     <Box p="10" >
       <Heading fontFamily="body">{property.address}</Heading>
 
-      <Flex direction="row" p="10">
-        <Flex direction="column" w="50%">
+      <Flex direction={{base: "column", md:"row"}} p={{base:"2", md:"10"}}>
+        <Flex direction="column" w={{base:"100%", md:"50%"}}>
         <Box  overflow='hidden'>
           <Image src={property.image}  />
           </Box>
-          <Box p="10"fontSize="lg" lineHeight="tall">
+          <Box p={{base:"2", md:"8"}} pt="4"fontSize="lg" lineHeight="tall">
             <Text>{property.description}</Text>
           </Box>
           </Flex>
   
         
-        <Flex direction="column" alignItems='baseline' p="8">
-          <Flex direction="row" gap="10">
+        <Flex alignItems="center" direction="column"  p="2">
+          <Flex alignItems="left"direction="row" gap="10">
             <Box
               color="teal"
               fontWeight='semibold'
@@ -207,7 +207,7 @@ export const PropertyDetails = ({ homeProperty }) => {
           </>}</Box>
 
 
-          <Box m="8" p="4" border="1px" borderColor="teal">
+          <Box m={{base:"2", md:"8"}} p={{base:"2", md:"4"}} border="1px" borderColor="teal">
             <Heading fontFamily="body" size="lg" as="u">Reviews</Heading>
             {property?.ratings?.length ? property.ratings.map((rating) => {
               return <Box display='flex' mt='2' alignItems='center'>

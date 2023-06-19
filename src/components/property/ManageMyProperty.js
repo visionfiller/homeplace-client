@@ -41,7 +41,7 @@ export const ManageMyProperty =() => {
           fontSize='md'
           textTransform='uppercase'
           my='auto' onClick={()=>deleteMyProperty(property.id)}>Delete my property</Button></Box>
-                <Flex gap="10"direction = "row-reverse" justify="space-evenly" alignItems="center"p="10">
+                <Flex gap="10"direction ={{base:"column", md:"row-reverse"}} justify="space-evenly" alignItems="center"p="10">
                
                 <Flex p="0"direction="column" alignItems="left">
                     <Heading mx="auto" color="gray.700"fontFamily="body"p="8" size="2xl">My Property</Heading>
@@ -70,12 +70,13 @@ export const ManageMyProperty =() => {
            
           </Box>
                 </Flex>
+               
                 <NewPropertyForm refreshProperty={refreshProperty}property={property}/>
                 
                 </Flex>
               
                </>
-               : <Box p="8"> <NewPropertyForm /></Box>}
+               : <Box p="8"> <NewPropertyForm refreshProperty={refreshProperty}/></Box>}
     
             
         

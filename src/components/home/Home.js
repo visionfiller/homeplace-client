@@ -103,33 +103,10 @@ export const Home = () => {
           />
           
          {isMobile ? <>
-            <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
-        Open
-      </Button>
-      <Drawer
-        isOpen={isOpen}
-        placement='right'
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
-
-          <DrawerBody>
-            <Input placeholder='Type here...' />
-          </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='blue'>Save</Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-         </>
+         <Box align="center">
+         <Button bg="teal" color="white" onClick={()=> navigate("/property_list")}> Search Homes</Button>
+</Box>
+           </>
          :""}
         <Stack p={{base:"none", md:"8"}}
           as={Box}
@@ -241,11 +218,20 @@ export const Home = () => {
           </SimpleGrid>
 }
           <Heading align="left" bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Cook up a storm in these chef's kitchens</Heading>
+          {isMobile ? <>
+            <Flex direction="column" p="2">
+            {chefs.map((property) => {
+              return <PropertyBox key={property.id}property={property} />;
+            })}
+            </Flex>
+          </> 
+          : <>
           <SimpleGrid p="8" columns={3} spacing={10}>
             {chefs.map((property) => {
               return <PropertyBox key={property.id}property={property} />;
             })}
           </SimpleGrid>
+          </>}
        </>}
     </>
   );

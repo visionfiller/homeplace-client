@@ -122,7 +122,7 @@ export const NewPropertyForm = ({refreshProperty, property}) => {
         },[url])
     return <>
    
-    <Box bg="white" mx="auto" w="50%" p="8" rounded="lg" border="2px" borderColor="teal">
+    <Box bg="white" mx="auto" w={{base:"100%", md:"50%"}} p="8" rounded="lg" border="2px" borderColor="teal">
      
 
       <form onSubmit={HandleSubmit}>

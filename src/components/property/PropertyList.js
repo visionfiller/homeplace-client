@@ -185,6 +185,7 @@ export const PropertyList = ({ searchTermState }) => {
                             <IconButton onClick={HandleSearch} aria-label='Search database' icon={<SearchIcon />} />
                             <PropertySearch setterFunction={setSearchTerms} />
                         </Box>
+                        {!isMobile? <>
                         <Flex bg="teal" p="1" direction="row" justifyContent="start">
                             {pool ? <Badge ml="2" bg="teal" color="white" fontSize="md">Pool</Badge>
                                 : ""}
@@ -203,6 +204,8 @@ export const PropertyList = ({ searchTermState }) => {
                             {bedrooms ? <Badge ml="2" bg="teal" color="white" fontSize="md">{bedrooms} bedrooms</Badge>
                                 : ""}
                         </Flex>
+                        </>
+                        : ""}
 
                     </Flex>
                     {mapView ? <Button mr="2" onClick={(event) => HandleMap(event)} >List View</Button>
