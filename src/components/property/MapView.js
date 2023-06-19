@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { getSwapperById } from '../manager/SwapperProvider';
 import { PropertyBox } from './PropertyBox';
 import { IconButton, Container, Flex, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
-import {Search2Icon} from '@chakra-ui/icons'
+import { Search2Icon } from '@chakra-ui/icons'
 
 const customIcon = L.icon({
     iconUrl: '../pin.svg',
@@ -38,19 +38,13 @@ const MyMapComponent = ({ latitude, longitude }) => {
     );
 };
 
-export const MapView = ({ properties }) => {
-    const HomePlaceUser = localStorage.getItem("homeplace_user")
-    const HomePlaceUserObject = JSON.parse(HomePlaceUser)
+export const MapView = ({ properties, mapView }) => {
+
     const [myProperties, setMyProperties] = useState({});
-    const [swapper, setSwapper] = useState({})
+
     const [loading, setLoading] = useState(true)
     const [map, setMap] = useState({ latitude: '', longitude: '' });
 
-    useEffect(() => {
-        // getMyProperty().then((data) => setMyProperties(data))
-        // getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data)=> setSwapper(data));
-
-    }, []);
 
     useEffect(() => {
         if (myProperties && myProperties.address) {
@@ -59,8 +53,8 @@ export const MapView = ({ properties }) => {
             );
             setLoading(false)
         }
-        else{
-            getLatAndLong(`116 Rep John Lewis Way, Nashville, TN`).then((data) =>
+        else {
+            getLatAndLong(`${properties[0].address}+ Nashville, TN`).then((data) =>
                 setMap({ latitude: data[0].boundingbox[1], longitude: data[0].boundingbox[2] })
             );
             setLoading(false)
@@ -69,44 +63,38 @@ export const MapView = ({ properties }) => {
 
     return (
         <>
-        {loading ? <Heading >Loading Map...</Heading>
-            : <>
-           <Flex direction="row" height="full" w="full" justify="between">
-                {map.latitude ? (
-                    
-                        <MapContainer center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
-                            <MyMapComponent latitude={map.latitude} longitude={map.longitude} />
-                        </MapContainer>
-                    
-                ) : (
-                    ''
-                )}
-               
-                    {/* {myProperties && myProperties.address && (
-                    <div>
-                        <div>My Home</div>
-                        <div>{myProperties?.address}</div>
-                    </div>
-                    )} */}
-                    <Box flex="1" height="600px" overflow="auto" pt="10" p="8">
-                        {properties ? (
-                            <>
-                                {properties.map((property) => {
-                                    return (<Flex direction="row" alignItems="center">
-                                        <IconButton   color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
-                                       <PropertyBox property={property}/>
-                                            
-                                        </Flex>
-                                    );
-                                })}
-                            </>
+            {loading ? <Heading >Loading Map...</Heading>
+                : <>
+                    <Flex direction={{ base: "column-reverse", md: "row" }} height="full" w="full" justify="between">
+                        {map.latitude ? (
+                            <Box h={{ base: "100%", md: "50%" }} w={{ base: "100%", md: "50%" }} pt="2">
+                                <MapContainer style={{ width: "100%"}} center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
+                                    <MyMapComponent latitude={map.latitude} longitude={map.longitude} />
+                                </MapContainer>
+                            </Box>
+
                         ) : (
                             ''
                         )}
-                    </Box>
-               
-            </Flex>
-            </>}
+
+                        <Box flex="1" height="600px" overflowX="auto" pt="2" >
+                            <Flex direction={{base:"row", md:"column"}} alignItems="center" flexWrap="nowrap">
+                                {properties ? (
+                                    <>
+                                        {properties.map((property) => (
+                                            <Box p="2" flex="0 0 auto" width="full" key={property.id}>
+                                                <PropertyBox mapView={mapView} setMyProperties={setMyProperties} property={property} />
+                                            </Box>
+                                        ))}
+                                    </>
+                                ) : (
+                                    ""
+                                )}
+                            </Flex>
+                        </Box>
+
+                    </Flex>
+                </>}
         </>
     );
 };

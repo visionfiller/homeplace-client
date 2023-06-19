@@ -214,7 +214,7 @@ export const PropertyList = ({ searchTermState }) => {
 
 
 
-                {mapView ? <MapView properties={properties} />
+                {mapView ? <MapView mapView={mapView} properties={properties} />
                     : <>
                     { isMobile ? <Flex direction ="column" p="4">
                         {properties.length ? <>

@@ -1,12 +1,12 @@
-import { Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
-import { StarIcon } from '@chakra-ui/icons'
+import { IconButton, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
+import { StarIcon, Search2Icon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
 
-export const PropertyBox= ({property,mapView}) => {
+export const PropertyBox= ({property,mapView, setMyProperties}) => {
   const HomePlaceUser = localStorage.getItem("homeplace_user")
   const HomePlaceUserObject = JSON.parse(HomePlaceUser)
 
-    return <Box  borderWidth='1px' borderRadius='lg' overflow='hidden'>
+    return <Box borderWidth='1px' borderRadius='lg' overflow='hidden'>
      
     <Image  h="50%" w="full" src={property.image} alt={property.imageAlt} />
 
@@ -51,6 +51,8 @@ export const PropertyBox= ({property,mapView}) => {
        
       </Box>
       <Button><Link to={`/property_details/${property.id}`}>See Details</Link></Button>
+      {mapView ? <IconButton   color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
+      :"" }
     </Box>
 
   </Box>
