@@ -8,7 +8,7 @@ export const PropertyBox= ({property,mapView, setMyProperties}) => {
 
     return <Box borderWidth='1px' borderRadius='lg' overflow='hidden'>
      
-    <Image  h="50%" w="full" src={property.image} alt={property.imageAlt} />
+     <Link to={`/property_details/${property.id}`}><Image  h="50%" w="full" src={property.image} alt={property.imageAlt} /></Link>
 
     <Box p='6'>
       <Box display='flex' alignItems='baseline'>
@@ -47,7 +47,6 @@ export const PropertyBox= ({property,mapView, setMyProperties}) => {
           ))}
        
       </Box>
-      <Button><Link to={`/property_details/${property.id}`}>See Details</Link></Button>
       {mapView ? <IconButton   color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
       :"" }
     </Box>
