@@ -31,10 +31,13 @@ export const SwapContainer = () => {
 
     const getAllSwaps = () => {
         getMySwapsByStatus("submitted").then((data) => { setSubmittedSwaps(data) })
-        getMySwapsByStatus("approved").then((data) => { setApprovedSwaps(data) })
+        getMySwapsByStatus("approved").then((data) => { 
+            let newData= data.filter((swap) => swap.completed !== true)
+            setApprovedSwaps(newData)
+        })
         getSwapsBySwapper(parseInt(HomePlaceUserObject.swapper_id)).then((data) => {
             let mySubmitted = data.filter((swap) => swap.status === "Submitted")
-            let myApproved = data.filter((swap) => swap.status === "Approved")
+            let myApproved = data.filter((swap) => swap.status === "Approved" && swap.completed !== true)
             setMySubmittedSwaps(mySubmitted)
             setMyApprovedSwaps(myApproved)
         })
