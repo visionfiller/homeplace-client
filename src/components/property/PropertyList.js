@@ -24,6 +24,7 @@ import { StarIcon, SearchIcon, RepeatIcon } from '@chakra-ui/icons'
 import { PropertyBox } from "./PropertyBox"
 import { getAllPropertyTypes, getSinglePropertyType } from "../manager/PropertyTypeProvider"
 import { LoadingScreen } from "../home/LoadingScreen"
+import { useMediaQuery } from "@chakra-ui/react"
 
 
 export const PropertyList = ({ searchTermState }) => {
@@ -44,9 +45,10 @@ export const PropertyList = ({ searchTermState }) => {
     const [mapView, setMapView] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
+    const [isMobile] = useMediaQuery("(max-width: 768px)")
 
     useEffect(() => {
-       
+
         if (properties.length) {
             setLoading(true);
 
@@ -59,10 +61,7 @@ export const PropertyList = ({ searchTermState }) => {
 
             return
         }
-        // else if(properties.length === 0){
-        //     window.alert("No Properties Found")
-        //     setLoading(false)
-        // }
+      
         else {
 
             showAllProperties()
@@ -183,24 +182,27 @@ export const PropertyList = ({ searchTermState }) => {
                             <IconButton onClick={HandleSearch} aria-label='Search database' icon={<SearchIcon />} />
                             <PropertySearch setterFunction={setSearchTerms} />
                         </Box>
-                        <Flex bg="teal" p="1" direction="row" justifyContent="start">
-                            {pool ? <Badge ml="2" bg="teal" color="white" fontSize="md">Pool</Badge>
-                                : ""}
-                            {yard ? <Badge ml="2" bg="teal" color="white" fontSize="md">Yard</Badge>
-                                : ""}
-                            {propertyType ? <Badge ml="2" bg="teal" color="white" fontSize="md">{getPropertyTypeName(parseInt(propertyType))}</Badge>
-                                : ""}
-                            {searchArea ? <Badge ml="2" bg="teal" color="white" fontSize="md">{getAreaName(parseInt(searchArea))}</Badge>
-                                : ""}
-                            {searchTerms ? <Badge ml="2" bg="teal" color="white" fontSize="md">{searchTerms}</Badge>
-                                : ""}
-                            {square_footage ? <Badge ml="2" bg="teal" color="white" fontSize="md">{square_footage} Sq Ft</Badge>
-                                : ""}
-                            {bathrooms ? <Badge ml="2" bg="teal" color="white" fontSize="md">{bathrooms} bathrooms</Badge>
-                                : ""}
-                            {bedrooms ? <Badge ml="2" bg="teal" color="white" fontSize="md">{bedrooms} bedrooms</Badge>
-                                : ""}
-                        </Flex>
+                        {!isMobile ? <>
+                            <Flex bg="teal" p="1" direction="row" justifyContent="start">
+                                {pool ? <Badge ml="2" bg="teal" color="white" fontSize="md">Pool</Badge>
+                                    : ""}
+                                {yard ? <Badge ml="2" bg="teal" color="white" fontSize="md">Yard</Badge>
+                                    : ""}
+                                {propertyType ? <Badge ml="2" bg="teal" color="white" fontSize="md">{getPropertyTypeName(parseInt(propertyType))}</Badge>
+                                    : ""}
+                                {searchArea ? <Badge ml="2" bg="teal" color="white" fontSize="md">{getAreaName(parseInt(searchArea))}</Badge>
+                                    : ""}
+                                {searchTerms ? <Badge ml="2" bg="teal" color="white" fontSize="md">{searchTerms}</Badge>
+                                    : ""}
+                                {square_footage ? <Badge ml="2" bg="teal" color="white" fontSize="md">{square_footage} Sq Ft</Badge>
+                                    : ""}
+                                {bathrooms ? <Badge ml="2" bg="teal" color="white" fontSize="md">{bathrooms} bathrooms</Badge>
+                                    : ""}
+                                {bedrooms ? <Badge ml="2" bg="teal" color="white" fontSize="md">{bedrooms} bedrooms</Badge>
+                                    : ""}
+                            </Flex>
+                        </>
+                            : ""}
 
                     </Flex>
                     {mapView ? <Button mr="2" onClick={(event) => HandleMap(event)} >List View</Button>
@@ -209,21 +211,36 @@ export const PropertyList = ({ searchTermState }) => {
 
 
 
-                {mapView ? <MapView properties={properties} />
-                    :
-                    <SimpleGrid p="5" columns={3} spacing={10}>
-                        {properties.length ? <>
-                            {
-                                properties?.map((property) => {
-                                    return <>
-                                        <PropertyBox mapView={mapView} property={property} />
-                                    </>
+                {mapView ? <MapView mapView={mapView} properties={properties} />
+                    : <>
+                        {isMobile ? <Flex direction="column" p="4">
+                            {properties.length ? <>
+                                {
+                                    properties?.map((property) => {
+                                        return <>
+                                            <PropertyBox mapView={mapView} property={property} />
+                                        </>
 
-                                })}
-                        </>
-                            : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}
+                                    })}
+                            </>
+                                : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}
+                        </Flex>
+                            :
+                            <SimpleGrid p="5" columns={3} spacing={10}>
+                                {properties.length ? <>
+                                    {
+                                        properties?.map((property) => {
+                                            return <>
+                                                <PropertyBox mapView={mapView} property={property} />
+                                            </>
 
-                    </SimpleGrid>}
+                                        })}
+                                </>
+                                    : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}
+
+                            </SimpleGrid>
+                        }
+                    </>}
             </>
         }
     </>

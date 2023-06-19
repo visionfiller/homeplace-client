@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { favoriteProperty, getSingleProperty, unfavoriteProperty } from "../manager/PropertyProvider"
 import { getSwapperById } from "../manager/SwapperProvider"
-import { Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup, Flex,  Modal,
+import {
+  Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup, Flex, Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
   ModalBody,
   IconButton,
-  ModalCloseButton, useDisclosure } from '@chakra-ui/react'
-import { StarIcon, CheckIcon, HeartIcon,ArrowBackIcon, CloseIcon } from '@chakra-ui/icons'
+  ModalCloseButton, useDisclosure
+} from '@chakra-ui/react'
+import { StarIcon, CheckIcon, HeartIcon, ArrowBackIcon, CloseIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
 import { RatingForm } from "../forms/ReviewForm"
 import { getMySwaps, getSwapByProperty } from "../manager/ReservationProvider"
@@ -51,13 +53,6 @@ export const PropertyDetails = ({ homeProperty }) => {
     getSingleProperty(parseInt(propertyId)).then((data) => setProperty(data))
   }
 
-
-  const addFavorite = (id) => {
-    favoriteProperty(id).then(() => getPropertyDetail(id))
-  }
-  const removeFavorite = (id) => {
-    unfavoriteProperty(id).then(() => getPropertyDetail(id))
-  }
   const swapStatusButton = () => {
     let request = swaps.find((swap) => swap.swapper.id === HomePlaceUserObject.swapper_id)
     if (request) {
@@ -66,7 +61,7 @@ export const PropertyDetails = ({ homeProperty }) => {
 
   }
   const swapReceivedButton = (property) => {
-    let request = swaps.find((swap) => swap.property.id === property.id )
+    let request = swaps.find((swap) => swap.property.id === property.id)
     if (request) {
       return request
     }
@@ -75,26 +70,26 @@ export const PropertyDetails = ({ homeProperty }) => {
   const handleGoBack = () => {
     navigate(-1);
   };
-  return<>
-  <Box p="4"w="full" align="left">
-    <IconButton _hover={{ backgroundColor: "transparent" }} bg="teal" color="white" size="lg" icon={<ArrowBackIcon/>}onClick={handleGoBack}></IconButton>
+  return <>
+    <Box p="4" w="full" align={{ base: "center", md: "left" }}>
+      <IconButton _hover={{ backgroundColor: "transparent" }} bg="teal" color="white" size="lg" icon={<ArrowBackIcon />} onClick={handleGoBack}></IconButton>
     </Box>
     <Box p="10" >
       <Heading fontFamily="body">{property.address}</Heading>
 
-      <Flex direction="row" p="10">
-        <Flex direction="column" w="50%">
-        <Box  overflow='hidden'>
-          <Image src={property.image}  />
+      <Flex direction={{ base: "column", md: "row" }} p={{ base: "2", md: "10" }}>
+        <Flex direction="column" w={{ base: "100%", md: "50%" }}>
+          <Box overflow='hidden'>
+            <Image src={property.image} />
           </Box>
-          <Box p="10"fontSize="lg" lineHeight="tall">
+          <Box p={{ base: "2", md: "8" }} pt="4" fontSize="lg" lineHeight="tall">
             <Text>{property.description}</Text>
           </Box>
-          </Flex>
-  
-        
-        <Flex direction="column" alignItems='baseline' p="8">
-          <Flex direction="row" gap="10">
+        </Flex>
+
+
+        <Flex alignItems="center" direction="column" p="2">
+          <Flex alignItems="left" direction="row" gap="10">
             <Box
               color="teal"
               fontWeight='semibold'
@@ -103,7 +98,7 @@ export const PropertyDetails = ({ homeProperty }) => {
               textTransform='uppercase'
               ml='2'
             >
-              Neighborhood:<br/> {property?.area?.neighborhood}
+              Neighborhood:<br /> {property?.area?.neighborhood}
             </Box>
             <Box
               color="teal"
@@ -113,7 +108,7 @@ export const PropertyDetails = ({ homeProperty }) => {
               textTransform='uppercase'
               ml='2'
             >
-              Square Footage:<br/>  {property?.square_footage}
+              Square Footage:<br />  {property?.square_footage}
             </Box>
             <Box
               color='teal'
@@ -123,7 +118,7 @@ export const PropertyDetails = ({ homeProperty }) => {
               textTransform='uppercase'
               ml='2'
             >
-              Homeowner:<br/>  {property?.owner?.full_name}
+              Homeowner:<br />  {property?.owner?.full_name}
             </Box>
           </Flex>
           <Box
@@ -185,29 +180,24 @@ export const PropertyDetails = ({ homeProperty }) => {
           >
             Pool: {property.pool ? <CheckIcon boxSize={5}></CheckIcon> : <CloseIcon boxSize={4}></CloseIcon>}
           </Box>
-         
-          {/* {HomePlaceUserObject ? <> */}
-          {/* {property.user_favorited ? <Button onClick={()=> removeFavorite(property.id)}>Remove From Favorites</Button>
-:<Button onClick={()=> addFavorite(property.id)}>Add to Favorites</Button>}
-</>
-: ""} */}
- <Box p="8">
-        {swapStatusButton() ? <Button onClick={()=> navigate("/myswaps")}>Request Sent</Button>
-        : <>
-          {swapper.has_listing ? <>
-            {swapReceivedButton(property) ? <Button onClick={()=> navigate("/myswaps")}>Request Received</Button>
-              : <Button colorScheme="teal" size="lg" onClick={() => navigate(`/swap_form/${property.id}`)}> Request a Swap!</Button>}
-              </>
-            : <>
-              <Button  colorScheme='teal' onClick={()=> navigate('/myproperty')}> Add your home to swap!</Button>
-              {/* <NewHomeModal isOpen={isOpen} onClose={onClose}/> */}
-          
-      </>
-}
-          </>}</Box>
+
+          <Box p="8">
+            {swapStatusButton() ? <Button onClick={() => navigate("/myswaps")}>Request Sent</Button>
+              : <>
+                {swapper.has_listing ? <>
+                  {swapReceivedButton(property) ? <Button onClick={() => navigate("/myswaps")}>Request Received</Button>
+                    : <Button colorScheme="teal" size="lg" onClick={() => navigate(`/swap_form/${property.id}`)}> Request a Swap!</Button>}
+                </>
+                  : <>
+                    <Button colorScheme='teal' onClick={() => navigate('/myproperty')}> Add your home to swap!</Button>
+                    {/* <NewHomeModal isOpen={isOpen} onClose={onClose}/> */}
+
+                  </>
+                }
+              </>}</Box>
 
 
-          <Box m="8" p="4" border="1px" borderColor="teal">
+          <Box m={{ base: "2", md: "8" }} p={{ base: "2", md: "4" }} border="1px" borderColor="teal">
             <Heading fontFamily="body" size="lg" as="u">Reviews</Heading>
             {property?.ratings?.length ? property.ratings.map((rating) => {
               return <Box display='flex' mt='2' alignItems='center'>
@@ -228,20 +218,16 @@ export const PropertyDetails = ({ homeProperty }) => {
               </Box>
             })
               : <Text p="4">There are no reviews for this property</Text>}
-           {HomePlaceUserObject ?
-           <>
-            {reviewForm ? <RatingForm setReviewForm={setReviewForm} propertyId={propertyId} getPropertyDetail={getPropertyDetail} />
-              :  <Button onClick={() => setReviewForm(true)}>Leave a review</Button>}
-        </>
-        : ""}
+            {HomePlaceUserObject ?
+              <>
+                {reviewForm ? <RatingForm setReviewForm={setReviewForm} propertyId={propertyId} getPropertyDetail={getPropertyDetail} />
+                  : <Button onClick={() => setReviewForm(true)}>Leave a review</Button>}
+              </>
+              : ""}
           </Box>
         </Flex>
       </Flex>
-     
+    </Box>
 
-
-
-        </Box>
-       
-</>
+  </>
 }

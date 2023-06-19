@@ -2,7 +2,7 @@ import { getToken } from "./TokenProvider"
 
 export const getAllAreas =() => {
     // let token = getToken()
-    return fetch("http://localhost:8000/areas", {
+    return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/areas", {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -12,7 +12,7 @@ export const getAllAreas =() => {
 }
 export const getSingleArea =(id) => {
     // let token = getToken()
-    return fetch(`http://localhost:8000/areas/${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/areas/${id}`, {
         headers:{
             // "Authorization": `Token ${token}`,
              "Content-Type": "application/json"
@@ -22,7 +22,7 @@ export const getSingleArea =(id) => {
 }
 export const addNewArea= (newArea) => {
     let token = getToken()
-    return fetch(`http://localhost:8000/areas`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/areas`, {
         method: "POST",
         headers: {
             "Authorization": `Token ${token}`,

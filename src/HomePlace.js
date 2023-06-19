@@ -11,10 +11,13 @@ import { Home } from "./components/home/Home"
 import { PropertyList } from "./components/property/PropertyList"
 import { PropertyDetails } from "./components/property/PropertyDetails"
 import { PropertyProvider } from "./components/manager/ContextProvider"
+import { useMediaQuery } from "@chakra-ui/react"
+import { MobileNavBar } from "./components/nav/MobileNavBar"
 
 
 export const  HomePlace = () => {
   const [token, setTokenState] = useState(localStorage.getItem('homeplace_user'))
+  const [isMobile] = useMediaQuery("(max-width: 768px)") 
 	
   
 	const setToken = (auth_token, swapper_id, area_id) => {
@@ -47,7 +50,8 @@ export const  HomePlace = () => {
 	return <>
 	 <ChakraProvider theme={theme}>
 	<PropertyProvider>
-	<NavBar />
+	{isMobile ? <MobileNavBar/>
+	: <NavBar />}
 	<Routes>
 	
     <Route path="/login" element={<Login setToken={setToken} />} />

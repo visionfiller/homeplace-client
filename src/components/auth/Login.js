@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { loginUser } from "../manager/UserProvider"
 import {
   Button,
@@ -11,7 +11,9 @@ import {
   Input,
   Stack,
   Image,
-  Text,Link,
+  Box,
+  useColorModeValue,
+  Text, Link,
 } from '@chakra-ui/react';
 import { PropertyContext } from "../manager/ContextProvider";
 import { getSwapperById } from "../manager/SwapperProvider";
@@ -37,7 +39,7 @@ export const Login = ({ setToken }) => {
     loginUser(user).then(res => {
 
       if ("valid" in res && res.valid) {
-        getSwapperById(parseInt(res.swapper_id)).then((data) => {setSwapper(data)})
+        getSwapperById(parseInt(res.swapper_id)).then((data) => { setSwapper(data) })
         setToken(res.token, res.swapper_id, res.area_id)
         navigate("/")
       }
@@ -50,45 +52,39 @@ export const Login = ({ setToken }) => {
 
 
   return (<>
+      <Flex
+            p="8"
+            minH={'100vh'}
+            align={'center'}
+            justify={'center'}
+            bg="url('https://static.neighborhoods.com/blog/media/shutterstock_1089144251_hero-2b8cf27c75232a4071c87993ce545f42.jpg') center center / cover no-repeat">
+            <Box
 
-
-
-
-
-    {/* <div className="p-10 w-full">
-            <span className="text-8xl" >Welcome to HomePlace</span>
-                <form className="" onSubmit={handleLogin}>
-                    <fieldset className=" ">
-                    <label className="" >username</label>
-                            <input type="text"
-                                ref={username}
-                                className=""
-                                placeholder=""
-                                required autoFocus />
-                    </fieldset>
-                    <fieldset className="">
-                    
-                    <label className="" >password</label>
-                            <input type="password"
-                               ref={password}
-                                className=""
-                                placeholder=""
-                                required autoFocus />
-                          
-                    </fieldset>
-                    <fieldset className="">
-                        <button className="btn" type="submit">
+                position="relative"
+               p="2"
+                zIndex={1}
+                bg={useColorModeValue('rgba(255, 255, 255, 0.8)', 'rgba(0, 0, 0, 0.8)')}
+               
+                rounded={'lg'}
+                boxShadow={'lg'}
+            >
+                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={4} px={6}>
+                    <Stack align={'center'}>
+                        <Heading color="teal"fontFamily="body" fontSize={'4xl'} textAlign={'center'}>
                             Sign in
-                        </button>
-                        <Link className="" to="/register">Is this your first visit?</Link>
-                    </fieldset>
-                </form>
-      
-            </div> */}
-    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row-reverse' }}>
-      <Flex p={8} w="40%" flex={1} align={'center'} justify={'center'}>
-        <Stack w="full" spacing={4} maxW={'md'}>
-          <Heading fontFamily="body"fontSize={'2xl'}>Sign in to your account</Heading>
+                        </Heading>
+                        <Text color="teal"fontFamily="body" fontSize={'lg'} >
+                            to start your home swap ✌️
+                        </Text>
+                    </Stack>
+                    <Box
+                        rounded={'lg'}
+                        bg={useColorModeValue('white', 'gray.700')}
+                        boxShadow={'lg'}
+                        p={8}>
+                        <Stack spacing={4}>
+                          
+
           <FormControl id="email" >
             <FormLabel>Username</FormLabel>
             <Input type="text" ref={username} />
@@ -98,15 +94,8 @@ export const Login = ({ setToken }) => {
             <Input ref={password} type="password" />
           </FormControl>
           <Stack spacing={6}>
-            {/* <Stack
-              direction={{ base: 'column', sm: 'row' }}
-              align={'start'}
-              justify={'space-between'}>
-              <Checkbox>Remember me</Checkbox>
-              <Link color={'blue.500'}>Forgot password?</Link>
-            </Stack> */}
-            <Button onClick={handleLogin} type="submit"  display={{ base: 'none', md: 'inline-flex' }}
-                  colorScheme={'green'}
+            <Button onClick={handleLogin} type="submit" 
+              colorScheme={'green'}
               bg={'green.400'}
               rounded={'full'}
               px={6}
@@ -117,26 +106,17 @@ export const Login = ({ setToken }) => {
             </Button>
           </Stack>
           <Stack pt={6}>
-                                <Text align={'center'}>
-                                    Haven't signed up ? <Link onClick={()=> navigate("/register")} color={'blue.400'}>Register</Link>
-                                </Text>
-                            </Stack>
+            <Text align={'center'}>
+              Haven't signed up ? <Link onClick={() => navigate("/register")} color={'blue.400'}>Register</Link>
+            </Text>
+          </Stack>
+          </Stack>
+          </Box>
         </Stack>
+        </Box>
       </Flex>
-      <Flex w="60%">
-        <Image
-          opacity="25%"
-          alt={'Login Image'}
-          objectFit={'cover'}
-          src={
-            'https://static.neighborhoods.com/blog/media/shutterstock_1089144251_hero-2b8cf27c75232a4071c87993ce545f42.jpg'
-          }
-        />
-      </Flex>
-    </Stack>
-
-
-
+      
+    
 
   </>
   )
