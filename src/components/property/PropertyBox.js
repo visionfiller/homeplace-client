@@ -36,9 +36,6 @@ export const PropertyBox= ({property,mapView, setMyProperties}) => {
       >
         {property.address}
       </Box>
-
-   
-
       <Box display='flex' mt='2' alignItems='center'>
         {Array(5)
           .fill('')

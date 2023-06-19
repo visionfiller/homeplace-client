@@ -68,7 +68,7 @@ export const MapView = ({ properties, mapView }) => {
                     <Flex direction={{ base: "column-reverse", md: "row" }} height="full" w="full" justify="between">
                         {map.latitude ? (
                             <Box h={{ base: "100%", md: "50%" }} w={{ base: "100%", md: "50%" }} pt="2">
-                                <MapContainer style={{ width: "100%"}} center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
+                                <MapContainer style={{ width: "100%" }} center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
                                     <MyMapComponent latitude={map.latitude} longitude={map.longitude} />
                                 </MapContainer>
                             </Box>
@@ -78,7 +78,7 @@ export const MapView = ({ properties, mapView }) => {
                         )}
 
                         <Box flex="1" height="600px" overflowX="auto" pt="2" >
-                            <Flex direction={{base:"row", md:"column"}} alignItems="center" flexWrap="nowrap">
+                            <Flex direction={{ base: "row", md: "column" }} alignItems="center" flexWrap="nowrap">
                                 {properties ? (
                                     <>
                                         {properties.map((property) => (

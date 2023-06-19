@@ -1,6 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllAreas, getSingleArea } from "../manager/AreaProvider";
 import { getAllProperties, getAllPropertiesByFilter, getMyProperties, getPropertyByArea, getPropertyChefs } from "../manager/PropertyProvider";
 import { FormFilter } from "../property/FormFilter";
 import { PropertyContext } from "../manager/ContextProvider";
@@ -13,18 +12,6 @@ import {
   Button,
   SimpleGrid,
   Text,
-  useColorModeValue,
-  useBreakpointValue,
-  Spacer,
-  Container,
-  Input,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   Stack,
   Modal,
   ModalOverlay,

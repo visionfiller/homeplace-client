@@ -12,18 +12,7 @@ import {
     Select,
     Checkbox,
     CheckboxGroup,
-    Stack,
-    Container,
-    NumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
-    Slider,
-    SliderTrack,
-    SliderFilledTrack,
-    SliderThumb,
-    SliderMark,
+    Stack
 } from '@chakra-ui/react'
 
 
@@ -36,12 +25,7 @@ export const FormFilter = ({event,onClose, areas, property_types, pool, yard, se
    
     return <>
         <Box bg="white" rounded="md" pt="4" border="1px" w="100%">
-
             <FormControl p="3" w='100%'>
-
-
-
-                
                 <FormLabel>Area</FormLabel>
                 <Select value={searchArea} name="area" onChange={(event) => HandleFilter(event)}>
                     <option>Select an area</option>
@@ -69,43 +53,6 @@ export const FormFilter = ({event,onClose, areas, property_types, pool, yard, se
                         </Box>
 
 
-                    {/* <NumberInput min="1" max="10" onChange={(event) => HandleFilter(event)} name="bathrooms">
-                        <NumberInputField />
-                        <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                        </NumberInputStepper>
-                    </NumberInput> */}
-                    {/* <Box >
-                        <Slider aria-label='slider-ex-6' onChange={(event) => HandleFilter(event)}>
-                            <SliderMark value={25} {...labelStyles}>
-                                25%
-                            </SliderMark>
-                            <SliderMark value={50} {...labelStyles}>
-                                50%
-                            </SliderMark>
-                            <SliderMark value={75} {...labelStyles}>
-                                75%
-                            </SliderMark>
-                            <SliderMark
-                             name="bathrooms"
-                                value={bathrooms}
-                                textAlign='center'
-                                bg='blue.500'
-                                color='white'
-                                mt='-10'
-                                ml='-5'
-                                w='12'
-                            >
-                                {bathrooms}
-                            </SliderMark>
-                            <SliderTrack>
-                                <SliderFilledTrack />
-                            </SliderTrack>
-                            <SliderThumb />
-                        </Slider>
-                    </Box> */}
-
 
 <Box display="flex">
                         <FormLabel>Min Bedrooms</FormLabel>
@@ -124,25 +71,6 @@ export const FormFilter = ({event,onClose, areas, property_types, pool, yard, se
             </FormControl>
 
         </Box>
-
-
-
-
-        {/* <fieldset>
-                    <label>Has Pool</label>
-                    <input name="pool" type="checkbox" checked={pool} onChange={HandleFilter}></input>
-                </fieldset>
-                <fieldset>
-                    <label>Has Yard</label>
-                    <input name="yard" type="checkbox" checked={yard} onChange={HandleFilter}></input>
-                </fieldset>
-                <fieldset>
-                    <label>Home Size</label>
-                    <input className="w-3/4 range-primary" type="range" min="1000" max="10000" id="tempB" onChange={HandleFilter} name="square_footage"  />
-                    <div>{square_footage}</div><label>Square Feet</label>
-                </fieldset> */}
-
-
 
     </>
 }
