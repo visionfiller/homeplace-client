@@ -71,9 +71,14 @@ export const PropertyDetails = ({ homeProperty }) => {
     navigate(-1);
   };
   return <>
-    <Box p="4" w="full" align={{ base: "center", md: "left" }}>
+    <Flex bg="teal" color="white" alignItems="center" >
+           <Box  align={{ base: "center", md: "left" }}>
       <IconButton _hover={{ backgroundColor: "transparent" }} bg="teal" color="white" size="lg" icon={<ArrowBackIcon />} onClick={handleGoBack}></IconButton>
     </Box>
+    <Heading w="100%"bg="teal" color="white" p="4" align="center" fontFamily="body" as="h2" size="2xl">
+                Property Details
+            </Heading>
+            </Flex>
     <Box p="10" >
       <Heading fontFamily="body">{property.address}</Heading>
 

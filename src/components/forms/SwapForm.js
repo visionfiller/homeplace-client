@@ -22,8 +22,10 @@ import {
   CheckboxGroup,
   Stack,
   Container, extendTheme,
-  Text
+  Text,
+  IconButton
 } from '@chakra-ui/react'
+import {ArrowBackIcon} from '@chakra-ui/icons'
 
 export const SwapForm = () => {
   const HomePlaceUser = localStorage.getItem("homeplace_user")
@@ -131,13 +133,20 @@ export const SwapForm = () => {
   };
 
   return <>
-          <Button colorScheme="teal" onClick={handleGoBack}>Back to Details</Button>
+      <Flex bg="teal" color="white" alignItems="center" >
+           <Box  align={{ base: "center", md: "left" }}>
+      <IconButton _hover={{ backgroundColor: "transparent" }} bg="teal" color="white" size="lg" icon={<ArrowBackIcon />} onClick={handleGoBack}></IconButton>
+    </Box>
+    <Heading w="100%"bg="teal" color="white" p="4" align="center" fontFamily="body" as="h2" size="2xl">
+                Request a Swap
+            </Heading>
+            </Flex>
     {HomePlaceUserObject.swapper_id ? <>
       <Flex direction="column" alignItems="center" p="">
         {myProperty.address && swapProperty.address ? <>
-          <Flex justify="center" p="16" gap="24" direction='row'>
+          <Flex justify="center" p="16" gap="24" direction={{base:"column", md:"row"}}>
 
-            <Box border="2px" borderColor="teal" p="10" w="50%">
+            <Box border="2px" borderColor="teal" p="10" w={{base:"100%", md:"50%"}}>
               <Box align="center"
                 pb="6"
                 color='gray.500'
@@ -148,7 +157,7 @@ export const SwapForm = () => {
 
               >current:</Box>
               <PropertyBox property={myProperty} /></Box>
-            <Box border="2px" borderColor="teal"p="10" w="50%">
+            <Box border="2px" borderColor="teal"p="10" w={{base:"100%", md:"50%"}}>
               <Box align="center"
                 pb="6"
                 color='gray.500'
@@ -162,7 +171,7 @@ export const SwapForm = () => {
           </Flex>
         </>
           : ""}
-        <Flex p="4" gap="10" alignItems="center">
+        <Flex direction={{base:"column", md:"row"}}p="4" gap="10" alignItems="center">
   <Box align="center"
                 pb="6"
                 color='gray.500'
