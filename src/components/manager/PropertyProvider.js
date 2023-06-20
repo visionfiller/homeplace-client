@@ -51,26 +51,26 @@ export const getPropertyByAddress =(address) => {
     })
         .then(response => response.json())
 }
-// export const getAllPropertiesWithPool =() => {
-//     let token = getToken()
-//     return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?has_pool", {
-//         headers:{
-//             "Authorization": `Token ${token}`,
-//              "Content-Type": "application/json"
-//         }
-//     })
-//         .then(response => response.json())
-// }
-// export const getAllPropertiesWithYard =() => {
-//     let token = getToken()
-//     return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?has_yard", {
-//         headers:{
-//             "Authorization": `Token ${token}`,
-//              "Content-Type": "application/json"
-//         }
-//     })
-//         .then(response => response.json())
-// }
+export const getAllPropertiesWithPool =() => {
+    // let token = getToken()
+    return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?has_pool", {
+        headers:{
+            // "Authorization": `Token ${token}`,
+             "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json())
+}
+export const getAllPropertiesWithYard =() => {
+    // let token = getToken()
+    return fetch("https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?has_yard", {
+        headers:{
+            // "Authorization": `Token ${token}`,
+             "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json())
+}
 export const getAllPropertiesByFilter =(filter) => {
     // let token = getToken()
     return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/properties?${filter}` , {

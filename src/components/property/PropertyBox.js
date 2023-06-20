@@ -6,9 +6,9 @@ export const PropertyBox= ({property,mapView, setMyProperties}) => {
   const HomePlaceUser = localStorage.getItem("homeplace_user")
   const HomePlaceUserObject = JSON.parse(HomePlaceUser)
 
-    return <Box borderWidth='1px' borderRadius='lg' overflow='hidden'>
+    return <Box height="300px" w="350px" borderWidth='1px' borderRadius='lg' overflow='hidden'>
      
-     <Link to={`/property_details/${property.id}`}><Image  h="50%" w="full" src={property.image} alt={property.imageAlt} /></Link>
+     <Link to={`/property_details/${property.id}`}><Image objectFit="cover"  h="50%" w="full" src={property.image} alt={property.imageAlt} /></Link>
 
     <Box p='6'>
       <Box display='flex' alignItems='baseline'>

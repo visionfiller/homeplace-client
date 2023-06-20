@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllProperties, getAllPropertiesByFilter, getMyProperties, getPropertyByArea, getPropertyChefs } from "../manager/PropertyProvider";
+import { getAllProperties, getAllPropertiesByFilter, getAllPropertiesWithYard, getMyProperties, getPropertyByArea, getPropertyChefs } from "../manager/PropertyProvider";
 import { FormFilter } from "../property/FormFilter";
 import { PropertyContext } from "../manager/ContextProvider";
 import { getSwapperById } from "../manager/SwapperProvider";
@@ -43,8 +43,10 @@ export const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [loading, setLoading] = useState(true)
   const [chefs, setChefs]= useState([])
+  const [yards, setYards] = useState([])
   const [isMobile] = useMediaQuery("(max-width: 768px)") 
   const navigate = useNavigate();
+  const [form, setForm] = useState(false)
   const btnRef = useRef()
 
   useEffect(() => {
@@ -54,6 +56,7 @@ export const Home = () => {
     }
 
     getPropertyChefs().then((data) => setChefs(data))
+    getAllPropertiesWithYard().then((data)=> setYards(data))
     setLoading(false)
   }, []);
 
@@ -66,7 +69,7 @@ export const Home = () => {
       });
     } else {
  
-      getAllProperties().then((data) => setExplore(data.sort(() => 0.5 - Math.random()).slice(0, 3)));
+      getAllProperties().then((data) => setExplore(data.sort(() => 0.5 - Math.random()).slice(0, 3)))
       setLoading(false)
     }
   }, [swapper]);
@@ -91,7 +94,17 @@ export const Home = () => {
           
          {isMobile ? <>
          <Box align="center">
-         <Button bg="teal" color="white" onClick={()=> navigate("/property_list")}> Search Homes</Button>
+
+         <Button bg="teal" color="white" onClick={()=> setForm(!form)}> Search Homes</Button>
+         {form? <>
+            <Box w="80%" align="center">
+            <FormFilter HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
+          </Box>
+         </>
+         : ""}
+         
+        
+
 </Box>
            </>
          :""}
@@ -189,36 +202,28 @@ export const Home = () => {
         </Box>
 }
       </Flex>
-      
           <Heading align="left" bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Explore Other Neighborhoods</Heading>
-          {isMobile ? <>
-          <Flex direction="column" p="2">
+           <Flex w="full" direction={{base:"column",md:"row"}}p="4" gap="2" justifyContent="space-around" alignItems="center">
             {explore.map((property) => {
               return <PropertyBox key={property.id}property={property} />;
             })}
-            </Flex>
-       </>
-          : <SimpleGrid p="8" columns={3} spacing={10}>
-            {explore.map((property) => {
-              return <PropertyBox key={property.id}property={property} />;
-            })}
-          </SimpleGrid>
-}
-          <Heading align="left" bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Cook up a storm in these chef's kitchens</Heading>
-          {isMobile ? <>
-            <Flex direction="column" p="2">
+          </Flex>
+
+          <Heading align="left" bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Host a Dinner Party With These Chef's Kitchens </Heading>
+            <Flex w="full"  direction={{base:"column",md:"row"}}p="4" gap="2" justifyContent="space-around" alignItems="center">
             {chefs.map((property) => {
               return <PropertyBox key={property.id}property={property} />;
             })}
             </Flex>
-          </> 
-          : <>
-          <SimpleGrid p="8" columns={3} spacing={10}>
-            {chefs.map((property) => {
+          <Heading align="left" bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Let Your Pup Run Free In These Spacious Yards</Heading>
+  
+            <Flex w="full" direction={{base:"column",md:"row"}}p="4" gap="2" justifyContent="space-around" alignItems="center">
+            {yards.map((property) => {
               return <PropertyBox key={property.id}property={property} />;
             })}
-          </SimpleGrid>
-          </>}
+            </Flex>
+          
+        
        </>}
     </>
   );

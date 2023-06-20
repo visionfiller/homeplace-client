@@ -65,7 +65,7 @@ export const MapView = ({ properties, mapView }) => {
         <>
             {loading ? <Heading >Loading Map...</Heading>
                 : <>
-                    <Flex direction={{ base: "column-reverse", md: "row" }} height="full" w="full" justify="between">
+                    <Flex direction={{ base: "column-reverse", md: "row" }} height="full" w="full" justifyContent="space-evenly">
                         {map.latitude ? (
                             <Box h={{ base: "100%", md: "50%" }} w={{ base: "100%", md: "50%" }} pt="2">
                                 <MapContainer style={{ width: "100%" }} center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
@@ -82,7 +82,7 @@ export const MapView = ({ properties, mapView }) => {
                                 {properties ? (
                                     <>
                                         {properties.map((property) => (
-                                            <Box p="2" flex="0 0 auto" width="full" key={property.id}>
+                                            <Box align="center"p="2" flex="0 0 auto" width="full" key={property.id}>
                                                 <PropertyBox mapView={mapView} setMyProperties={setMyProperties} property={property} />
                                             </Box>
                                         ))}

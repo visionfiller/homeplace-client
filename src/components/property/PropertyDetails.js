@@ -85,7 +85,7 @@ export const PropertyDetails = ({ homeProperty }) => {
       <Flex direction={{ base: "column", md: "row" }} p={{ base: "2", md: "10" }}>
         <Flex direction="column" w={{ base: "100%", md: "50%" }}>
           <Box overflow='hidden'>
-            <Image src={property.image} />
+            <Image rounded="md" src={property.image} />
           </Box>
           <Box p={{ base: "2", md: "8" }} pt="4" fontSize="lg" lineHeight="tall">
             <Text>{property.description}</Text>
