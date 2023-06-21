@@ -17,8 +17,7 @@ import { Link } from "react-router-dom"
 
 
 export const SwapContainer = () => {
-    const HomePlaceUser = localStorage.getItem("homeplace_user")
-    const HomePlaceUserObject = JSON.parse(HomePlaceUser)
+
     const [approvedSwaps, setApprovedSwaps] = useState([])
     const [submittedSwaps, setSubmittedSwaps] = useState([])
     const [mySubmittedSwaps, setMySubmittedSwaps] = useState([])
@@ -35,7 +34,7 @@ export const SwapContainer = () => {
             let newData = data.filter((swap) => swap.completed !== true)
             setApprovedSwaps(newData)
         })
-        getSwapsBySwapper(parseInt(HomePlaceUserObject.swapper_id)).then((data) => {
+        getSwapsBySwapper().then((data) => {
             let mySubmitted = data.filter((swap) => swap.status === "Submitted")
             let myApproved = data.filter((swap) => swap.status === "Approved" && swap.completed !== true)
             setMySubmittedSwaps(mySubmitted)

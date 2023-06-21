@@ -41,7 +41,7 @@ export const SwapForm = () => {
 
 
   useEffect(() => {
-    if (HomePlaceUserObject.swapper_id) {
+    if (HomePlaceUserObject) {
       getSingleProperty(parseInt(propertyId)).then((data) => setSwapProperty(data))
       getMyProperty().then((data) => setMyProperty(data))
       getSwapByProperty(parseInt(propertyId)).then((data) => {
@@ -141,7 +141,7 @@ export const SwapForm = () => {
                 Request a Swap
             </Heading>
             </Flex>
-    {HomePlaceUserObject.swapper_id ? <>
+    {HomePlaceUserObject? <>
       <Flex direction="column" alignItems="center" p="">
         {myProperty.address && swapProperty.address ? <>
           <Flex justify="center" p="16" gap="24" direction={{base:"column", md:"row"}}>

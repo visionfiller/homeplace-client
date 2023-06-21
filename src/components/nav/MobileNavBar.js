@@ -29,7 +29,7 @@ import {
   import { PropertyContext } from "../manager/ContextProvider"
 import { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getSwapperById } from '../manager/SwapperProvider';
+import { getSwapperById, getSwapperSignedIn } from '../manager/SwapperProvider';
   
 export const MobileNavBar =()=> {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,7 +41,7 @@ export const MobileNavBar =()=> {
  
   useEffect(()=>{
     if (HomePlaceUserObject) {
-      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => {
+      getSwapperSignedIn().then((data) => {
         setSwapper(data)
       })
       }

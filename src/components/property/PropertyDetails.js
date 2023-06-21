@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { favoriteProperty, getSingleProperty, unfavoriteProperty } from "../manager/PropertyProvider"
-import { getSwapperById } from "../manager/SwapperProvider"
+import { getSwapperById, getSwapperSignedIn } from "../manager/SwapperProvider"
 import {
   Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup, Flex, Modal,
   ModalOverlay,
@@ -32,7 +32,7 @@ export const PropertyDetails = ({ homeProperty }) => {
   const btnRef = useRef()
   useEffect(() => {
     if (HomePlaceUserObject) {
-      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
+      getSwapperSignedIn().then((data) => setSwapper(data))
     }
 
   }, [])

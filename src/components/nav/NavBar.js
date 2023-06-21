@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { getSwapperById } from "../manager/SwapperProvider"
+import { getSwapperById, getSwapperSignedIn } from "../manager/SwapperProvider"
 import {
   Box,
   Flex,
@@ -35,7 +35,7 @@ export const NavBar = () => {
  
   useEffect(()=>{
     if (HomePlaceUserObject) {
-      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => {
+      getSwapperSignedIn().then((data) => {
         setSwapper(data)
       })
       }

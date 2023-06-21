@@ -20,11 +20,9 @@ export const  HomePlace = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)") 
 	
   
-	const setToken = (auth_token, swapper_id, area_id) => {
+	const setToken = (auth_token) => {
 	let token = {
-		"auth_token": auth_token,
-		"swapper_id": swapper_id,
-		"area_id": area_id
+		"auth_token": auth_token
 	}
 	
 	localStorage.setItem('homeplace_user', JSON.stringify(token))

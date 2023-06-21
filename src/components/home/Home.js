@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAllProperties, getAllPropertiesByFilter, getAllPropertiesWithYard, getMyProperties, getPropertyByArea, getPropertyChefs } from "../manager/PropertyProvider";
 import { FormFilter } from "../property/FormFilter";
 import { PropertyContext } from "../manager/ContextProvider";
-import { getSwapperById } from "../manager/SwapperProvider";
+import { getSwapperById, getSwapperSignedIn } from "../manager/SwapperProvider";
 import { PropertyBox } from "../property/PropertyBox";
 import {
   Box,
@@ -51,7 +51,7 @@ export const Home = () => {
 
   useEffect(() => {
     if (HomePlaceUserObject) {
-      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data));
+      getSwapperSignedIn().then((data) => setSwapper(data));
       setLoading(false)
     }
 
@@ -61,7 +61,7 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (swapper.properties > 1) {
+    if (swapper.properties >= 1) {
       getAllProperties().then((data) => {
         let explorerProperties = data.filter((fil) => fil.area.id !== swapper.properties[0].area.id);
         setExplore(explorerProperties.sort(() => 0.5 - Math.random()).slice(0, 3));
@@ -98,7 +98,7 @@ export const Home = () => {
          <Button bg="teal" color="white" onClick={()=> setForm(!form)}> Search Homes</Button>
          {form? <>
             <Box w="80%" align="center">
-            <FormFilter HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
+            <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
           </Box>
          </>
          : ""}
@@ -197,7 +197,7 @@ export const Home = () => {
         :
         <Box w={{base:"100%", md:"40%"}}>
           <Box position={{base:"none", md:"absolute"}} top="0" right="10" w={{base:"100%", md:"30%"}} align="center">
-            <FormFilter HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
+            <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
           </Box>
         </Box>
 }
