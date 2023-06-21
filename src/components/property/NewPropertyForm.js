@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
 import { UploadWidget } from "../cloudinary/UploadWidget"
-import { getAllAreas } from "../manager/AreaProvider"
+import { getAllAreas, getAllAreasByCity, getAllCities } from "../manager/AreaProvider"
 import { addNewProperty, updateProperty } from "../manager/PropertyProvider"
 import { getAllPropertyTypes } from "../manager/PropertyTypeProvider"
 import { Flex, FormControl, IconButton, Checkbox, Input, Textarea, FormLabel, Select, useDisclosure, Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react'
@@ -12,13 +12,16 @@ import { AddIcon } from '@chakra-ui/icons'
 export const NewPropertyForm = ({ refreshProperty, property }) => {
     const navigate = useNavigate()
     const [areas, setAreas] = useState([])
+    const [cities, setCities] = useState([])
     const [propertyTypes, setPropertyTypes] = useState([])
     const [url, setURL] = useState("")
     const [error, updateError] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [city, setCity] = useState("")
     const [newProperty, setNewProperty] = useState({
         address: "",
-        area: 0,
+        city:0,
+        area: {},
         square_footage: 0,
         property_type: 0,
         bathrooms: 0,
@@ -34,6 +37,7 @@ export const NewPropertyForm = ({ refreshProperty, property }) => {
     useEffect(() => {
         if (property) {
             setNewProperty(property)
+            setCity(property.area.city)
         }
         else {
             let copy = { ...newProperty }
@@ -42,14 +46,23 @@ export const NewPropertyForm = ({ refreshProperty, property }) => {
     }, [property])
 
     useEffect(() => {
-        getAreas()
+        
+        getAllCities().then((data)=> setCities(data))
         getAllPropertyTypes().then((data) => setPropertyTypes(data))
     }, [])
 
-    const getAreas = () => {
-        getAllAreas().then((data) => setAreas(data))
-    }
+    useEffect(()=>{
+        getAreas(parseInt(city))
+    },[city])
 
+    const getAreas = (id) => {
+        getAllAreasByCity(id).then((data) => setAreas(data.sort((a, b) => a.neighborhood.localeCompare(b.neighborhood))))
+    }
+    const handleCityChange = (event)=>{
+        const copy = {...city}
+        copy[event.target.name] = parseInt(event.target.value)
+        setCity(copy.city)
+    }
     const HandleControlledInput = (event) => {
         const copy = { ...newProperty }
         if (event.target.name === "area") {
@@ -58,6 +71,10 @@ export const NewPropertyForm = ({ refreshProperty, property }) => {
         else if (event.target.name === "property_type") {
             copy[event.target.name] = propertyTypes.find((propertyType) => propertyType.id === parseInt(event.target.value))
         }
+        else if (event.target.name === "city") {
+            copy[event.target.name] = city
+        }
+        
 
         else {
             copy[event.target.name] = event.target.value
@@ -141,7 +158,28 @@ export const NewPropertyForm = ({ refreshProperty, property }) => {
                         type="text"
                     />
                 </FormControl>
+                <FormControl mt={4}>
+                    <FormLabel>City</FormLabel>
+                    <Flex>
+                        <Select
+                           value={city}
+                            name="city"
+                            onChange={handleCityChange}
+                            border="1px"
+                            borderColor="gray.700"
+                        >
+                            <option>Select a City</option>
+                            {cities.map((city) => (
+                                <option key={city.id} value={city.id}>
+                                    {city.name}
+                                </option>
+                            ))}
 
+                        </Select>
+                        {/* <IconButton icon={<AddIcon />} bg="transparent" onClick={onOpen} _hover={{ backgroundColor: "transparent" }}></IconButton> */}
+                    </Flex>
+                    {/* <AreaForm isOpen={isOpen} onClose={onClose} getAreas={getAreas} /> */}
+                </FormControl>
                 <FormControl mt={4}>
                     <FormLabel>Area</FormLabel>
                     <Flex>
@@ -162,8 +200,9 @@ export const NewPropertyForm = ({ refreshProperty, property }) => {
                         </Select>
                         <IconButton icon={<AddIcon />} bg="transparent" onClick={onOpen} _hover={{ backgroundColor: "transparent" }}></IconButton>
                     </Flex>
-                    <AreaForm isOpen={isOpen} onClose={onClose} getAreas={getAreas} />
+                    <AreaForm cities={cities} isOpen={isOpen} onClose={onClose} getAreas={getAreas} />
                 </FormControl>
+               
 
                 <FormControl mt={4}>
                     <FormLabel>Property Type</FormLabel>

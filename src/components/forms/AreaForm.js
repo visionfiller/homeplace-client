@@ -26,10 +26,10 @@ import {
 import { useState } from 'react'
 import { addNewArea } from '../manager/AreaProvider'
 
-export const AreaForm = ({isOpen, onClose, getAreas}) => {
+export const AreaForm = ({isOpen, onClose, getAreas, cities}) => {
     const [area, setArea] = useState({
         neighborhood: "",
-        city: 1} )
+        city: 0} )
 
     const handleAreaForm = (event) => {
         event.preventDefault()
@@ -48,6 +48,11 @@ return <>
           <ModalCloseButton />
           <ModalBody>
            <Input onChange={handleAreaForm} name='neighborhood' placeholder='What is the name of your neighborhood?'></Input>
+           <Select onChange={handleAreaForm} name='city'>
+            {cities.map((city)=> {
+              return <option value={city.id}>{city.name}</option>
+            })}
+           </Select>
           </ModalBody>
 
           <ModalFooter>

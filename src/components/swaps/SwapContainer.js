@@ -17,7 +17,6 @@ import { Link } from "react-router-dom"
 
 
 export const SwapContainer = () => {
-
     const [approvedSwaps, setApprovedSwaps] = useState([])
     const [submittedSwaps, setSubmittedSwaps] = useState([])
     const [mySubmittedSwaps, setMySubmittedSwaps] = useState([])
@@ -152,7 +151,15 @@ export const SwapContainer = () => {
                                 : "Submitted" ? "yellow.500" : "red"
                         }>{swap.status}</Text>
                         <Button onClick={() => handleCompleteOwnerSwap(swap.id)}>Complete Swap</Button>
-                        <IconButton aria-label='Search database' icon={<EmailIcon />} onClick={() => window.location = `mailto:${swap.swapper.contact_email}`} />
+                        <IconButton aria-label='Search database' icon={<EmailIcon />} 
+    
+                         onClick={() =>
+                                (window.location.href = `mailto:${swap.swapper.contact_email}?subject=${encodeURIComponent(
+                                    `HomePlace Swap with ${swap.property.owner.full_name}`
+                                  )}&body=${encodeURIComponent(
+                                  `Hi ${swap.swapper.full_name}! I look forward to our swap on ${swap.start_date}!`
+                                )}`)
+                              } />
                     </Flex>
 
                     </>
@@ -179,7 +186,14 @@ export const SwapContainer = () => {
                                     : "Submitted" ? "yellow.500" : "red"
                             }>{swap.status}</Text>
                             <Button onClick={() => handleCompleteSwapperSwap(swap.id)}>Complete Swap</Button>
-                            <IconButton aria-label='Search database' icon={<EmailIcon />} onClick={() => window.location = `mailto:${swap.property.owner.contact_email}`} />
+                            <IconButton aria-label='Search database' icon={<EmailIcon />}
+                            onClick={() =>
+                                (window.location.href = `mailto:${swap.property.owner.contact_email}?subject=${encodeURIComponent(
+                                    `HomePlace Swap with ${swap.swapper.full_name}`
+                                  )}&body=${encodeURIComponent(
+                                  `Hi ${swap.property.owner.full_name}! I look forward to our swap on ${swap.start_date}!`
+                                )}`)
+                              } />
 
                         </Flex>
 

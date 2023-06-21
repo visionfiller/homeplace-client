@@ -3,8 +3,7 @@ import { StarIcon, Search2Icon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
 
 export const PropertyBox= ({property,mapView, setMyProperties}) => {
-  const HomePlaceUser = localStorage.getItem("homeplace_user")
-  const HomePlaceUserObject = JSON.parse(HomePlaceUser)
+ 
 
     return <Box height="300px" w="350px" borderWidth='1px' borderRadius='lg' overflow='hidden'>
      

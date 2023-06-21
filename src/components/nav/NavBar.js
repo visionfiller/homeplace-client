@@ -25,9 +25,6 @@ export const NavBar = () => {
   const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
-  // const HomePlaceUser = localStorage.getItem("homeplace_user")
-  // const HomePlaceUserObject = JSON.parse(HomePlaceUser)
- 
   const { swapper,setSwapper, HomePlaceUserObject } = useContext(PropertyContext)
 
  

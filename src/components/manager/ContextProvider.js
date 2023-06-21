@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllAreas } from "./AreaProvider";
+import { getAllAreas, getAllCities } from "./AreaProvider";
 import { getAllPropertiesByFilter } from "./PropertyProvider";
 import { getAllPropertyTypes } from "./PropertyTypeProvider";
 import { getSwapperById } from "./SwapperProvider";
@@ -11,6 +11,7 @@ export const PropertyProvider = (props) => {
     const HomePlaceUser = localStorage.getItem("homeplace_user")
     const HomePlaceUserObject = JSON.parse(HomePlaceUser)
     const [properties, setProperties] = useState([])
+    const [ cities, setCities] = useState([])
     const [area, setArea] = useState({});
     const [areas, setAreas] = useState([]);
     const [property_types, setPropertyTypes] = useState([]);
@@ -21,7 +22,7 @@ export const PropertyProvider = (props) => {
     const [bathrooms, setBathrooms] = useState("");
     const [bedrooms, setBedrooms] = useState("");
     const [square_footage, setSquareFootage] = useState(false);
-    const [ swapper, setSwapper] = useState({})
+    const [swapper, setSwapper] = useState({})
     const navigate= useNavigate()
   
    
@@ -30,6 +31,7 @@ export const PropertyProvider = (props) => {
         
         getAllAreas().then((data) => setAreas(data));
         getAllPropertyTypes().then((data) => setPropertyTypes(data));
+        getAllCities().then((data)=> setCities(data))
     },[])
 
 
@@ -87,6 +89,7 @@ export const PropertyProvider = (props) => {
         <PropertyContext.Provider value={{ 
             properties, setProperties, 
             areas, setAreas, 
+            cities, setCities,
             property_types, setPropertyTypes,
             pool, setPool,
             yard, setYard,
