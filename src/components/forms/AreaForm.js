@@ -34,7 +34,7 @@ export const AreaForm = ({isOpen, onClose, getAreas, cities}) => {
     const handleAreaForm = (event) => {
         event.preventDefault()
         let copy = {...area}
-        copy.neighborhood = event.target.value
+        copy[event.target.name] = event.target.value
         setArea(copy)
     }
     const handleSubmit =()=> {

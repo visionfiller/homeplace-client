@@ -41,7 +41,9 @@ export const NewPropertyForm = ({ refreshProperty, property }) => {
         }
         else {
             let copy = { ...newProperty }
+           
             setNewProperty(copy)
+            
         }
     }, [property])
 
@@ -52,7 +54,10 @@ export const NewPropertyForm = ({ refreshProperty, property }) => {
     }, [])
 
     useEffect(()=>{
-        getAreas(parseInt(city))
+        if (city) {
+            getAreas(parseInt(city))}
+        
+
     },[city])
 
     const getAreas = (id) => {
