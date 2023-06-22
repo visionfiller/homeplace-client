@@ -101,6 +101,7 @@ export const PropertyProvider = (props) => {
                 break;
         }
     };
+    
 
     return (
         <PropertyContext.Provider value={{

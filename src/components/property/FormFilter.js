@@ -10,6 +10,7 @@ import {
     Heading,
     Button,
     Select,
+    Text,
     Checkbox,
     CheckboxGroup,
     Stack
@@ -25,7 +26,7 @@ export const FormFilter = ({ event, onClose, city, cities, areas, property_types
     }
 
     return <>
-        <Box bg="white" rounded="md" pt="4" border="1px" w="100%">
+        <Box bg="white" rounded="md" pt="4" border="1px" w="80%">
             <FormControl p="3" w='100%'>
                 <FormLabel m="0">City</FormLabel>
                 <Select value={city} name="city" onChange={(event) => HandleFilter(event)}>
@@ -36,7 +37,7 @@ export const FormFilter = ({ event, onClose, city, cities, areas, property_types
                 </Select>
                 <FormLabel m="0">Area</FormLabel>
                 <Select value={searchArea} name="area" onChange={(event) => HandleFilter(event)}>
-                    <option>Select an area</option>
+                    <option>{city? <Text>Select an Area</Text> :<Text> Please Select a City</Text>}</option>
                     {areas.map((area) => {
                         return <option key={area.id} value={area.id}>{area.neighborhood}</option>
                     })}
@@ -74,6 +75,7 @@ export const FormFilter = ({ event, onClose, city, cities, areas, property_types
                     </Flex>
                 </CheckboxGroup>
                 <Box align="center" p="4">
+                    
                     <Button onClick={(event) => HandleFilterSubmit(event, pool, yard, city, searchArea, square_footage, propertyType, bedrooms, bathrooms) & onClose()} className="btn">See Results</Button>
                 </Box>
             </FormControl>
