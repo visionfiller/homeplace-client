@@ -54,7 +54,7 @@ export const NavBar = () => {
       borderColor={useColorModeValue('gray.200', 'gray.900')}>
       <Flex justifyContent="space-between">
         <Link to="/">
-          <Text letterSpacing='wide'fontSize="2xl" fontWeight="bold">
+          <Text textColor="gray.600" letterSpacing='wide'fontSize="3xl" fontWeight="bold">
             HomePlace
           </Text>
         </Link>

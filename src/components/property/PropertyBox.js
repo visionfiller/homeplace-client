@@ -44,7 +44,7 @@ export const PropertyBox= ({property,mapView, setMyProperties}) => {
           ))}
        
       </Box>
-      {mapView ? <IconButton   color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
+      {mapView ? <IconButton bg="transparent"  color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
       :"" }
     </Box>
 
