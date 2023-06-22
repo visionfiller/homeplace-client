@@ -3,12 +3,11 @@ import { StarIcon, Search2Icon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
 
 export const PropertyBox= ({property,mapView, setMyProperties}) => {
-  const HomePlaceUser = localStorage.getItem("homeplace_user")
-  const HomePlaceUserObject = JSON.parse(HomePlaceUser)
+ 
 
-    return <Box borderWidth='1px' borderRadius='lg' overflow='hidden'>
+    return <Box height="300px" w="350px" borderWidth='1px' borderRadius='lg' overflow='hidden'>
      
-    <Image  h="50%" w="full" src={property.image} alt={property.imageAlt} />
+     <Link to={`/property_details/${property.id}`}><Image objectFit="cover"  h="50%" w="full" src={property.image} alt={property.imageAlt} /></Link>
 
     <Box p='6'>
       <Box display='flex' alignItems='baseline'>
@@ -47,7 +46,6 @@ export const PropertyBox= ({property,mapView, setMyProperties}) => {
           ))}
        
       </Box>
-      <Button><Link to={`/property_details/${property.id}`}>See Details</Link></Button>
       {mapView ? <IconButton   color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
       :"" }
     </Box>

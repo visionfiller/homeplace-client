@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { getSwapperById } from "../manager/SwapperProvider"
+import { getSwapperById, getSwapperSignedIn } from "../manager/SwapperProvider"
 import {
   Box,
   Flex,
@@ -25,9 +25,6 @@ export const NavBar = () => {
   const navigate = useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
-  // const HomePlaceUser = localStorage.getItem("homeplace_user")
-  // const HomePlaceUserObject = JSON.parse(HomePlaceUser)
- 
   const { swapper,setSwapper, HomePlaceUserObject } = useContext(PropertyContext)
 
  
@@ -35,7 +32,7 @@ export const NavBar = () => {
  
   useEffect(()=>{
     if (HomePlaceUserObject) {
-      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => {
+      getSwapperSignedIn().then((data) => {
         setSwapper(data)
       })
       }
@@ -68,7 +65,7 @@ export const NavBar = () => {
               color="teal"
               textTransform='uppercase'>manage my property</Text></Link> 
             :  <>
-            <Link to="/myproperty" colorScheme='teal' onClick={onOpen}><Text fontWeight='semibold'
+            <Link to="/myproperty" color='teal' onClick={onOpen}><Text fontWeight='semibold'
   
               letterSpacing='wide'
               fontSize='md'

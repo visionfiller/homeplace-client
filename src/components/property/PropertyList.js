@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { getAllAreas, getAllSingleArea, getSingleArea } from "../manager/AreaProvider"
-import { PropertyContext } from "../manager/ContextProvider"
+import { PropertyContext, PropertyProvider } from "../manager/ContextProvider"
 import { getAllProperties, getAllPropertiesByFilter, getPropertyByAddress } from "../manager/PropertyProvider"
 import { FormFilter } from "./FormFilter"
 import { MapView } from "./MapView"
@@ -33,6 +33,8 @@ export const PropertyList = ({ searchTermState }) => {
         areas, setAreas,
         property_types, setPropertyTypes,
         pool, setPool,
+        city, setCity,
+        cities,
         yard, setYard,
         searchArea, setSearchArea,
         propertyType, setPropertyType,
@@ -131,6 +133,7 @@ export const PropertyList = ({ searchTermState }) => {
         setBathrooms("")
         setBedrooms("")
         setSearchArea("")
+        setCity("")
         setPropertyType("")
         setSearchTerms("")
         setLoading(true)
@@ -155,6 +158,14 @@ export const PropertyList = ({ searchTermState }) => {
         }
         return ""; // Return an empty string or any default value if the property type is not found
     };
+    const getCityName = (id) => {
+        const cityName = cities.find((city) => city.id === id);
+        if (cityName) {
+            return cityName.name;
+        }
+        return ""; // Return an empty string or any default value if the property type is not found
+    };
+
 
 
 
@@ -167,8 +178,8 @@ export const PropertyList = ({ searchTermState }) => {
                     <ModalContent>
                         <ModalHeader align="center">Filter Results</ModalHeader>
                         <ModalCloseButton />
-                        <ModalBody w="100%" p="2" mx="auto">
-                            <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms} bedrooms={bedrooms} />
+                        <ModalBody display="flex" direction="column" justifyContent="center"alignItems="center" w="100%" p="2" mx="auto">
+                            <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} city={city} cities={cities}pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms} bedrooms={bedrooms} />
                         </ModalBody>
                     </ModalContent>
                 </Modal>
@@ -187,6 +198,8 @@ export const PropertyList = ({ searchTermState }) => {
                                 {pool ? <Badge ml="2" bg="teal" color="white" fontSize="md">Pool</Badge>
                                     : ""}
                                 {yard ? <Badge ml="2" bg="teal" color="white" fontSize="md">Yard</Badge>
+                                    : ""}
+                                 {city ? <Badge ml="2" bg="teal" color="white" fontSize="md">{getCityName(parseInt(city))}</Badge>
                                     : ""}
                                 {propertyType ? <Badge ml="2" bg="teal" color="white" fontSize="md">{getPropertyTypeName(parseInt(propertyType))}</Badge>
                                     : ""}
@@ -217,10 +230,7 @@ export const PropertyList = ({ searchTermState }) => {
                             {properties.length ? <>
                                 {
                                     properties?.map((property) => {
-                                        return <>
-                                            <PropertyBox mapView={mapView} property={property} />
-                                        </>
-
+                                        return <PropertyBox key={property.id} mapView={mapView} property={property} />
                                     })}
                             </>
                                 : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}
@@ -230,10 +240,7 @@ export const PropertyList = ({ searchTermState }) => {
                                 {properties.length ? <>
                                     {
                                         properties?.map((property) => {
-                                            return <>
-                                                <PropertyBox mapView={mapView} property={property} />
-                                            </>
-
+                                            return <PropertyBox key={property.id}mapView={mapView} property={property} />
                                         })}
                                 </>
                                     : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}

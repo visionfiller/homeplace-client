@@ -4,14 +4,18 @@ import { NewPropertyForm } from "./NewPropertyForm"
 import { PropertyBox } from "./PropertyBox"
 import { Flex, Button, Box, Heading, Text } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
+import { useContext } from "react"
+import { PropertyContext } from "../manager/ContextProvider"
+import { getSwapperSignedIn } from "../manager/SwapperProvider"
 
 
 export const ManageMyProperty = () => {
     const [property, setProperties] = useState({})
+    const {swapper, setSwapper} = useContext(PropertyContext)
 
     useEffect(() => {
         refreshProperty()
-
+        getSwapperSignedIn().then((data)=> setSwapper(data))
     }, [])
     const refreshProperty = () => {
         getMyProperty().then((data) => setProperties(data))
@@ -23,7 +27,7 @@ export const ManageMyProperty = () => {
 
 
     return (<>
-        {property.address ? (
+        {swapper.has_listing ? (
             <Heading bg="teal" color="white" p="4" align="center" fontFamily="body" as="h2" size="2xl">
                 Manage Your Home
             </Heading>
@@ -34,7 +38,7 @@ export const ManageMyProperty = () => {
         )}
 
 
-        {property.address ? <>
+        {swapper.has_listing && property.address ? <>
             <Box p="8" align="center"><Button bg="red.600" color='white'
                 fontWeight='semibold'
                 letterSpacing='wide'

@@ -26,19 +26,23 @@ import {
 import { useState } from 'react'
 import { addNewArea } from '../manager/AreaProvider'
 
-export const AreaForm = ({isOpen, onClose, getAreas}) => {
+export const AreaForm = ({isOpen, onClose, getAreas, cities}) => {
     const [area, setArea] = useState({
         neighborhood: "",
-        city: 1} )
+        city: 0} )
 
     const handleAreaForm = (event) => {
         event.preventDefault()
         let copy = {...area}
-        copy.neighborhood = event.target.value
+        copy[event.target.name] = event.target.value
         setArea(copy)
     }
     const handleSubmit =()=> {
-        addNewArea(area).then(()=>getAreas()).then(()=>  onClose())
+      let newArea={
+        neighborhood: area.neighborhood,
+        city: parseInt(area.city)
+      }
+        addNewArea(newArea).then((res)=>getAreas(res.id)).then(()=>  onClose())
     }
 return <>
 <Modal isOpen={isOpen} onClose={onClose}>
@@ -48,6 +52,11 @@ return <>
           <ModalCloseButton />
           <ModalBody>
            <Input onChange={handleAreaForm} name='neighborhood' placeholder='What is the name of your neighborhood?'></Input>
+           <Select onChange={handleAreaForm} name='city'>
+            {cities.map((city)=> {
+              return <option value={city.id}>{city.name}</option>
+            })}
+           </Select>
           </ModalBody>
 
           <ModalFooter>

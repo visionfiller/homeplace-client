@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { favoriteProperty, getSingleProperty, unfavoriteProperty } from "../manager/PropertyProvider"
-import { getSwapperById } from "../manager/SwapperProvider"
+import { getSwapperById, getSwapperSignedIn } from "../manager/SwapperProvider"
 import {
   Box, Badge, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup, Flex, Modal,
   ModalOverlay,
@@ -32,7 +32,7 @@ export const PropertyDetails = ({ homeProperty }) => {
   const btnRef = useRef()
   useEffect(() => {
     if (HomePlaceUserObject) {
-      getSwapperById(parseInt(HomePlaceUserObject.swapper_id)).then((data) => setSwapper(data))
+      getSwapperSignedIn().then((data) => setSwapper(data))
     }
 
   }, [])
@@ -71,16 +71,21 @@ export const PropertyDetails = ({ homeProperty }) => {
     navigate(-1);
   };
   return <>
-    <Box p="4" w="full" align={{ base: "center", md: "left" }}>
+    <Flex bg="teal" color="white" alignItems="center" >
+           <Box  align={{ base: "center", md: "left" }}>
       <IconButton _hover={{ backgroundColor: "transparent" }} bg="teal" color="white" size="lg" icon={<ArrowBackIcon />} onClick={handleGoBack}></IconButton>
     </Box>
+    <Heading w="100%"bg="teal" color="white" p="4" align="center" fontFamily="body" as="h2" size="2xl">
+                Property Details
+            </Heading>
+            </Flex>
     <Box p="10" >
       <Heading fontFamily="body">{property.address}</Heading>
 
       <Flex direction={{ base: "column", md: "row" }} p={{ base: "2", md: "10" }}>
         <Flex direction="column" w={{ base: "100%", md: "50%" }}>
           <Box overflow='hidden'>
-            <Image src={property.image} />
+            <Image rounded="md" src={property.image} />
           </Box>
           <Box p={{ base: "2", md: "8" }} pt="4" fontSize="lg" lineHeight="tall">
             <Text>{property.description}</Text>

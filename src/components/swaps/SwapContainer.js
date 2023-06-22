@@ -17,8 +17,6 @@ import { Link } from "react-router-dom"
 
 
 export const SwapContainer = () => {
-    const HomePlaceUser = localStorage.getItem("homeplace_user")
-    const HomePlaceUserObject = JSON.parse(HomePlaceUser)
     const [approvedSwaps, setApprovedSwaps] = useState([])
     const [submittedSwaps, setSubmittedSwaps] = useState([])
     const [mySubmittedSwaps, setMySubmittedSwaps] = useState([])
@@ -35,7 +33,7 @@ export const SwapContainer = () => {
             let newData = data.filter((swap) => swap.completed !== true)
             setApprovedSwaps(newData)
         })
-        getSwapsBySwapper(parseInt(HomePlaceUserObject.swapper_id)).then((data) => {
+        getSwapsBySwapper().then((data) => {
             let mySubmitted = data.filter((swap) => swap.status === "Submitted")
             let myApproved = data.filter((swap) => swap.status === "Approved" && swap.completed !== true)
             setMySubmittedSwaps(mySubmitted)
@@ -153,7 +151,15 @@ export const SwapContainer = () => {
                                 : "Submitted" ? "yellow.500" : "red"
                         }>{swap.status}</Text>
                         <Button onClick={() => handleCompleteOwnerSwap(swap.id)}>Complete Swap</Button>
-                        <IconButton aria-label='Search database' icon={<EmailIcon />} onClick={() => window.location = `mailto:${swap.swapper.contact_email}`} />
+                        <IconButton aria-label='Search database' icon={<EmailIcon />} 
+    
+                         onClick={() =>
+                                (window.location.href = `mailto:${swap.swapper.contact_email}?subject=${encodeURIComponent(
+                                    `HomePlace Swap with ${swap.property.owner.full_name}`
+                                  )}&body=${encodeURIComponent(
+                                  `Hi ${swap.swapper.full_name}! I look forward to our swap on ${swap.start_date}!`
+                                )}`)
+                              } />
                     </Flex>
 
                     </>
@@ -180,7 +186,14 @@ export const SwapContainer = () => {
                                     : "Submitted" ? "yellow.500" : "red"
                             }>{swap.status}</Text>
                             <Button onClick={() => handleCompleteSwapperSwap(swap.id)}>Complete Swap</Button>
-                            <IconButton aria-label='Search database' icon={<EmailIcon />} onClick={() => window.location = `mailto:${swap.property.owner.contact_email}`} />
+                            <IconButton aria-label='Search database' icon={<EmailIcon />}
+                            onClick={() =>
+                                (window.location.href = `mailto:${swap.property.owner.contact_email}?subject=${encodeURIComponent(
+                                    `HomePlace Swap with ${swap.swapper.full_name}`
+                                  )}&body=${encodeURIComponent(
+                                  `Hi ${swap.property.owner.full_name}! I look forward to our swap on ${swap.start_date}!`
+                                )}`)
+                              } />
 
                         </Flex>
 

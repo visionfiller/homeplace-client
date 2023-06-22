@@ -16,7 +16,7 @@ import {
   Text, Link,
 } from '@chakra-ui/react';
 import { PropertyContext } from "../manager/ContextProvider";
-import { getSwapperById } from "../manager/SwapperProvider";
+import { getSwapperById, getSwapperSignedIn } from "../manager/SwapperProvider";
 
 
 
@@ -39,8 +39,8 @@ export const Login = ({ setToken }) => {
     loginUser(user).then(res => {
 
       if ("valid" in res && res.valid) {
-        getSwapperById(parseInt(res.swapper_id)).then((data) => { setSwapper(data) })
-        setToken(res.token, res.swapper_id, res.area_id)
+        setToken(res.token)
+        getSwapperSignedIn().then((data) => { setSwapper(data) })
         navigate("/")
       }
       else {

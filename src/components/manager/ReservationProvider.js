@@ -53,9 +53,9 @@ export const getSwapBySwapperProperty = (id) => {
     })
         .then(response => response.json())
 }
-export const getSwapsBySwapper = (id) => {
+export const getSwapsBySwapper = () => {
     let token = getToken()
-    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations?swapper=${id}`, {
+    return fetch(`https://homeplace-server-8a8a3a38456a.herokuapp.com/reservations/my_sent_swaps`, {
         headers: {
             "Authorization": `Token ${token}`,
             "Content-Type": "application/json"
