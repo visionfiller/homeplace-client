@@ -63,7 +63,7 @@ export const MobileNavBar =()=> {
         <Flex alignItems="center" justifyContent="space-between">
         <IconButton icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}  onClick={isOpen ? onClose : onOpen}/>
         <Link to="/">
-          <Text letterSpacing='wide'fontSize="2xl" fontWeight="bold">
+        <Text textColor="gray.600" letterSpacing='wide'fontSize="3xl" fontWeight="bold">
             HomePlace
           </Text>
         </Link>
