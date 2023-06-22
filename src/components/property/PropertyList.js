@@ -178,7 +178,7 @@ export const PropertyList = ({ searchTermState }) => {
                     <ModalContent>
                         <ModalHeader align="center">Filter Results</ModalHeader>
                         <ModalCloseButton />
-                        <ModalBody w="100%" p="2" mx="auto">
+                        <ModalBody display="flex" direction="column" justifyContent="center"alignItems="center" w="100%" p="2" mx="auto">
                             <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} city={city} cities={cities}pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms} bedrooms={bedrooms} />
                         </ModalBody>
                     </ModalContent>
