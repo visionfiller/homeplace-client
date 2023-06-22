@@ -236,7 +236,7 @@ export const PropertyList = ({ searchTermState }) => {
                                 : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}
                         </Flex>
                             :
-                            <SimpleGrid p="5" columns={3} spacing={10}>
+                            <SimpleGrid p="5" columns={3} spacing={2}>
                                 {properties.length ? <>
                                     {
                                         properties?.map((property) => {

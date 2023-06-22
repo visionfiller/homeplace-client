@@ -38,7 +38,7 @@ export const PropertyProvider = (props) => {
 
     useEffect(() => {
         if (city !== "") {
-            getAllAreasByCity(parseInt(city)).then((data) => setAreas(data))
+            getAllAreasByCity(parseInt(city)).then((data) => setAreas(data.sort((a, b) => a.neighborhood.localeCompare(b.neighborhood))))
         }
         else if (city=== "0") {
             setAreas([])
