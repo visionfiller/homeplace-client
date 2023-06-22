@@ -37,7 +37,7 @@ export const NewPropertyForm = ({ refreshProperty, property }) => {
     useEffect(() => {
         if (property) {
             setNewProperty(property)
-            setCity(property.area.city)
+            setCity(property.area.city.id)
         }
         else {
             let copy = { ...newProperty }

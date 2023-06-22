@@ -65,7 +65,7 @@ export const NavBar = () => {
               color="teal"
               textTransform='uppercase'>manage my property</Text></Link> 
             :  <>
-            <Link to="/myproperty" colorScheme='teal' onClick={onOpen}><Text fontWeight='semibold'
+            <Link to="/myproperty" color='teal' onClick={onOpen}><Text fontWeight='semibold'
   
               letterSpacing='wide'
               fontSize='md'

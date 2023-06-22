@@ -31,6 +31,8 @@ export const Home = () => {
   const [swapper, setSwapper] = useState({});
   const [explore, setExplore] = useState([]);
   const { HomePlaceUserObject,properties, setProperties,
+    city, setCity,
+    cities, setCities,
     areas, setAreas, 
     property_types, setPropertyTypes,
     pool, setPool,
@@ -98,7 +100,7 @@ export const Home = () => {
          <Button bg="teal" color="white" onClick={()=> setForm(!form)}> Search Homes</Button>
          {form? <>
             <Box w="80%" align="center">
-            <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
+            <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} city={city} cities={cities} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
           </Box>
          </>
          : ""}
@@ -197,7 +199,7 @@ export const Home = () => {
         :
         <Box w={{base:"100%", md:"40%"}}>
           <Box position={{base:"none", md:"absolute"}} top="0" right="10" w={{base:"100%", md:"30%"}} align="center">
-            <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
+            <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} cities={cities} city={city} pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms}bedrooms={bedrooms} />
           </Box>
         </Box>
 }

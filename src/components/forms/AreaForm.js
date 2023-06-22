@@ -38,7 +38,11 @@ export const AreaForm = ({isOpen, onClose, getAreas, cities}) => {
         setArea(copy)
     }
     const handleSubmit =()=> {
-        addNewArea(area).then(()=>getAreas()).then(()=>  onClose())
+      let newArea={
+        neighborhood: area.neighborhood,
+        city: parseInt(area.city)
+      }
+        addNewArea(newArea).then((res)=>getAreas(res.id)).then(()=>  onClose())
     }
 return <>
 <Modal isOpen={isOpen} onClose={onClose}>

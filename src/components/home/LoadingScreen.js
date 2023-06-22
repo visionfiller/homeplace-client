@@ -7,7 +7,7 @@ import {
   } from '@chakra-ui/react';
 export const LoadingScreen =() =>{
     return <>
-    <Flex p="48"h="100%" my="auto"direction="column" alignItems="center">
+    <Flex p="24"h="100%" my="auto"direction="column" alignItems="center">
             <Spinner
   thickness='4px'
   speed='0.65s'
