@@ -40,7 +40,7 @@ export const PropertyList = ({ searchTermState }) => {
         propertyType, setPropertyType,
         bathrooms, setBathrooms,
         bedrooms, setBedrooms,
-        HandleFilter, HandleFilterSubmit,
+        HandleFilter, HandleFilterSubmit, swapper,
         square_footage, setSquareFootage, HomePlaceUserObject } = useContext(PropertyContext)
     const [loading, setLoading] = useState(true)
     const [searchTerms, setSearchTerms] = useState("")
@@ -50,7 +50,6 @@ export const PropertyList = ({ searchTermState }) => {
     const [isMobile] = useMediaQuery("(max-width: 768px)")
 
     useEffect(() => {
-
         if (properties.length) {
             setLoading(true);
 
@@ -75,9 +74,9 @@ export const PropertyList = ({ searchTermState }) => {
             const fetchData = async () => {
                 try {
                     const data = await getAllProperties();
-                    if (HomePlaceUserObject) {
+                    if (swapper.has_listing) {
                         const newData = data.filter(
-                            (property) => property.owner.id !== HomePlaceUserObject.swapper_id
+                            (property) => property.owner.id !== swapper.id
                         );
                         setProperties(newData)
                     }
@@ -106,7 +105,7 @@ export const PropertyList = ({ searchTermState }) => {
                     const data = await getPropertyByAddress(searchTerms);
                     if (HomePlaceUserObject) {
                         const newData = data.filter(
-                            (property) => property.owner.id !== HomePlaceUserObject.swapper_id
+                            (property) => property.owner.id !== swapper.id
                         );
                         setProperties(newData)
                     }
@@ -178,9 +177,10 @@ export const PropertyList = ({ searchTermState }) => {
                     <ModalContent>
                         <ModalHeader align="center">Filter Results</ModalHeader>
                         <ModalCloseButton />
-                        <ModalBody display="flex" direction="column" justifyContent="center"alignItems="center" w="100%" p="2" mx="auto">
+                        <ModalBody  display="flex" direction="column" justifyContent="center"alignItems="center" w="100%" p="2" mx="auto">
                             <FormFilter onClose={onClose} HandleFilter={HandleFilter} HandleFilterSubmit={HandleFilterSubmit} city={city} cities={cities}pool={pool} yard={yard} square_footage={square_footage} searchArea={searchArea} propertyType={propertyType} areas={areas} property_types={property_types} bathrooms={bathrooms} bedrooms={bedrooms} />
                         </ModalBody>
+                        <ModalFooter></ModalFooter>
                     </ModalContent>
                 </Modal>
                 <Flex bg="teal" justify="space-between" alignItems="center">
@@ -236,7 +236,7 @@ export const PropertyList = ({ searchTermState }) => {
                                 : <Box w="full" mx="auto"><Heading align="center" color="teal" fontFamily="body">No Matching Properties Found</Heading></Box>}
                         </Flex>
                             :
-                            <SimpleGrid p="5" columns={3} spacing={10}>
+                            <SimpleGrid p="5" columns={3} spacing={2}>
                                 {properties.length ? <>
                                     {
                                         properties?.map((property) => {

@@ -66,6 +66,7 @@ export const Home = () => {
     if (swapper.properties >= 1) {
       getAllProperties().then((data) => {
         let explorerProperties = data.filter((fil) => fil.area.id !== swapper.properties[0].area.id);
+        debugger
         setExplore(explorerProperties.sort(() => 0.5 - Math.random()).slice(0, 3));
         setLoading(false)
       });
@@ -205,21 +206,21 @@ export const Home = () => {
 }
       </Flex>
           <Heading align="left" bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Explore Other Neighborhoods</Heading>
-           <Flex w="full" direction={{base:"column",md:"row"}}p="4" gap="2" justifyContent="space-around" alignItems="center">
+           <Flex w="full" direction={{base:"column",md:"row"}}p="4" gap="5" justifyContent="center" alignItems="center">
             {explore.map((property) => {
               return <PropertyBox key={property.id}property={property} />;
             })}
           </Flex>
 
           <Heading align="left" bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Host a Dinner Party With These Chef's Kitchens </Heading>
-            <Flex w="full"  direction={{base:"column",md:"row"}}p="4" gap="2" justifyContent="space-around" alignItems="center">
+            <Flex w="full"  direction={{base:"column",md:"row"}}p="4" gap="5" justifyContent="center" alignItems="center">
             {chefs.map((property) => {
               return <PropertyBox key={property.id}property={property} />;
             })}
             </Flex>
           <Heading align="left" bg="teal" color="white" fontFamily="body" p="4" size="md" w="100%">Let Your Pup Run Free In These Spacious Yards</Heading>
   
-            <Flex w="full" direction={{base:"column",md:"row"}}p="4" gap="2" justifyContent="space-around" alignItems="center">
+            <Flex w="full" direction={{base:"column",md:"row"}}p="4" gap="5" justifyContent="center" alignItems="center">
             {yards.map((property) => {
               return <PropertyBox key={property.id}property={property} />;
             })}

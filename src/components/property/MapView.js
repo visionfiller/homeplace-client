@@ -104,7 +104,7 @@ export const MapView = ({ properties, mapView }) => {
                                 {loading ? <MapLoadingScreen/>
                                 : <>
                                 {errorMessage ? <MapErrorScreen/>
-                                : <MapContainer style={{ width: "100%" }} center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
+                                : <MapContainer style={{ width: "100%", padding:"8"}} center={[map.latitude, map.longitude]} zoom={16} scrollWheelZoom={true}>
                                     <MyMapComponent latitude={map.latitude} longitude={map.longitude} />
                                 </MapContainer>}
                                 </>}

@@ -5,15 +5,13 @@ import { Link } from 'react-router-dom'
 export const PropertyBox= ({property,mapView, setMyProperties}) => {
  
 
-    return <Box height="300px" w="350px" borderWidth='1px' borderRadius='lg' overflow='hidden'>
+    return <Box boxShadow="sm" bg="gray.200"height="300px" w="350px" borderWidth='1px' borderRadius='lg' overflow='hidden'>
      
      <Link to={`/property_details/${property.id}`}><Image objectFit="cover"  h="50%" w="full" src={property.image} alt={property.imageAlt} /></Link>
 
-    <Box p='6'>
+    <Box  p='6'>
       <Box display='flex' alignItems='baseline'>
-        <Badge borderRadius='full' px='2' colorScheme='teal'>
-         New
-        </Badge>
+        
         <Box
           color='gray.500'
           fontWeight='semibold'
@@ -46,7 +44,7 @@ export const PropertyBox= ({property,mapView, setMyProperties}) => {
           ))}
        
       </Box>
-      {mapView ? <IconButton   color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
+      {mapView ? <IconButton bg="transparent"  color="teal"p="8" size="lg" icon={<Search2Icon/>} onClick={() => setMyProperties(property)}></IconButton>
       :"" }
     </Box>
 

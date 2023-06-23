@@ -37,7 +37,7 @@ export const FormFilter = ({ event, onClose, city, cities, areas, property_types
                 </Select>
                 <FormLabel m="0">Area</FormLabel>
                 <Select value={searchArea} name="area" onChange={(event) => HandleFilter(event)}>
-                    <option>{city? <Text>Select an Area</Text> :<Text> Please Select a City</Text>}</option>
+                    <option>{city ? `Select an Area` : `Please Select a City`}</option>
                     {areas.map((area) => {
                         return <option key={area.id} value={area.id}>{area.neighborhood}</option>
                     })}

@@ -14,8 +14,14 @@ export const ManageMyProperty = () => {
     const {swapper, setSwapper} = useContext(PropertyContext)
 
     useEffect(() => {
-        refreshProperty()
-        getSwapperSignedIn().then((data)=> setSwapper(data))
+        
+        getSwapperSignedIn().then((data)=> {
+        setSwapper(data)
+        if (data.has_listing){
+            refreshProperty()
+        }}
+        )
+        
     }, [])
     const refreshProperty = () => {
         getMyProperty().then((data) => setProperties(data))

@@ -64,7 +64,7 @@ export const SwapContainer = () => {
     return <>
         <Flex direction="column" alignItems="center">
             <Heading w="100%" align="center" p="4" fontFamily="body" bg="teal" color="white" size="2xl">HomePlace Swap Portal</Heading>
-            <Flex direction={{ base: "column", md: "row" }} gap="16" height="100%" w="100%" p="10" m="8" borderBottom="2px">
+            <Flex direction={{ base: "column", md: "row" }} gap="16" height="100%" w="60%" p="10" m="8" borderBottom="2px">
                 <Box w={{ base: "100%", md: "50%" }}
                     rounded={'lg'}
                     bg={useColorModeValue('white', 'gray.700')}
@@ -126,7 +126,7 @@ export const SwapContainer = () => {
 
             </Flex>
 
-            <Box w={{ base: "100%", md: "50%" }}
+            <Box w={{ base: "100%", md: "30%" }}
                 rounded={'lg'}
                 bg={useColorModeValue('white', 'gray.700')}
                 boxShadow={'lg'}
