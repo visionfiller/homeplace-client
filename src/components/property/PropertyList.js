@@ -40,7 +40,7 @@ export const PropertyList = ({ searchTermState }) => {
         propertyType, setPropertyType,
         bathrooms, setBathrooms,
         bedrooms, setBedrooms,
-        HandleFilter, HandleFilterSubmit,
+        HandleFilter, HandleFilterSubmit, swapper,
         square_footage, setSquareFootage, HomePlaceUserObject } = useContext(PropertyContext)
     const [loading, setLoading] = useState(true)
     const [searchTerms, setSearchTerms] = useState("")
@@ -50,7 +50,6 @@ export const PropertyList = ({ searchTermState }) => {
     const [isMobile] = useMediaQuery("(max-width: 768px)")
 
     useEffect(() => {
-
         if (properties.length) {
             setLoading(true);
 
@@ -75,9 +74,9 @@ export const PropertyList = ({ searchTermState }) => {
             const fetchData = async () => {
                 try {
                     const data = await getAllProperties();
-                    if (HomePlaceUserObject) {
+                    if (swapper.has_listing) {
                         const newData = data.filter(
-                            (property) => property.owner.id !== HomePlaceUserObject.swapper_id
+                            (property) => property.owner.id !== swapper.id
                         );
                         setProperties(newData)
                     }
@@ -106,7 +105,7 @@ export const PropertyList = ({ searchTermState }) => {
                     const data = await getPropertyByAddress(searchTerms);
                     if (HomePlaceUserObject) {
                         const newData = data.filter(
-                            (property) => property.owner.id !== HomePlaceUserObject.swapper_id
+                            (property) => property.owner.id !== swapper.id
                         );
                         setProperties(newData)
                     }

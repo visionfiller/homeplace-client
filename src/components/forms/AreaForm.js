@@ -54,7 +54,7 @@ return <>
            <Input onChange={handleAreaForm} name='neighborhood' placeholder='What is the name of your neighborhood?'></Input>
            <Select onChange={handleAreaForm} name='city'>
             {cities.map((city)=> {
-              return <option value={city.id}>{city.name}</option>
+              return <option key={city.id}value={city.id}>{city.name}</option>
             })}
            </Select>
           </ModalBody>

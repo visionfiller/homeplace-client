@@ -66,6 +66,7 @@ export const Home = () => {
     if (swapper.properties >= 1) {
       getAllProperties().then((data) => {
         let explorerProperties = data.filter((fil) => fil.area.id !== swapper.properties[0].area.id);
+        debugger
         setExplore(explorerProperties.sort(() => 0.5 - Math.random()).slice(0, 3));
         setLoading(false)
       });
